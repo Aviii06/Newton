@@ -1,3 +1,0 @@
-/Users/architg/Newton/build/CMakeFiles/Newton.dir
-/Users/architg/Newton/build/CMakeFiles/edit_cache.dir
-/Users/architg/Newton/build/CMakeFiles/rebuild_cache.dir

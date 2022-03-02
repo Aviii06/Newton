@@ -5,6 +5,28 @@
 #include <string>
 #include <fstream>
 
+#define ASSERT(x) if (!(x)) __builtin_trap()
+
+#define GLCall(x) GLClearError();\
+    x;\
+    ASSERT(GLLogError(#x, __FILE__, __LINE__))
+
+static void GLClearError()
+{
+    while (glGetError() != GL_NO_ERROR);
+}
+
+static bool GLLogError(const char* function, const char* file, int line)
+{
+    while (GLenum error = glGetError())
+    {
+        
+        std::cout << "[OpenGL Error] (" << error << ")\nIn File "<<file << "\nIn line" << line <<"\nIn Function"<<function;
+          return false;
+    }
+    return true;
+}
+
 struct ShaderSource
 {
     std::string VertexSource;
@@ -45,19 +67,19 @@ static ShaderSource ParseShader(const std::string& filePath)
 }
 static unsigned int CompileShader(unsigned int type, const std::string &source)
 {
-    unsigned int id = glCreateShader(type);
+    GLCall(unsigned int id = glCreateShader(type));
     const char *src = source.c_str();
-    glShaderSource(id, 1, &src, nullptr);
-    glCompileShader(id);
+    GLCall(glShaderSource(id, 1, &src, nullptr));
+    GLCall(glCompileShader(id));
 
     int result;
-    glGetShaderiv(id, GL_COMPILE_STATUS, &result);
+    GLCall(glGetShaderiv(id, GL_COMPILE_STATUS, &result));
     if (result == GL_FALSE)
     {
         int length;
-        glGetShaderiv(id, GL_INFO_LOG_LENGTH, &length);
+        GLCall(glGetShaderiv(id, GL_INFO_LOG_LENGTH, &length));
         char *message = (char *)alloca(length * sizeof(char));
-        glGetShaderInfoLog(id, length, &length, message);
+        GLCall(glGetShaderInfoLog(id, length, &length, message));
 
         std::cout << "Failed to compile the shader" << std::endl;
         std::cout << message << std::endl;
@@ -72,13 +94,13 @@ static unsigned int CreateShader(const std::string &vertexShader, const std::str
     unsigned int vertexS = CompileShader(GL_VERTEX_SHADER, vertexShader);
     unsigned int pixelS = CompileShader(GL_FRAGMENT_SHADER, pixelShader);
 
-    glAttachShader(program, vertexS);
-    glAttachShader(program, pixelS);
-    glLinkProgram(program);
-    glValidateProgram(program);
+    GLCall(glAttachShader(program, vertexS));
+    GLCall(glAttachShader(program, pixelS));
+    GLCall(glLinkProgram(program));
+    GLCall(glValidateProgram(program));
 
-    glDeleteShader(vertexS);
-    glDeleteShader(pixelS);
+    GLCall(glDeleteShader(vertexS));
+    GLCall(glDeleteShader(pixelS));
 
     return program;
 }
@@ -130,27 +152,27 @@ int main(void)
 
 
     unsigned int buffer;
-    glGenBuffers(1, &buffer);              // creating a buffer
-    glBindBuffer(GL_ARRAY_BUFFER, buffer); // binding the buffer
-    glBufferData(GL_ARRAY_BUFFER, sizeof(positions), positions, GL_STATIC_DRAW);
+    GLCall(glGenBuffers(1, &buffer));              // creating a buffer
+    GLCall(glBindBuffer(GL_ARRAY_BUFFER, buffer)); // binding the buffer
+    GLCall(glBufferData(GL_ARRAY_BUFFER, sizeof(positions), positions, GL_STATIC_DRAW));
 
     //IMPORTANT FOR MACOS
     unsigned int vao;
-    glGenVertexArrays(1, &vao);
-    glBindVertexArray(vao);
+    GLCall(glGenVertexArrays(1, &vao));
+    GLCall(glBindVertexArray(vao));
 
-    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(positions[0]) * 2, (const void *)0); // Explaing the bufer data
-    glEnableVertexAttribArray(0);
+    GLCall(glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(positions[0]) * 2, (const void *)0)); // Explaing the bufer data
+    GLCall(glEnableVertexAttribArray(0));
 
     unsigned int ibo;
-    glGenBuffers(1, &ibo);              // creating a buffer
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo); // binding the buffer
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, 6 * sizeof(unsigned int), indices, GL_STATIC_DRAW);
+    GLCall(glGenBuffers(1, &ibo));              // creating a buffer
+    GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo)); // binding the buffer
+    GLCall(glBufferData(GL_ELEMENT_ARRAY_BUFFER, 6 * sizeof(unsigned int), indices, GL_STATIC_DRAW));
 
     ShaderSource source = ParseShader("assets/shaders/basic.shader");
 
     unsigned int shader = CreateShader(source.VertexSource, source.PixelSource);
-    glUseProgram(shader);
+    GLCall(glUseProgram(shader));
 
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(window))
