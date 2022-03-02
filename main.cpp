@@ -5,6 +5,9 @@
 #include <string>
 #include <fstream>
 
+#include "VertexBuffer.h"
+#include "IndexBuffer.h"
+
 #define ASSERT(x) if (!(x)) __builtin_trap()
 
 #define GLCall(x) GLClearError();\
@@ -151,10 +154,7 @@ int main(void)
     };
 
 
-    unsigned int buffer;
-    GLCall(glGenBuffers(1, &buffer));              // creating a buffer
-    GLCall(glBindBuffer(GL_ARRAY_BUFFER, buffer)); // binding the buffer
-    GLCall(glBufferData(GL_ARRAY_BUFFER, sizeof(positions), positions, GL_STATIC_DRAW));
+    VertexBuffer vb(positions, 4 * 2 * sizeof(float));
 
     //IMPORTANT FOR MACOS
     unsigned int vao;
@@ -164,12 +164,9 @@ int main(void)
     GLCall(glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(positions[0]) * 2, (const void *)0)); // Explaing the bufer data
     GLCall(glEnableVertexAttribArray(0));
 
-    unsigned int ibo;
-    GLCall(glGenBuffers(1, &ibo));              // creating a buffer
-    GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo)); // binding the buffer
-    GLCall(glBufferData(GL_ELEMENT_ARRAY_BUFFER, 6 * sizeof(unsigned int), indices, GL_STATIC_DRAW));
+    IndexBuffer ib(indices, 6);
 
-    ShaderSource source = ParseShader("assets/shaders/basic.shader");
+    ShaderSource source = ParseShader("../assets/shaders/basic.shader");
 
     unsigned int shader = CreateShader(source.VertexSource, source.PixelSource);
     GLCall(glUseProgram(shader));
@@ -178,7 +175,12 @@ int main(void)
     while (!glfwWindowShouldClose(window))
     {
         /* Render here */
-        glClear(GL_COLOR_BUFFER_BIT);
+        GLCall(glClear(GL_COLOR_BUFFER_BIT));
+
+        GLCall(glUseProgram(shader));
+
+        GLCall(glBindVertexArray(vao));
+        ib.Bind();
 
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
 

@@ -1,5 +1,5 @@
 # Newton
-This is a physics engine
+This is trying to be a physics engine.
 
 # Debugging
 
@@ -20,7 +20,6 @@ cd newton
 mkdir build && cd build
 cmake .. -G Ninja
 ninja
-cd ..
-build/newton
+./newton
 ```
 
