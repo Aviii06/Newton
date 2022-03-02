@@ -1,2 +1,4 @@
 newton
 *.dSYM
+build/
+*.DS_Store
