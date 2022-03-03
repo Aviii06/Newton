@@ -11,13 +11,18 @@
 				"-Wall",
 				"-g",
 				"-I${workspaceFolder}/dependancies/include",
+				"-I${workspaceFolder}/common",
+				"-I${workspaceFolder}/utils",
 				"-I${workspaceFolder}/src",
+				"-I${workspaceFolder}/src/stb_image",
 				"-L${workspaceFolder}/dependancies/library",
 				"${workspaceFolder}/dependancies/library/libglfw.3.3.dylib",
 				"${workspaceFolder}/dependancies/library/libGLEW.2.2.0.dylib",
 				"-o",
 				"${workspaceFolder}/newton",
-				"${workspaceFolder}/src/*.cpp",
+				"${workspaceFolder}/src/**.cpp",
+				"${workspaceFolder}/src/stb_image/**.cpp",
+				"${workspaceFolder}/utils/*.cpp",
 				"${workspaceFolder}/main.cpp",
 				"-framework",
 				"OpenGl",
@@ -43,7 +48,7 @@
 				"kind": "build",
 				"isDefault": true
 			},
-			"detail": "compiler: /usr/local/bin/g++"
+			"detail": "compiler: /usr/bin/clang++"
 		}
 	]
 }

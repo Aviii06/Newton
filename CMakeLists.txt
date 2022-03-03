@@ -9,17 +9,17 @@ set(CMAKE_C_COMPILER "/usr/local/bin/gcc")
 set(CMAKE_CXX_COMPILER "/usr/local/bin/g++")
 
 # Add source files
-file(GLOB_RECURSE SOURCE_FILES src/**.cpp)
+file(GLOB_RECURSE SOURCE_FILES src/**.cpp utils/**.cpp)
 	
 # Add header files
-file(GLOB_RECURSE HEADER_FILES src/**.h)
+file(GLOB_RECURSE HEADER_FILES src/**.h common/**.h utils/**.h)
 
 add_executable(${PROJECT_NAME} main.cpp ${HEADER_FILES} ${SOURCE_FILES})
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src/)
 
 target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/dependancies/include)
-target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
+target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src ${CMAKE_CURRENT_SOURCE_DIR}/src/stb_image ${CMAKE_CURRENT_SOURCE_DIR}/common ${CMAKE_CURRENT_SOURCE_DIR}/utils)
 
 target_link_libraries(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/dependancies/library/libGLEW.2.2.0.dylib ${CMAKE_CURRENT_SOURCE_DIR}/dependancies/library/libglfw.3.3.dylib)
 
