@@ -9,10 +9,10 @@ set(CMAKE_C_COMPILER "/usr/local/bin/gcc")
 set(CMAKE_CXX_COMPILER "/usr/local/bin/g++")
 
 # Add source files
-file(GLOB_RECURSE SOURCE_FILES src/**.cpp utils/**.cpp)
+file(GLOB_RECURSE SOURCE_FILES src/**.cpp utils/**.cpp dependancies/include/imgui/**.cpp)
 	
 # Add header files
-file(GLOB_RECURSE HEADER_FILES src/**.h common/**.h utils/**.h)
+file(GLOB_RECURSE HEADER_FILES src/**.h common/**.h utils/**.h dependancies/include/imgui/**.h)
 
 add_executable(${PROJECT_NAME} main.cpp ${HEADER_FILES} ${SOURCE_FILES})
 
@@ -43,3 +43,4 @@ add_framework(IOKit ${PROJECT_NAME})
 add_framework(CoreVideo ${PROJECT_NAME})
 add_framework(CoreFoundation ${PROJECT_NAME})
 add_framework(GLUT ${PROJECT_NAME})
+add_framework(imgui ${PROJECT_NAME})
