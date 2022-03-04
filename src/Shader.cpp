@@ -6,10 +6,10 @@
 #include <string>
 #include <sstream>
 
-Shader::Shader(const std::string &filepath)
-    : m_FilePath(filepath), m_RendererID(0)
+Shader::Shader(const std::string &filepathVertexShader, const std::string &filepathPixelShader)
+    : m_FilePathVS(filepathVertexShader), m_FilePathPS(filepathPixelShader), m_RendererID(0)
 {
-    ShaderProgramSource source = ParseShader(filepath);
+    ShaderProgramSource source = ParseShader(filepathVertexShader, filepathPixelShader);
 
     m_RendererID = CreateShader(source.VertexSource, source.PixelSource);
 
@@ -72,26 +72,21 @@ enum ShaderType
     PIXEL = 1
 };
 
-struct ShaderProgramSource Shader::ParseShader(const std::string &filepath)
+struct ShaderProgramSource Shader::ParseShader(const std::string &filepathVertexShader, const std::string &filepathPixelShader)
 {
-    std::ifstream stream(filepath);
+    std::ifstream streamVS(filepathVertexShader);
+    std::ifstream streamPS(filepathPixelShader);
     std::string line;
     std::stringstream ss[2];
     ShaderType type = NONE;
 
-    while (getline(stream, line))
+    while (getline(streamVS, line))
     {
-        if (line.find("#shader") != std::string::npos)
-        {
-            if (line.find("vertex") != std::string::npos)
-                type = VERTEX;
-            else if (line.find("pixel") != std::string::npos)
-                type = PIXEL;
-        }
-        else
-        {
-            ss[(int)type] << line << '\n';
-        }
+        ss[VERTEX] << line << '\n';
+    }
+    while (getline(streamPS, line))
+    {
+        ss[PIXEL] << line << '\n';
     }
 
     return { ss[0].str(), ss[1].str() };

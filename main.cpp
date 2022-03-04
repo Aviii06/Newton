@@ -17,6 +17,7 @@
 #include "Texture.h"
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
+#include "utils/timer.h"
 
 int main(void)
 {
@@ -35,8 +36,9 @@ int main(void)
 #ifdef __APPLE__
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 #endif
+    int Width = 640, Height = 400;
     /* Create a windowed mode window and its OpenGL context */
-    window = glfwCreateWindow(640, 400, "Newton", NULL, NULL);
+    window = glfwCreateWindow(Width, Height, "Newton", NULL, NULL);
     if (!window)
     {
         glfwTerminate();
@@ -52,11 +54,12 @@ int main(void)
     }
 
     // Postions of the vertex
+    float size = 300.0f;
     float positions[] = {
-        100.0f, 100.0f, 0.0, 0.0,
-        200.0, 100.0f, 1.0, 0.0,
-        200.0f, 200.0f, 1.0, 1.0,
-        100.0f, 200.0f, 0.0, 1.0
+        -size, size, 0.0, 0.0,
+        -size, -size, 1.0, 0.0,
+        size, -size, 1.0, 1.0,
+        size, size, 0.0, 1.0
         };
     unsigned int indices[] = {
         0, 1, 2,
@@ -76,23 +79,30 @@ int main(void)
     layout.AddFloat(2);
     va.AddBuffer(vb, layout);
 
-    glm::mat4 projectionMatrix = glm::ortho(0.0f, 640.0f, 
-                                            0.0f, 400.0f,
+    glm::mat4 projectionMatrix = glm::ortho(0.0f, (float)Width, 
+                                            0.0f, (float)Height,
                                              -1.0f, 1.0f);
 
-    glm::mat4 viewMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(-10,0,0));
-    glm::mat4 modelMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(0,100,0));
+    glm::mat4 viewMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(0,0,0));
+    glm::mat4 modelMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(0,0,0));
 
     glm::mat4 mvpMatrix = projectionMatrix * viewMatrix * modelMatrix;
 
-    Shader shader("../assets/shaders/Basic.shader.hlsl");
+    Shader shader("../assets/shaders/Basic.vertexShader.hlsl", "../assets/shaders/mandelbrot.pixelShader.hlsl");
     shader.Bind();
 
     Texture texture("../assets/textures/mandelbrot.png");
     texture.Bind();
 
+
+    Timer timer;
+    float time = timer.getTimeMs();
     shader.SetUniform1i("u_Texture", 0);
+    shader.SetUniform1f("u_Time", time);
     shader.SetUniformMat4f("u_MVP", mvpMatrix);
+
+    float aspect = (float)Width/Height;
+    shader.SetUniform1f("u_Aspect", aspect);
 
     Renderer renderer;
 
@@ -101,7 +111,8 @@ int main(void)
     ImGui_ImplGlfwGL3_Init(window, true);
     ImGui::StyleColorsDark();
 
-    glm::vec3 translation(0,0,0);
+    glm::vec3 translation1(size,size,0);
+    glm::vec3 translation2(0,0,0);
 
     while (!glfwWindowShouldClose(window))
     {
@@ -110,16 +121,18 @@ int main(void)
 
         ImGui_ImplGlfwGL3_NewFrame();
 
-        modelMatrix = glm::translate(glm::mat4(1.0f), translation);
+        modelMatrix = glm::translate(glm::mat4(1.0f), translation1);
         glm::mat4 mvp = projectionMatrix * viewMatrix * modelMatrix;
 
         shader.Bind();
         shader.SetUniform4f("u_Color", 0.1, 0.3, 0.8, 1.0);
+        time = timer.getTimeMs();
+        shader.SetUniform1f("u_Time", time);
         shader.SetUniformMat4f("u_MVP", mvp);
 
         renderer.Draw(va, ib, shader);
 
-        ImGui::SliderFloat3("Translation", &translation.x, 0.0f, 960.0f);
+        ImGui::SliderFloat3("Translation1", &translation1.x, 0.0f, 960.0f);
         ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
         ImGui::Render();
         ImGui_ImplGlfwGL3_RenderDrawData(ImGui::GetDrawData());

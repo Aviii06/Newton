@@ -1,14 +1,8 @@
 # Newton
 This is trying to be a physics engine.
 
-# Debugging
+# Executable
 
-## Vscode
-To debug it in VS Code press `cmd`+`shift`+`b`.
-
-and now run `./newton`
-
-## CMake
 First install [CMake](https://cmake.org/install/) and [Ninja](https://ninja-build.org/). For installation in MacOS run 
 ```brew install cmake ninja```
 
@@ -23,3 +17,5 @@ ninja
 ./newton
 ```
 
+# Debugging
+After building an executable press `F5`. Or go to `Run` -> `Start Debugging`
