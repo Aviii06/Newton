@@ -16,7 +16,7 @@ git clone git@github.com:Aviii06/Newton.git
 cd newton
 mkdir build && cd build
 cmake .. -G Ninja
-ninja
+ninja -j8
 ./newton
 ```
 
