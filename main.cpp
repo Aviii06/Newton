@@ -54,13 +54,13 @@ int main(void)
     }
 
     // Postions of the vertex
-    float size = 300.0f;
+    float size = 100.0f;
     float positions[] = {
         -size, size, 0.0, 0.0,
         -size, -size, 1.0, 0.0,
         size, -size, 1.0, 1.0,
         size, size, 0.0, 1.0
-        };
+    };
     unsigned int indices[] = {
         0, 1, 2,
         2, 3, 0
@@ -77,29 +77,21 @@ int main(void)
     VertexBufferLayout layout;
     layout.AddFloat(2);
     layout.AddFloat(2);
+
     va.AddBuffer(vb, layout);
 
-    glm::mat4 projectionMatrix = glm::ortho(0.0f, (float)Width, 
-                                            0.0f, (float)Height,
-                                             -1.0f, 1.0f);
-
-    glm::mat4 viewMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(0,0,0));
-    glm::mat4 modelMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(0,0,0));
-
-    glm::mat4 mvpMatrix = projectionMatrix * viewMatrix * modelMatrix;
-
-    Shader shader("../assets/shaders/Basic.vertexShader.hlsl", "../assets/shaders/mandelbrot.pixelShader.hlsl");
+    Shader shader("../assets/shaders/Basic.vertexShader.hlsl", "../assets/shaders/basic.pixelShader.hlsl");
     shader.Bind();
 
     Texture texture("../assets/textures/mandelbrot.png");
     texture.Bind();
 
-
     Timer timer;
     float time = timer.getTimeMs();
+
+    //Shader
     shader.SetUniform1i("u_Texture", 0);
     shader.SetUniform1f("u_Time", time);
-    shader.SetUniformMat4f("u_MVP", mvpMatrix);
 
     float aspect = (float)Width/Height;
     shader.SetUniform1f("u_Aspect", aspect);
@@ -111,28 +103,46 @@ int main(void)
     ImGui_ImplGlfwGL3_Init(window, true);
     ImGui::StyleColorsDark();
 
-    glm::vec3 translation1(size,size,0);
-    glm::vec3 translation2(0,0,0);
+    //MVP matrix 
+    glm::mat4 projectionMatrix = glm::ortho(0.0f, (float)Width,
+                                            0.0f, (float)Height,
+                                             -1.0f, 1.0f);
+    
+    float field_of_view = 45.0f;
+    float closestDistance = 0.1f;
+    float farthestDistance = 500.0f;
+    
+    glm::mat4 viewMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(0,0,0));
+    glm::mat4 modelMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(0,0,0));
+
+    glm::vec3 translationModel(0,0,-300.0f);
+    glm::vec3 translationView(0,0,0);
 
     while (!glfwWindowShouldClose(window))
     {
         /* Render here */
         renderer.Clear();
 
-        ImGui_ImplGlfwGL3_NewFrame();
-
-        modelMatrix = glm::translate(glm::mat4(1.0f), translation1);
-        glm::mat4 mvp = projectionMatrix * viewMatrix * modelMatrix;
+        modelMatrix = glm::translate(glm::mat4(1.0f), translationModel);
 
         shader.Bind();
         shader.SetUniform4f("u_Color", 0.1, 0.3, 0.8, 1.0);
         time = timer.getTimeMs();
+
+        projectionMatrix = glm::perspective(glm::radians(field_of_view), aspect, closestDistance, farthestDistance);
+            
         shader.SetUniform1f("u_Time", time);
-        shader.SetUniformMat4f("u_MVP", mvp);
+        shader.SetUniformMat4f("u_Model", modelMatrix);
+        shader.SetUniformMat4f("u_View", viewMatrix);
+        shader.SetUniformMat4f("u_Proj", projectionMatrix);
 
         renderer.Draw(va, ib, shader);
 
-        ImGui::SliderFloat3("Translation1", &translation1.x, 0.0f, 960.0f);
+        // IMGUI
+        ImGui_ImplGlfwGL3_NewFrame();
+
+        ImGui::SliderFloat3("Translation1", &translationModel.x, -960.0f, 960.0f);
+        ImGui::SliderFloat("Field of View", &field_of_view, 15.0f, 90.0f);
         ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
         ImGui::Render();
         ImGui_ImplGlfwGL3_RenderDrawData(ImGui::GetDrawData());
