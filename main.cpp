@@ -48,6 +48,8 @@ int main(void)
     /* Make the window's context current */
     glfwMakeContextCurrent(window);
 
+    glEnable(GL_DEPTH_TEST);
+
     if (glewInit() != GLEW_OK)
     {
         std::cout << "F";
@@ -56,27 +58,42 @@ int main(void)
     // Postions of the vertex
     float size = 100.0f;
     float positions[] = {
-        -size, size, 0.0, 0.0,
-        -size, -size, 1.0, 0.0,
-        size, -size, 1.0, 1.0,
-        size, size, 0.0, 1.0
+        -size, size, -size,         0.0, 0.0,           0.1, 0.3, 0.8,
+        size, size, -size,          1.0, 0.0,           0.8, 0.44, 0.32,
+        -size, -size, -size,        1.0, 1.0,           0.12, 0.5, 0.21,
+        size, -size, -size,         0.0, 1.0,           0.144, 0.33, 0.48, 
+        -size, size, size,          0.0, 0.0,           0.52, 0.23, 0.21,
+        size, size, size,           1.0, 0.0,           0.25, 0.43, 0.71,   
+        -size, -size, size,         1.0, 1.0,           0.56, 0.35, 0.19,
+        size, -size, size,          0.0, 1.0,           0.34, 0.31, 0.43,
     };
     unsigned int indices[] = {
-        0, 1, 2,
-        2, 3, 0
+        0, 1, 2, // Side 0
+        2, 1, 3,
+        4, 0, 6, // Side 1
+        6, 0, 2,
+        7, 5, 6, // Side 2
+        6, 5, 4,
+        3, 1, 7, // Side 3 
+        7, 1, 5,
+        4, 5, 0, // Side 4 
+        0, 5, 1,
+        3, 7, 2, // Side 5 
+        2, 7, 6
     };
 
     GLCall( glEnable(GL_BLEND) );
     GLCall( glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA) );
 
     VertexArray va;
-    VertexBuffer vb(positions, 4 * 4 * sizeof(float));
+    VertexBuffer vb(positions, sizeof(positions));
 
-    IndexBuffer ib(indices, 6);
+    IndexBuffer ib(indices, sizeof(indices)/sizeof(indices[0]));
 
     VertexBufferLayout layout;
-    layout.AddFloat(2);
-    layout.AddFloat(2);
+    layout.AddFloat(3); // Positions
+    layout.AddFloat(2); // Tex coords
+    layout.AddFloat(3); // Colors
 
     va.AddBuffer(vb, layout);
 
@@ -112,11 +129,11 @@ int main(void)
     float closestDistance = 0.1f;
     float farthestDistance = 500.0f;
     
-    glm::mat4 viewMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(0,0,0));
     glm::mat4 modelMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(0,0,0));
+    glm::mat4 viewMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(0,0,0));
 
-    glm::vec3 translationModel(0,0,-300.0f);
-    glm::vec3 translationView(0,0,0);
+    glm::vec3 translationModel(0, 0, -300.0);
+    glm::vec3 translationView(0, 0, 0);
 
     while (!glfwWindowShouldClose(window))
     {
@@ -124,6 +141,10 @@ int main(void)
         renderer.Clear();
 
         modelMatrix = glm::translate(glm::mat4(1.0f), translationModel);
+        viewMatrix = glm::translate(glm::mat4(1.0f), translationView);
+        
+        float rotation = time/100.0;
+        modelMatrix = glm::rotate(modelMatrix,  glm::radians(rotation), glm::vec3(0.0f, 1.0f, 0.0f));
 
         shader.Bind();
         shader.SetUniform4f("u_Color", 0.1, 0.3, 0.8, 1.0);
@@ -137,7 +158,7 @@ int main(void)
         shader.SetUniformMat4f("u_Proj", projectionMatrix);
 
         renderer.Draw(va, ib, shader);
-
+        
         // IMGUI
         ImGui_ImplGlfwGL3_NewFrame();
 
@@ -152,6 +173,7 @@ int main(void)
 
         /* Poll for and process events */
         glfwPollEvents();
+        glClear(GL_DEPTH_BUFFER_BIT);
     }
 
     glfwTerminate();
