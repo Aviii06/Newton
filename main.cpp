@@ -15,6 +15,8 @@
 #include "Renderer.h"
 #include "Shader.h"
 #include "Texture.h"
+#include "Shapes.h"
+
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
 #include "utils/timer.h"
@@ -57,38 +59,44 @@ int main(void)
 
     // Postions of the vertex
     float size = 100.0f;
-    float positions[] = {
-        -size, size, -size,         0.0, 0.0,           0.1, 0.3, 0.8,
-        size, size, -size,          1.0, 0.0,           0.8, 0.44, 0.32,
-        -size, -size, -size,        1.0, 1.0,           0.12, 0.5, 0.21,
-        size, -size, -size,         0.0, 1.0,           0.144, 0.33, 0.48, 
-        -size, size, size,          0.0, 0.0,           0.52, 0.23, 0.21,
-        size, size, size,           1.0, 0.0,           0.25, 0.43, 0.71,   
-        -size, -size, size,         1.0, 1.0,           0.56, 0.35, 0.19,
-        size, -size, size,          0.0, 1.0,           0.34, 0.31, 0.43,
-    };
-    unsigned int indices[] = {
-        0, 1, 2, // Side 0
-        2, 1, 3,
-        4, 0, 6, // Side 1
-        6, 0, 2,
-        7, 5, 6, // Side 2
-        6, 5, 4,
-        3, 1, 7, // Side 3 
-        7, 1, 5,
-        4, 5, 0, // Side 4 
-        0, 5, 1,
-        3, 7, 2, // Side 5 
-        2, 7, 6
-    };
+    // float positions[] = {
+    //     -size, size, -size,         0.0, 0.0,           0.1, 0.3, 0.8,
+    //     size, size, -size,          1.0, 0.0,           0.8, 0.44, 0.32,
+    //     -size, -size, -size,        1.0, 1.0,           0.12, 0.5, 0.21,
+    //     size, -size, -size,         0.0, 1.0,           0.144, 0.33, 0.48, 
+    //     -size, size, size,          0.0, 0.0,           0.52, 0.23, 0.21,
+    //     size, size, size,           1.0, 0.0,           0.25, 0.43, 0.71,   
+    //     -size, -size, size,         1.0, 1.0,           0.56, 0.35, 0.19,
+    //     size, -size, size,          0.0, 1.0,           0.34, 0.31, 0.43,
+    // };
+    // unsigned int indices[] = {
+    //     0, 1, 2, // Side 0
+    //     2, 1, 3,
+    //     4, 0, 6, // Side 1
+    //     6, 0, 2,
+    //     7, 5, 6, // Side 2
+    //     6, 5, 4,
+    //     3, 1, 7, // Side 3 
+    //     7, 1, 5,
+    //     4, 5, 0, // Side 4 
+    //     0, 5, 1,
+    //     3, 7, 2, // Side 5 
+    //     2, 7, 6
+    // };
+
+    shape::quad3d q(size);
+    float* positions = q.getPositions();
+    unsigned int* indices = q.getIndices();
+    size_t indSize = q.getIndicesSize();
+    size_t posSize = q.getPositionsSize();
 
     GLCall( glEnable(GL_BLEND) );
     GLCall( glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA) );
 
     VertexArray va;
-    VertexBuffer vb(positions, sizeof(positions));
+    VertexBuffer vb(positions, posSize);
 
-    IndexBuffer ib(indices, sizeof(indices)/sizeof(indices[0]));
+    IndexBuffer ib(indices, indSize);
 
     VertexBufferLayout layout;
     layout.AddFloat(3); // Positions
