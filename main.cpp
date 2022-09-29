@@ -158,6 +158,7 @@ int main(void)
         
     GLCall( glEnable(GL_BLEND) );
     GLCall( glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA) );
+    // GLCall( glEnable(GL_CULL_FACE) );
 
     VertexArray va;
     VertexBuffer vb(positions, posSize);

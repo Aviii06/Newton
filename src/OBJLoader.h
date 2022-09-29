@@ -52,8 +52,8 @@ void loadOBJ(const char* file_name, Vector<float>& pos, Vector<float>& texCoord,
             ind.push_back(b);
             ind.push_back(c);
 
+            ind.push_back(a);
             ind.push_back(c);
-            ind.push_back(b);
             ind.push_back(d);
         }
     }
