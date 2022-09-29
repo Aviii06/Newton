@@ -16,6 +16,7 @@
 #include "Shader.h"
 #include "Texture.h"
 #include "Shapes.h"
+#include "OBJLoader.h"
 
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
@@ -84,12 +85,71 @@ int main(void)
     //     2, 7, 6
     // };
 
-    shape::quad3d q(size);
-    float* positions = q.getPositions();
-    unsigned int* indices = q.getIndices();
-    size_t indSize = q.getIndicesSize();
-    size_t posSize = q.getPositionsSize();
+    // shape::quad3d q(size);
+    // float* positions = q.getPositions();
+    // unsigned int* indices = q.getIndices();
+    // size_t indSize = q.getIndicesSize();
+    // size_t posSize = q.getPositionsSize();
+    float gridSize = 100.0;
 
+    Vector<float> pos;
+    Vector<float> texcoord;
+    Vector<unsigned int> ind;
+
+    loadOBJ("../assets/obj/0.obj", pos, texcoord, ind);
+
+    float positions[pos.size() * 8 / 3];
+
+    int j = 0;
+    for(int i=0; i<pos.size() * 8/ 3; i += 8)
+    {
+        positions[i] = pos[j];
+        positions[i+1] = pos[j+1];
+        positions[i+2] = pos[j+2];
+
+        positions[i+3] = 1.0;
+        positions[i+4] = 1.0;
+        positions[i+5] = 1.0;
+        positions[i+6] = 1.0;
+        positions[i+7] = 1.0;
+
+        j += 3;
+    }
+    for(int i = 0; i < sizeof(positions) / (8 * sizeof(positions[0])) ; i+=8)
+    {
+        positions[i] *= gridSize;
+        positions[i+1] *= gridSize;
+        positions[i+2] *= gridSize;
+    }
+
+    unsigned int indices[ind.size()];
+    int i=0;
+    for(auto x:ind)
+    {
+        indices[i] = x;
+        i++;
+    }
+    for(auto&& x: indices)
+    {
+        x--;
+    }
+
+    i = 0;
+
+    for(auto x: positions)
+    {
+        std::cout<<x<<" , ";
+        if(i == 7)
+        {
+            std::cout<<"\n";
+            i = 0;
+            continue;
+        }
+        i++;
+    }
+    size_t indSize = sizeof(indices) / sizeof(indices[0]);
+    size_t posSize = sizeof(positions);  
+        
     GLCall( glEnable(GL_BLEND) );
     GLCall( glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA) );
 
@@ -140,8 +200,9 @@ int main(void)
     glm::mat4 modelMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(0,0,0));
     glm::mat4 viewMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(0,0,0));
 
-    glm::vec3 translationModel(0, 0, -300.0);
-    glm::vec3 translationView(0, 0, 0);
+    glm::vec3 translationModel(0, -118.857, -314.019); //Default values for optimal viewing
+    glm::vec3 translationView(-20, -100, 96.262);
+    float viewRotAngle = 43.088;
 
     while (!glfwWindowShouldClose(window))
     {
@@ -153,6 +214,7 @@ int main(void)
         
         float rotation = time/100.0;
         modelMatrix = glm::rotate(modelMatrix,  glm::radians(rotation), glm::vec3(0.0f, 1.0f, 0.0f));
+        viewMatrix = glm::rotate(viewMatrix, glm::radians(viewRotAngle), glm::vec3(1.0f, 0.0f, 0.0f));
 
         shader.Bind();
         shader.SetUniform4f("u_Color", 0.1, 0.3, 0.8, 1.0);
@@ -170,7 +232,9 @@ int main(void)
         // IMGUI
         ImGui_ImplGlfwGL3_NewFrame();
 
-        ImGui::SliderFloat3("Translation1", &translationModel.x, -960.0f, 960.0f);
+        ImGui::SliderFloat3("Translation Model", &translationModel.x, -960.0f, 960.0f);
+        ImGui::SliderFloat3("Translation View", &translationView.x, -100.0f, 100.0f);
+        ImGui::SliderFloat("Angle of Camera", &viewRotAngle, -90.0f, 90.0f);
         ImGui::SliderFloat("Field of View", &field_of_view, 15.0f, 90.0f);
         ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
         ImGui::Render();
