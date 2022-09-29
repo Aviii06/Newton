@@ -23,6 +23,7 @@ void loadOBJ(const char* file_name, Vector<float>& pos, Vector<float>& texCoord,
 
     std::string line;
     std::string prefix = "";
+    GLint temp = 0;
 
     while(std::getline(in_file, line))
     {
@@ -46,15 +47,38 @@ void loadOBJ(const char* file_name, Vector<float>& pos, Vector<float>& texCoord,
 
         else if ( prefix == "f" )
         {
-            unsigned int a,b,c,d;
-            ss>>a>>b>>c>>d;
-            ind.push_back(a);
-            ind.push_back(b);
-            ind.push_back(c);
+            // unsigned int a,b,c,d;
+            // ss>>a>>b>>c>>d;
+            // ind.push_back(a);
+            // ind.push_back(b);
+            // ind.push_back(c);
+            //
+            // ind.push_back(a);
+            // ind.push_back(c);
+            // ind.push_back(d);
+            int counter = 0;
+            // std::cout<<line<<"\n";
+                
+			while (ss >> temp)
+			{
+                ind.push_back(temp);
+				if (ss.peek() == '/')
+				{
+					ss.ignore(1, '/');
+				}
+                if ( ss.peek() == '/')
+                {
+                    ss.ignore(1, '/');
+                }
+				if (ss.peek() == ' ')
+				{
+					ss.ignore(1, ' ');
+				}
 
-            ind.push_back(a);
-            ind.push_back(c);
-            ind.push_back(d);
+                std::cout<<temp<<" , ";
+			}	
+
+            std::cout<<" \n";
         }
     }
 }

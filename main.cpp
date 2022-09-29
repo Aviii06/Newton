@@ -96,22 +96,25 @@ int main(void)
     Vector<float> texcoord;
     Vector<unsigned int> ind;
 
-    loadOBJ("../assets/obj/3.obj", pos, texcoord, ind);
+    loadOBJ("../assets/obj/monkey.obj", pos, texcoord, ind);
 
     float positions[(pos.size() * 8)/ 3];
 
     int j = 0;
     for(int i=0; i<(pos.size() * 8)/ 3; i += 8)
     {
+        // positions
         positions[i] = pos[j] ;
         positions[i+1] = pos[j+1];
         positions[i+2] = pos[j+2];
 
+        // TexCoords
         positions[i+3] = 1.0;
         positions[i+4] = 0.0;
 
-        positions[i+5] = 0.0;
-        positions[i+6] = 0.0;
+        // Colors
+        positions[i+5] = 1.0; //i * 3.0f / ( pos.size() * 8 ) ;
+        positions[i+6] = 1.0; //1 - i * 3.0f / ( pos.size() * 8 );
         positions[i+7] = 1.0;
 
         j += 3;
@@ -129,41 +132,21 @@ int main(void)
     unsigned int indices[ind.size()];
     for(auto x : ind)
     {
-        indices[j] = x;
+        indices[j] = x - 1;
         j++;
     }
 
-    j = 0;
-
-    for(auto&& x: indices)
-    {
-        x--;
-    }
-
-    int i = 0;
-
-    for(auto x: positions)
-    {
-        std::cout<<x<<" , ";
-        if(i == 7)
-        {
-            std::cout<<"\n";
-            i = 0;
-            continue;
-        }
-        i++;
-    }
     size_t indSize = sizeof(indices) / sizeof(indices[0]);
     size_t posSize = sizeof(positions);  
-        
-    GLCall( glEnable(GL_BLEND) );
-    GLCall( glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA) );
-    // GLCall( glEnable(GL_CULL_FACE) );
 
     VertexArray va;
     VertexBuffer vb(positions, posSize);
 
     IndexBuffer ib(indices, indSize);
+
+    GLCall( glEnable(GL_BLEND) );
+    GLCall( glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA) );
+    // GLCall( glEnable(GL_CULL_FACE) );
 
     VertexBufferLayout layout;
     layout.AddFloat(3); // Positions
@@ -207,9 +190,13 @@ int main(void)
     glm::mat4 modelMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(0,0,0));
     glm::mat4 viewMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(0,0,0));
 
-    glm::vec3 translationModel(0, -118.857, -314.019); //Default values for optimal viewing
-    glm::vec3 translationView(-20, -100, 96.262);
-    float viewRotAngle = 43.088;
+    // glm::vec3 translationModel(0, -118.857, -314.019); //Default values for optimal viewing
+    // glm::vec3 translationView(-20, -100, 96.262);
+    // float viewRotAngle = 43.088;
+    
+    glm::vec3 translationModel(0,0,-406); //Default values for optimal viewing
+    glm::vec3 translationView(0,0,100);
+    float viewRotAngle =0;
 
     while (!glfwWindowShouldClose(window))
     {
