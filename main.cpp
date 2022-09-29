@@ -96,45 +96,51 @@ int main(void)
     Vector<float> texcoord;
     Vector<unsigned int> ind;
 
-    loadOBJ("../assets/obj/0.obj", pos, texcoord, ind);
+    loadOBJ("../assets/obj/3.obj", pos, texcoord, ind);
 
-    float positions[pos.size() * 8 / 3];
+    float positions[(pos.size() * 8)/ 3];
 
     int j = 0;
-    for(int i=0; i<pos.size() * 8/ 3; i += 8)
+    for(int i=0; i<(pos.size() * 8)/ 3; i += 8)
     {
-        positions[i] = pos[j];
+        positions[i] = pos[j] ;
         positions[i+1] = pos[j+1];
         positions[i+2] = pos[j+2];
 
         positions[i+3] = 1.0;
-        positions[i+4] = 1.0;
-        positions[i+5] = 1.0;
-        positions[i+6] = 1.0;
+        positions[i+4] = 0.0;
+
+        positions[i+5] = 0.0;
+        positions[i+6] = 0.0;
         positions[i+7] = 1.0;
 
         j += 3;
     }
-    for(int i = 0; i < sizeof(positions) / (8 * sizeof(positions[0])) ; i+=8)
+
+    for(int i = 0; i < sizeof(positions) / sizeof(positions[0]); i+=8)
     {
         positions[i] *= gridSize;
         positions[i+1] *= gridSize;
         positions[i+2] *= gridSize;
     }
 
+    j = 0;
+
     unsigned int indices[ind.size()];
-    int i=0;
-    for(auto x:ind)
+    for(auto x : ind)
     {
-        indices[i] = x;
-        i++;
+        indices[j] = x;
+        j++;
     }
+
+    j = 0;
+
     for(auto&& x: indices)
     {
         x--;
     }
 
-    i = 0;
+    int i = 0;
 
     for(auto x: positions)
     {

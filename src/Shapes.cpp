@@ -22,14 +22,15 @@ namespace shape{
             6, 0, 2,
             7, 5, 6, // Side 2
             6, 5, 4,
-            3, 1, 7, // Side 3 
+            3, 1, 7, // Side 3
             7, 1, 5,
-            4, 5, 0, // Side 4 
+            4, 5, 0, // Side 4
             0, 5, 1,
-            3, 7, 2, // Side 5 
+            3, 7, 2, // Side 5
             2, 7, 6
         };
         
+
         int i = 0;
         for(auto x: pos)
         {

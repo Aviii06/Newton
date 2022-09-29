@@ -44,13 +44,16 @@ void loadOBJ(const char* file_name, Vector<float>& pos, Vector<float>& texCoord,
             pos.push_back(z);
         }
 
-        if ( prefix == "f" )
+        else if ( prefix == "f" )
         {
             unsigned int a,b,c,d;
             ss>>a>>b>>c>>d;
             ind.push_back(a);
             ind.push_back(b);
             ind.push_back(c);
+
+            ind.push_back(c);
+            ind.push_back(b);
             ind.push_back(d);
         }
     }
