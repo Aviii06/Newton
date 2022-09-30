@@ -94,28 +94,28 @@ int main(void)
 
     Vector<float> pos;
     Vector<float> texcoord;
-    Vector<unsigned int> ind;
+    Vector<unsigned int> indices;
 
-    loadOBJ("../assets/obj/monkey.obj", pos, texcoord, ind);
+    loadOBJ("../assets/obj/monkey.obj", pos, texcoord, indices);
 
-    float positions[(pos.size() * 8)/ 3];
+    Vector<float> positions;
 
     int j = 0;
     for(int i=0; i<(pos.size() * 8)/ 3; i += 8)
     {
         // positions
-        positions[i] = pos[j] ;
-        positions[i+1] = pos[j+1];
-        positions[i+2] = pos[j+2];
+        positions.push_back(pos[j]);
+        positions.push_back(pos[j+1]);
+        positions.push_back(pos[j+2]);
 
         // TexCoords
-        positions[i+3] = 1.0;
-        positions[i+4] = 0.0;
+        positions.push_back(1.0);
+        positions.push_back(0.0);
 
         // Colors
-        positions[i+5] = 1.0; //i * 3.0f / ( pos.size() * 8 ) ;
-        positions[i+6] = 1.0; //1 - i * 3.0f / ( pos.size() * 8 );
-        positions[i+7] = 1.0;
+        positions.push_back(1.0); //i * 3.0f / ( pos.size() * 8 ) ;
+        positions.push_back(1.0); //1 - i * 3.0f / ( pos.size() * 8 );
+        positions.push_back(1.0);
 
         j += 3;
     }
@@ -129,20 +129,13 @@ int main(void)
 
     j = 0;
 
-    unsigned int indices[ind.size()];
-    for(auto x : ind)
-    {
-        indices[j] = x - 1;
-        j++;
-    }
-
-    size_t indSize = sizeof(indices) / sizeof(indices[0]);
-    size_t posSize = sizeof(positions);  
+    size_t indSize = indices.size();
+    size_t posSize = positions.size();
 
     VertexArray va;
-    VertexBuffer vb(positions, posSize);
+    VertexBuffer vb(&positions[0], posSize);
 
-    IndexBuffer ib(indices, indSize);
+    IndexBuffer ib(&indices[0], indSize);
 
     GLCall( glEnable(GL_BLEND) );
     GLCall( glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA) );
