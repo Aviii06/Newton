@@ -120,7 +120,7 @@ int main(void)
         j += 3;
     }
 
-    for(int i = 0; i < sizeof(positions) / sizeof(positions[0]); i+=8)
+    for(int i = 0; i < positions.size(); i+=8)
     {
         positions[i] *= gridSize;
         positions[i+1] *= gridSize;
@@ -195,7 +195,7 @@ int main(void)
     {
         /* Render here */
         renderer.Clear();
-
+        
         modelMatrix = glm::translate(glm::mat4(1.0f), translationModel);
         viewMatrix = glm::translate(glm::mat4(1.0f), translationView);
         
