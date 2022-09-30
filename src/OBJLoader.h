@@ -11,7 +11,7 @@
 
 #include "../common/types.h"
 
-void loadOBJ(const char* file_name, Vector<float>& pos, Vector<float>& texCoord, Vector<unsigned int>& ind)
+void loadOBJ(const char* file_name, Vector<float>& pos, Vector<float>& texCoord, Vector<float> vertex_normals, Vector<unsigned int>& ind)
 {
     std::stringstream ss;
     std::ifstream in_file(file_name);
@@ -45,6 +45,15 @@ void loadOBJ(const char* file_name, Vector<float>& pos, Vector<float>& texCoord,
             pos.push_back(z);
         }
 
+        else if ( prefix == "vn" )
+        {
+            float a,b,c;
+			ss >> a >> b >> c;
+			vertex_normals.push_back(a);
+			vertex_normals.push_back(b);
+			vertex_normals.push_back(c);
+        }
+
         else if ( prefix == "f" )
         {
             // unsigned int a,b,c,d;
@@ -59,26 +68,36 @@ void loadOBJ(const char* file_name, Vector<float>& pos, Vector<float>& texCoord,
             int counter = 0;
             // std::cout<<line<<"\n";
                 
-			while (ss >> temp)
-			{
-                ind.push_back(temp);
-				if (ss.peek() == '/')
-				{
-					ss.ignore(1, '/');
-				}
-                if ( ss.peek() == '/')
+            else if (prefix == "f")
+            {
+                int counter = 0;
+                while (ss >> temp_glint)
                 {
-                    ss.ignore(1, '/');
-                }
-				if (ss.peek() == ' ')
-				{
-					ss.ignore(1, ' ');
-				}
+                    //Pushing indices into correct arrays
+                    if (counter == 0)
+                        vertex_position_indicies.push_back(temp_glint);
+                    else if (counter == 1)
+                        vertex_texcoord_indicies.push_back(temp_glint);
+                    else if (counter == 2)
+                        vertex_normal_indicies.push_back(temp_glint);
 
-                std::cout<<temp<<" , ";
-			}	
+                    //Handling characters
+                    if (ss.peek() == '/')
+                    {
+                        ++counter;
+                        ss.ignore(1, '/');
+                    }
+                    else if (ss.peek() == ' ')
+                    {
+                        ++counter;
+                        ss.ignore(1, ' ');
+                    }
+                    //Reset the counter
+                    if (counter > 2)
+                        counter = 0;
+                }	
+            }
 
-            std::cout<<" \n";
         }
     }
 }

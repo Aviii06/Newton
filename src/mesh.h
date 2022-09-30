@@ -5,19 +5,17 @@
 #include "VertexArray.h"
 #include "IndexBuffer.h"
 #include "Texture.h"
+#include "Renderer.h"
 
 class Mesh
 {
+private:
+	VertexArray m_VertexArray;
+	IndexBuffer m_IndexBuffer;
 public:
-	std::vector <VertexArray> m_Vertices;
-	std::vector <GLuint> m_Indices;
-	std::vector <Texture> m_Textures;
-	// Store VAO in public so it can be used in the Draw function
-	VertexBuffer VertexBuffer;
-
 	// Initializes the mesh
-	Mesh(std::vector <Vertex>& vertices, std::vector <GLuint>& indices, std::vector <Texture>& textures);
+	Mesh(Vector<float>& pos, Vector<float>& normals, Vector<unsigned int>& ind, std::vector <Texture>& textures, VertexBufferLayout layout);
 
 	// Draws the mesh
-	void Draw(Shader& shader, Camera& camera);
+	void Draw(Shader& shader);
 };

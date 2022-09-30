@@ -17,6 +17,7 @@
 #include "Texture.h"
 #include "Shapes.h"
 #include "OBJLoader.h"
+#include "Mesh.h"
 
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
@@ -94,55 +95,56 @@ int main(void)
 
     Vector<float> pos;
     Vector<float> texcoord;
+    Vector<float> normals;
     Vector<unsigned int> ind;
 
-    loadOBJ("../assets/obj/monkey.obj", pos, texcoord, ind);
-
-    float positions[(pos.size() * 8)/ 3];
-
-    int j = 0;
-    for(int i=0; i<(pos.size() * 8)/ 3; i += 8)
-    {
-        // positions
-        positions[i] = pos[j] ;
-        positions[i+1] = pos[j+1];
-        positions[i+2] = pos[j+2];
-
-        // TexCoords
-        positions[i+3] = 1.0;
-        positions[i+4] = 0.0;
-
-        // Colors
-        positions[i+5] = 1.0; //i * 3.0f / ( pos.size() * 8 ) ;
-        positions[i+6] = 1.0; //1 - i * 3.0f / ( pos.size() * 8 );
-        positions[i+7] = 1.0;
-
-        j += 3;
-    }
-
-    for(int i = 0; i < sizeof(positions) / sizeof(positions[0]); i+=8)
-    {
-        positions[i] *= gridSize;
-        positions[i+1] *= gridSize;
-        positions[i+2] *= gridSize;
-    }
-
-    j = 0;
-
-    unsigned int indices[ind.size()];
-    for(auto x : ind)
-    {
-        indices[j] = x - 1;
-        j++;
-    }
-
-    size_t indSize = sizeof(indices) / sizeof(indices[0]);
-    size_t posSize = sizeof(positions);  
-
-    VertexArray va;
-    VertexBuffer vb(positions, posSize);
-
-    IndexBuffer ib(indices, indSize);
+    loadOBJ("../assets/obj/monkey.obj", pos, texcoord, normals, ind);
+    //
+    // float positions[(pos.size() * 8)/ 3];
+    //
+    // int j = 0;
+    // for(int i=0; i<(pos.size() * 8)/ 3; i += 8)
+    // {
+    //     // positions
+    //     positions[i] = pos[j] ;
+    //     positions[i+1] = pos[j+1];
+    //     positions[i+2] = pos[j+2];
+    //
+    //     // TexCoords
+    //     positions[i+3] = 1.0;
+    //     positions[i+4] = 0.0;
+    //
+    //     // Colors
+    //     positions[i+5] = 1.0; //i * 3.0f / ( pos.size() * 8 ) ;
+    //     positions[i+6] = 1.0; //1 - i * 3.0f / ( pos.size() * 8 );
+    //     positions[i+7] = 1.0;
+    //
+    //     j += 3;
+    // }
+    //
+    // for(int i = 0; i < sizeof(positions) / sizeof(positions[0]); i+=8)
+    // {
+    //     positions[i] *= gridSize;
+    //     positions[i+1] *= gridSize;
+    //     positions[i+2] *= gridSize;
+    // }
+    //
+    // j = 0;
+    //
+    // unsigned int indices[ind.size()];
+    // for(auto x : ind)
+    // {
+    //     indices[j] = x;
+    //     j++;
+    // }
+    //
+    // size_t indSize = sizeof(indices) / sizeof(indices[0]);
+    // size_t posSize = sizeof(positions);  
+    //
+    // VertexArray va;
+    // VertexBuffer vb(positions, posSize);
+    //
+    // IndexBuffer ib(indices, indSize);
 
     GLCall( glEnable(GL_BLEND) );
     GLCall( glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA) );
@@ -152,14 +154,21 @@ int main(void)
     layout.AddFloat(3); // Positions
     layout.AddFloat(2); // Tex coords
     layout.AddFloat(3); // Colors
+    layout.AddFloat(3); // Normal
 
-    va.AddBuffer(vb, layout);
+/*     va.AddBuffer(vb, layout); */
+
 
     Shader shader("../assets/shaders/Basic.vertexShader.hlsl", "../assets/shaders/basic.pixelShader.hlsl");
     shader.Bind();
 
     Texture texture("../assets/textures/mandelbrot.png");
     texture.Bind();
+
+    Vector<Texture> textures;
+    textures.push_back(texture);
+    Mesh mesh(pos, normals, ind, textures, layout);
+    mesh.Draw(shader);
 
     Timer timer;
     float time = timer.getTimeMs();
@@ -196,7 +205,7 @@ int main(void)
     
     glm::vec3 translationModel(0,0,-406); //Default values for optimal viewing
     glm::vec3 translationView(0,0,100);
-    float viewRotAngle =0;
+    float viewRotAngle = 0;
 
     while (!glfwWindowShouldClose(window))
     {
@@ -221,8 +230,8 @@ int main(void)
         shader.SetUniformMat4f("u_View", viewMatrix);
         shader.SetUniformMat4f("u_Proj", projectionMatrix);
 
-        renderer.Draw(va, ib, shader);
-        
+        mesh.Draw(shader);
+
         // IMGUI
         ImGui_ImplGlfwGL3_NewFrame();
 
