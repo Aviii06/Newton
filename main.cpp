@@ -147,7 +147,7 @@ int main(void)
     float viewRotAngle = 0;
 
     glm::vec4 lightColor(1.0, 1.0, 0.5, 1.0);
-    glm::vec3 lightPos(0, 100, 100);
+    glm::vec3 lightPos(0, 1000, 1000);
 
     while (!glfwWindowShouldClose(window))
     {
@@ -195,6 +195,7 @@ int main(void)
 
         ImGui::SliderFloat3("Translation Model", &translationModel.x, -960.0f, 960.0f);
         ImGui::SliderFloat3("Translation View", &translationView.x, -100.0f, 100.0f);
+        ImGui::SliderFloat3("Light Position", &lightPos.x, -1000.0f, 1000.0f);
         ImGui::SliderFloat("Angle of Camera", &viewRotAngle, -90.0f, 90.0f);
         ImGui::SliderFloat("Field of View", &field_of_view, 15.0f, 90.0f);
         ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);

@@ -111,10 +111,10 @@ void loadOBJ(const std::string& file_name, Vector<Vertex>& vertices, Vector<unsi
 		}
 	}
 
-	vertices.resize(vertex_positions.size(), Vertex());
-	vertex_texcoord_indicies.resize(vertex_positions.size(), GLint(0));
-	vertex_normal_indicies.resize(vertex_positions.size(), GLint(0));
-	indices.resize(vertex_positions.size(), GLint(0));
+	vertices.resize(vertex_position_indicies.size(), Vertex());
+	vertex_texcoord_indicies.resize(vertex_position_indicies.size(), GLint(0));
+	vertex_normal_indicies.resize(vertex_position_indicies.size(), GLint(0));
+	indices.resize(vertex_position_indicies.size(), GLint(0));
 
 	for (size_t i = 0; i < vertices.size(); ++i)
 	{
@@ -134,8 +134,9 @@ void loadOBJ(const std::string& file_name, Vector<Vertex>& vertices, Vector<unsi
 		{
 			vertices[i].normal = vertex_normals[vertex_normal_indicies[i] - 1];
 		}
-		vertices[i].position = vertex_positions[i] * 100.0f;
+		vertices[i].position = vertex_positions[vertex_position_indicies[i] - 1] * 100.0f;
 		vertices[i].color = glm::vec3(1.f, 1.f, 1.f);
+		indices[i] = i;
 	}
 
 	//DEBUG
