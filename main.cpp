@@ -19,7 +19,7 @@
 #include "OBJLoader.h"
 #include "Mesh.h"
 
-#include "glm/glm.hpp"
+#include <glm/glm.hpp>
 #include "glm/gtc/matrix_transform.hpp"
 #include "utils/timer.h"
 
@@ -96,7 +96,7 @@ int main(void)
     Vector<Vertex> verts;
     Vector<unsigned int> inds;
 
-    loadOBJ("../assets/obj/monkey.obj", verts, inds);
+    loadOBJ("../assets/obj/0.obj", verts, inds);
 
     GLCall( glEnable(GL_BLEND) );
     GLCall( glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA) );

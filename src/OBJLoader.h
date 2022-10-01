@@ -11,11 +11,12 @@
 
 #include "../common/types.h"
 #include "VertexBuffer.h"
+#include <glm/glm.hpp>
 
 void loadOBJ(const std::string& file_name, Vector<Vertex>& vertices, Vector<unsigned int>& indices)
 {
 
-		//Vertex portions
+	//Vertex portions
 	std::vector<glm::fvec3> vertex_positions;
 	std::vector<glm::fvec2> vertex_texcoords;
 	std::vector<glm::fvec3> vertex_normals;
@@ -31,7 +32,7 @@ void loadOBJ(const std::string& file_name, Vector<Vertex>& vertices, Vector<unsi
 	std::string prefix = "";
 	glm::vec3 temp_vec3;
 	glm::vec2 temp_vec2;
-	GLint temp_glint = 0;
+	GLint temp = 0;
 
 	//File open error check
 	if (!in_file.is_open())
@@ -80,49 +81,42 @@ void loadOBJ(const std::string& file_name, Vector<Vertex>& vertices, Vector<unsi
 		}
 		else if (prefix == "f")
 		{
-			int counter = 0;
-			while (ss >> temp_glint)
-			{
-				//Pushing indices into correct arrays
-				if (counter == 0)
-					vertex_position_indicies.push_back(temp_glint);
-				else if (counter == 1)
-					vertex_texcoord_indicies.push_back(temp_glint);
-				else if (counter == 2)
-					vertex_normal_indicies.push_back(temp_glint);
-
-				//Handling characters
-				if (ss.peek() == '/')
-				{
-					++counter;
-					ss.ignore(1, '/');
-				}
-				else if (ss.peek() == ' ')
-				{
-					++counter;
-					ss.ignore(1, ' ');
-				}
-
-				//Reset the counter
-				if (counter > 2)
-					counter = 0;
-			}	
-		}
-		else
-		{
+			unsigned int a, b, c, d;
+			ss >> a >> b >> c >> d;
+			indices.push_back(a - 1);
+			indices.push_back(b - 1);
+			indices.push_back(c - 1);
+			//
+			indices.push_back(a - 1);
+			indices.push_back(c - 1);
+			indices.push_back(d - 1);
 
 		}
 	}
 
-	//Build final vertex array (mesh)
-	vertices.resize(vertex_position_indicies.size(), Vertex());
+	vertices.resize(vertex_positions.size(), Vertex());
+	vertex_texcoord_indicies.resize(vertex_positions.size(), GLint(0));
+	vertex_normal_indicies.resize(vertex_positions.size(), GLint(0));
 
-	//Load in all indices
 	for (size_t i = 0; i < vertices.size(); ++i)
 	{
-		vertices[i].position = vertex_positions[vertex_position_indicies[i] - 1];
-		vertices[i].texcoord = vertex_texcoords[vertex_texcoord_indicies[i] - 1];
-		vertices[i].normal = vertex_normals[vertex_normal_indicies[i] - 1];
+		if (vertex_texcoord_indicies[i] == 0)
+		{
+			vertices[i].texcoord = glm::fvec2(1.0, 0.0);
+		}
+		else
+		{
+			vertices[i].texcoord = vertex_texcoords[vertex_texcoord_indicies[i] - 1];
+		}
+		if (vertex_normal_indicies[i] == 0)
+		{
+			vertices[i].normal = glm::fvec3(1.0, 0.0, 0.0);
+		}
+		else
+		{
+			vertices[i].normal = vertex_normals[vertex_normal_indicies[i] - 1];
+		}
+		vertices[i].position = vertex_positions[i] * 100.0f;
 		vertices[i].color = glm::vec3(1.f, 1.f, 1.f);
 	}
 
