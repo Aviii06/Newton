@@ -5,7 +5,7 @@ namespace shape{
     {
         m_Size = (float)size;
         float pos[] = {
-            -m_Size, m_Size, -m_Size,         0.0, 0.0,           0.1, 0.3, 0.8,
+            -m_Size, m_Size, -m_Size,         0.0, 0.0,           0.1, 0.3, 0.8,   
             m_Size, m_Size, -m_Size,          1.0, 0.0,           0.8, 0.44, 0.32,
             -m_Size, -m_Size, -m_Size,        1.0, 1.0,           0.12, 0.5, 0.21,
             m_Size, -m_Size, -m_Size,         0.0, 1.0,           0.144, 0.33, 0.48, 

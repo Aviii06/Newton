@@ -6,16 +6,20 @@
 #include "IndexBuffer.h"
 #include "Texture.h"
 #include "Renderer.h"
+#include "VertexBufferLayout.h"
 
 class Mesh
 {
-private:
-	VertexArray m_VertexArray;
-	IndexBuffer m_IndexBuffer;
 public:
+	Vector <Vertex> m_Vertices;
+	Vector <GLuint> m_Indices;
+	Vector <Texture> m_Textures;
+
+    VertexArray vao;
+
 	// Initializes the mesh
-	Mesh(Vector<float>& pos, Vector<float>& normals, Vector<unsigned int>& ind, std::vector <Texture>& textures, VertexBufferLayout layout);
+	Mesh(std::vector <Vertex>& vertices, std::vector <unsigned int>& indices, std::vector <Texture>& textures, VertexBufferLayout layout);
 
 	// Draws the mesh
-	void Draw(Shader& shader);
+	void Draw();
 };

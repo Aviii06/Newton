@@ -1,13 +1,15 @@
 #pragma once
 
+#include "../common/types.h"
+
 class IndexBuffer
 {
-private:
+public:
     unsigned int m_RendererID;
     unsigned int m_Count;
 public:
     IndexBuffer() = default;
-    IndexBuffer(const unsigned int* data, unsigned int count);
+    IndexBuffer(Vector<unsigned int>& indices);
     ~IndexBuffer();
 
     void Bind() const;
