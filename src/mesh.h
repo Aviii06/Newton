@@ -22,5 +22,5 @@ public:
 	Mesh(std::vector <Vertex>& vertices, std::vector <unsigned int>& indices, VertexBufferLayout layout);
 
 	// Draws the mesh
-	void Draw(Shader& shader, Renderer& renderer);
+	void Draw(Shader& shader, Renderer& renderer, const glm::vec3& lightPos);
 };

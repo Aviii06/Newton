@@ -137,6 +137,7 @@ void loadOBJ(const std::string& file_name, Vector<Vertex>& vertices, Vector<unsi
 		vertices[i].position = vertex_positions[vertex_position_indicies[i] - 1] * 100.0f;
 		vertices[i].color = glm::vec3(1.f, 1.f, 1.f);
 		indices[i] = i;
+		vertices[i].isLit = 1.0f;
 	}
 
 	//DEBUG

@@ -2,6 +2,7 @@
 #include "IndexBuffer.h"
 #include "VertexBuffer.h"
 #include "VertexBufferLayout.h"
+#include "Intersections.h"
 
 Mesh::Mesh(Vector<Vertex>& verts, Vector<unsigned int>& inds, VertexBufferLayout layout)
 {   
@@ -10,8 +11,10 @@ Mesh::Mesh(Vector<Vertex>& verts, Vector<unsigned int>& inds, VertexBufferLayout
     Mesh::m_Layout = layout;
 }
 
-void Mesh::Draw(Shader& shader, Renderer& renderer)
+void Mesh::Draw(Shader& shader, Renderer& renderer, const glm::vec3& lightPos)
 {
+    createLitVector(m_Vertices, lightPos);
+
     VertexBuffer vbo(m_Vertices);
     IndexBuffer ebo(m_Indices);
     vbo.Bind();

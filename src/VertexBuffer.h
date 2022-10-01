@@ -10,6 +10,7 @@ struct Vertex
 	glm::vec2 texcoord;
 	glm::vec3 color;
 	glm::vec3 normal;
+    float isLit;
 };
 
 class VertexBuffer

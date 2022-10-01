@@ -77,6 +77,7 @@ int main(void)
     layout.AddFloat(2); // Tex coords
     layout.AddFloat(3); // Colors
     layout.AddFloat(3); // Normal
+    layout.AddFloat(1); // isLit
 
     Renderer renderer;
     Renderer renderer2;
@@ -99,11 +100,14 @@ int main(void)
     Vector<Texture> textures2;
     textures2.push_back(texture2);
 
+    glm::vec4 lightColor(1.0, 1.0, 0.5, 1.0);
+    glm::vec3 lightPos(0, 1000, 1000);
+
     Mesh mesh2(verts2, inds2, layout);
-    mesh2.Draw(shader2, renderer2);
+    mesh2.Draw(shader2, renderer2, lightPos);
 
     Mesh mesh(verts, inds, layout);
-    mesh.Draw(shader2, renderer);
+    mesh.Draw(shader2, renderer, lightPos);
 
     Timer timer;
     float time = timer.getTimeMs();
@@ -146,9 +150,6 @@ int main(void)
     glm::vec3 translationView(0, -100, 100);
     float viewRotAngle = 0;
 
-    glm::vec4 lightColor(1.0, 1.0, 0.5, 1.0);
-    glm::vec3 lightPos(0, 1000, 1000);
-
     while (!glfwWindowShouldClose(window))
     {
         /* Render here */
@@ -160,8 +161,8 @@ int main(void)
         viewMatrix = glm::translate(glm::mat4(1.0f), translationView);
 
         float rotation = time / 100.0;
-        modelMatrix = glm::rotate(modelMatrix, glm::radians(rotation), glm::vec3(0.0f, 1.0f, 0.0f));
-        modelMatrix2 = glm::rotate(modelMatrix2, glm::radians(rotation), glm::vec3(0.0f, 1.0f, 0.0f));
+        //modelMatrix = glm::rotate(modelMatrix, glm::radians(rotation), glm::vec3(0.0f, 1.0f, 0.0f));
+        //modelMatrix2 = glm::rotate(modelMatrix2, glm::radians(rotation), glm::vec3(0.0f, 1.0f, 0.0f));
 
         viewMatrix = glm::rotate(viewMatrix, glm::radians(viewRotAngle), glm::vec3(1.0f, 0.0f, 0.0f));
 
@@ -178,7 +179,7 @@ int main(void)
         shader.SetUniformMat4f("u_Proj", projectionMatrix);
         shader.SetUniform4f("lightColor", lightColor);
         shader.SetUniform3f("lightPos", lightPos);
-        mesh.Draw(shader, renderer);
+        mesh.Draw(shader, renderer, lightPos);
 
         shader2.Bind();
         shader2.SetUniform1f("u_Time", time);
@@ -187,7 +188,7 @@ int main(void)
         shader2.SetUniformMat4f("u_Proj", projectionMatrix);
         shader2.SetUniform4f("lightColor", lightColor);
         shader2.SetUniform3f("lightPos", lightPos);
-        mesh2.Draw(shader2, renderer);
+        mesh2.Draw(shader2, renderer, lightPos);
         
 
         // IMGUI
