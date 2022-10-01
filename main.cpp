@@ -116,6 +116,7 @@ int main(void)
 
 
     Shader shader("../assets/shaders/Basic.vertexShader.hlsl", "../assets/shaders/basic.pixelShader.hlsl");
+	shader.Bind();
 
     Texture texture("../assets/textures/mandelbrot.png");
     texture.Bind();
@@ -123,6 +124,7 @@ int main(void)
     Vector<Texture> textures;
     textures.push_back(texture);
     Mesh mesh(verts, inds, textures, layout);
+    mesh.Draw();
 
     Timer timer;
     float time = timer.getTimeMs();
@@ -183,7 +185,6 @@ int main(void)
         shader.SetUniformMat4f("u_Model", modelMatrix);
         shader.SetUniformMat4f("u_View", viewMatrix);
         shader.SetUniformMat4f("u_Proj", projectionMatrix);
-        
         shader.Bind();
         mesh.Draw();
 
