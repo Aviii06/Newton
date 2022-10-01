@@ -19,25 +19,4 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src/)
 target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/dependancies/include)
 target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src ${CMAKE_CURRENT_SOURCE_DIR}/src/stb_image ${CMAKE_CURRENT_SOURCE_DIR}/common ${CMAKE_CURRENT_SOURCE_DIR}/utils)
 
-target_link_libraries(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/dependancies/library/libGLEW.2.2.0.dylib ${CMAKE_CURRENT_SOURCE_DIR}/dependancies/library/libglfw.3.3.dylib)
-
-macro(ADD_FRAMEWORK fwname appname)
-find_library(FRAMEWORK_${fwname}
-    NAMES ${fwname}
-    PATHS ${CMAKE_OSX_SYSROOT}/System/Library
-    PATH_SUFFIXES Frameworks
-    NO_DEFAULT_PATH)
-if( ${FRAMEWORK_${fwname}} STREQUAL FRAMEWORK_${fwname}-NOTFOUND)
-    MESSAGE(ERROR ": Framework ${fwname} not found")
-else()
-    TARGET_LINK_LIBRARIES(${appname} PRIVATE ${FRAMEWORK_${fwname}})
-    MESSAGE(STATUS "Framework ${fwname} found at ${FRAMEWORK_${fwname}}")
-endif()
-endmacro(ADD_FRAMEWORK)
-
-add_framework(OpenGl ${PROJECT_NAME})
-add_framework(Cocoa ${PROJECT_NAME})
-add_framework(IOKit ${PROJECT_NAME})
-add_framework(CoreVideo ${PROJECT_NAME})
-add_framework(CoreFoundation ${PROJECT_NAME})
-add_framework(GLUT ${PROJECT_NAME})
+target_link_libraries(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/dependancies/library/glew32.lib ${CMAKE_CURRENT_SOURCE_DIR}/dependancies/library/glfw3.lib)

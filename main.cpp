@@ -93,14 +93,10 @@ int main(void)
     // size_t posSize = q.getPositionsSize();
     float gridSize = 100.0;
 
-    Vector<float> pos;
-    Vector<float> texcoord;
-    Vector<float> normals;
     Vector<Vertex> verts;
     Vector<unsigned int> inds;
 
     loadOBJ("../assets/obj/monkey.obj", verts, inds);
-
 
     GLCall( glEnable(GL_BLEND) );
     GLCall( glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA) );
@@ -167,7 +163,7 @@ int main(void)
     {
         /* Render here */
         renderer.Clear();
-
+        
         modelMatrix = glm::translate(glm::mat4(1.0f), translationModel);
         viewMatrix = glm::translate(glm::mat4(1.0f), translationView);
         

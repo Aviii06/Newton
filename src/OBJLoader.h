@@ -14,6 +14,7 @@
 
 void loadOBJ(const std::string& file_name, Vector<Vertex>& vertices, Vector<unsigned int>& indices)
 {
+
 		//Vertex portions
 	std::vector<glm::fvec3> vertex_positions;
 	std::vector<glm::fvec2> vertex_texcoords;
