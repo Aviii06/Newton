@@ -32,7 +32,7 @@ void loadOBJ(const std::string& file_name, Vector<Vertex>& vertices, Vector<unsi
 	std::string prefix = "";
 	glm::vec3 temp_vec3;
 	glm::vec2 temp_vec2;
-	GLint temp = 0;
+	GLint temp_glint = 0;
 
 	//File open error check
 	if (!in_file.is_open())
@@ -81,22 +81,40 @@ void loadOBJ(const std::string& file_name, Vector<Vertex>& vertices, Vector<unsi
 		}
 		else if (prefix == "f")
 		{
-			unsigned int a, b, c, d;
-			ss >> a >> b >> c >> d;
-			indices.push_back(a - 1);
-			indices.push_back(b - 1);
-			indices.push_back(c - 1);
-			//
-			indices.push_back(a - 1);
-			indices.push_back(c - 1);
-			indices.push_back(d - 1);
+			int counter = 0;
+			while (ss >> temp_glint)
+			{
+				//Pushing indices into correct arrays
+				if (counter == 0)
+					vertex_position_indicies.push_back(temp_glint);
+				else if (counter == 1)
+					vertex_texcoord_indicies.push_back(temp_glint);
+				else if (counter == 2)
+					vertex_normal_indicies.push_back(temp_glint);
 
+				//Handling characters
+				if (ss.peek() == '/')
+				{
+					++counter;
+					ss.ignore(1, '/');
+				}
+				else if (ss.peek() == ' ')
+				{
+					counter = 0;
+					ss.ignore(1, ' ');
+				}
+
+				//Reset the counter
+				if (counter > 2)
+					counter = 0;
+			}
 		}
 	}
 
 	vertices.resize(vertex_positions.size(), Vertex());
 	vertex_texcoord_indicies.resize(vertex_positions.size(), GLint(0));
 	vertex_normal_indicies.resize(vertex_positions.size(), GLint(0));
+	indices.resize(vertex_positions.size(), GLint(0));
 
 	for (size_t i = 0; i < vertices.size(); ++i)
 	{

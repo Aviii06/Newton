@@ -25,7 +25,7 @@
 
 int main(void)
 {
-    GLFWwindow *window;
+    GLFWwindow* window;
 
     /* Initialize the library */
     if (!glfwInit())
@@ -58,48 +58,18 @@ int main(void)
     {
         std::cout << "F";
     }
-
-    // Postions of the vertex
-    float size = 100.0f;
-    // float positions[] = {
-    //     -size, size, -size,         0.0, 0.0,           0.1, 0.3, 0.8,
-    //     size, size, -size,          1.0, 0.0,           0.8, 0.44, 0.32,
-    //     -size, -size, -size,        1.0, 1.0,           0.12, 0.5, 0.21,
-    //     size, -size, -size,         0.0, 1.0,           0.144, 0.33, 0.48, 
-    //     -size, size, size,          0.0, 0.0,           0.52, 0.23, 0.21,
-    //     size, size, size,           1.0, 0.0,           0.25, 0.43, 0.71,   
-    //     -size, -size, size,         1.0, 1.0,           0.56, 0.35, 0.19,
-    //     size, -size, size,          0.0, 1.0,           0.34, 0.31, 0.43,
-    // };
-    // unsigned int indices[] = {
-    //     0, 1, 2, // Side 0
-    //     2, 1, 3,
-    //     4, 0, 6, // Side 1
-    //     6, 0, 2,
-    //     7, 5, 6, // Side 2
-    //     6, 5, 4,
-    //     3, 1, 7, // Side 3 
-    //     7, 1, 5,
-    //     4, 5, 0, // Side 4 
-    //     0, 5, 1,
-    //     3, 7, 2, // Side 5 
-    //     2, 7, 6
-    // };
-
-    // shape::quad3d q(size);
-    // float* positions = q.getPositions();
-    // unsigned int* indices = q.getIndices();
-    // size_t indSize = q.getIndicesSize();
-    // size_t posSize = q.getPositionsSize();
-    float gridSize = 100.0;
-
+    
     Vector<Vertex> verts;
     Vector<unsigned int> inds;
 
-    loadOBJ("../assets/obj/0.obj", verts, inds);
+    loadOBJ("../assets/obj/monkey.obj", verts, inds);
 
-    GLCall( glEnable(GL_BLEND) );
-    GLCall( glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA) );
+    Vector<Vertex> verts2;
+    Vector<unsigned int> inds2;
+    loadOBJ("../assets/obj/0.obj", verts2, inds2);
+
+    GLCall(glEnable(GL_BLEND));
+    GLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
     // GLCall( glEnable(GL_CULL_FACE) );
 
     VertexBufferLayout layout;
@@ -108,19 +78,32 @@ int main(void)
     layout.AddFloat(3); // Colors
     layout.AddFloat(3); // Normal
 
-/*     va.AddBuffer(vb, layout); */
+    Renderer renderer;
+    Renderer renderer2;
 
+    Shader shader("../assets/shaders/phong.vertexShader.hlsl", "../assets/shaders/phong.pixelShader.hlsl");
+    shader.Bind();
 
-    Shader shader("../assets/shaders/Basic.vertexShader.hlsl", "../assets/shaders/basic.pixelShader.hlsl");
-	shader.Bind();
+    Shader shader2("../assets/shaders/phong.vertexShader.hlsl", "../assets/shaders/phong.pixelShader.hlsl");
+    shader2.Bind();
 
     Texture texture("../assets/textures/mandelbrot.png");
     texture.Bind();
 
+    Texture texture2("../assets/textures/mandelbrot.png");
+    texture2.Bind();
+
     Vector<Texture> textures;
     textures.push_back(texture);
-    Mesh mesh(verts, inds, textures, layout);
-    mesh.Draw();
+
+    Vector<Texture> textures2;
+    textures2.push_back(texture2);
+
+    Mesh mesh2(verts2, inds2, layout);
+    mesh2.Draw(shader2, renderer2);
+
+    Mesh mesh(verts, inds, layout);
+    mesh.Draw(shader2, renderer);
 
     Timer timer;
     float time = timer.getTimeMs();
@@ -128,11 +111,13 @@ int main(void)
     //Shader
     shader.SetUniform1i("u_Texture", 0);
     shader.SetUniform1f("u_Time", time);
+    shader2.SetUniform1i("u_Texture", 0);
+    shader2.SetUniform1f("u_Time", time);
 
-    float aspect = (float)Width/Height;
+
+    float aspect = (float)Width / Height;
     shader.SetUniform1f("u_Aspect", aspect);
-
-    Renderer renderer;
+    shader2.SetUniform1f("u_Aspect", aspect);
 
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
@@ -141,48 +126,69 @@ int main(void)
 
     //MVP matrix 
     glm::mat4 projectionMatrix = glm::ortho(0.0f, (float)Width,
-                                            0.0f, (float)Height,
-                                             -1.0f, 1.0f);
-    
-    float field_of_view = 45.0f;
+        0.0f, (float)Height,
+        -1.0f, 1.0f);
+
+    float field_of_view = 60.0f;
     float closestDistance = 0.1f;
     float farthestDistance = 500.0f;
-    
-    glm::mat4 modelMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(0,0,0));
-    glm::mat4 viewMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(0,0,0));
+
+    glm::mat4 modelMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0));
+    glm::mat4 modelMatrix2 = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0));
+    glm::mat4 viewMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0));
 
     // glm::vec3 translationModel(0, -118.857, -314.019); //Default values for optimal viewing
     // glm::vec3 translationView(-20, -100, 96.262);
     // float viewRotAngle = 43.088;
-    
-    glm::vec3 translationModel(0,0,-406); //Default values for optimal viewing
-    glm::vec3 translationView(0,0,100);
+
+    glm::vec3 translationModel(0, 0, -406); //Default values for optimal viewing
+    glm::vec3 translationModel2(0, 200, -406);
+    glm::vec3 translationView(0, -100, 100);
     float viewRotAngle = 0;
+
+    glm::vec4 lightColor(1.0, 1.0, 0.5, 1.0);
+    glm::vec3 lightPos(0, 100, 100);
 
     while (!glfwWindowShouldClose(window))
     {
         /* Render here */
         renderer.Clear();
-        
+        renderer2.Clear();
+
         modelMatrix = glm::translate(glm::mat4(1.0f), translationModel);
+        modelMatrix2 = glm::translate(glm::mat4(1.0f), translationModel2);
         viewMatrix = glm::translate(glm::mat4(1.0f), translationView);
-        
-        float rotation = time/100.0;
-        modelMatrix = glm::rotate(modelMatrix,  glm::radians(rotation), glm::vec3(0.0f, 1.0f, 0.0f));
+
+        float rotation = time / 100.0;
+        modelMatrix = glm::rotate(modelMatrix, glm::radians(rotation), glm::vec3(0.0f, 1.0f, 0.0f));
+        modelMatrix2 = glm::rotate(modelMatrix2, glm::radians(rotation), glm::vec3(0.0f, 1.0f, 0.0f));
+
         viewMatrix = glm::rotate(viewMatrix, glm::radians(viewRotAngle), glm::vec3(1.0f, 0.0f, 0.0f));
 
         shader.Bind();
         shader.SetUniform4f("u_Color", 0.1, 0.3, 0.8, 1.0);
+        shader2.SetUniform4f("u_Color", 0.1, 0.3, 0.8, 1.0);
         time = timer.getTimeMs();
 
         projectionMatrix = glm::perspective(glm::radians(field_of_view), aspect, closestDistance, farthestDistance);
-            
+
         shader.SetUniform1f("u_Time", time);
         shader.SetUniformMat4f("u_Model", modelMatrix);
         shader.SetUniformMat4f("u_View", viewMatrix);
         shader.SetUniformMat4f("u_Proj", projectionMatrix);
-        shader.Bind();
-        mesh.Draw();
+        shader.SetUniform4f("lightColor", lightColor);
+        shader.SetUniform3f("lightPos", lightPos);
+        mesh.Draw(shader, renderer);
+
+        shader2.Bind();
+        shader2.SetUniform1f("u_Time", time);
+        shader2.SetUniformMat4f("u_Model", modelMatrix2);
+        shader2.SetUniformMat4f("u_View", viewMatrix);
+        shader2.SetUniformMat4f("u_Proj", projectionMatrix);
+        shader2.SetUniform4f("lightColor", lightColor);
+        shader2.SetUniform3f("lightPos", lightPos);
+        mesh2.Draw(shader2, renderer);
+        
 
         // IMGUI
         ImGui_ImplGlfwGL3_NewFrame();

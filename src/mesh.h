@@ -14,12 +14,13 @@ public:
 	Vector <Vertex> m_Vertices;
 	Vector <GLuint> m_Indices;
 	Vector <Texture> m_Textures;
+	VertexBufferLayout m_Layout;
 
     VertexArray vao;
 
 	// Initializes the mesh
-	Mesh(std::vector <Vertex>& vertices, std::vector <unsigned int>& indices, std::vector <Texture>& textures, VertexBufferLayout layout);
+	Mesh(std::vector <Vertex>& vertices, std::vector <unsigned int>& indices, VertexBufferLayout layout);
 
 	// Draws the mesh
-	void Draw();
+	void Draw(Shader& shader, Renderer& renderer);
 };

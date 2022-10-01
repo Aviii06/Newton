@@ -3,15 +3,14 @@
 #include "VertexBuffer.h"
 #include "VertexBufferLayout.h"
 
-Mesh::Mesh(Vector<Vertex>& verts, Vector<unsigned int>& inds, Vector <Texture>& textures, VertexBufferLayout layout)
+Mesh::Mesh(Vector<Vertex>& verts, Vector<unsigned int>& inds, VertexBufferLayout layout)
 {   
     Mesh::m_Vertices = verts;
     Mesh::m_Indices = inds;
-	Mesh::m_Textures = textures;
     Mesh::m_Layout = layout;
 }
 
-void Mesh::Draw()
+void Mesh::Draw(Shader& shader, Renderer& renderer)
 {
     VertexBuffer vbo(m_Vertices);
     IndexBuffer ebo(m_Indices);
@@ -21,10 +20,6 @@ void Mesh::Draw()
     vao.AddBuffer(vbo, m_Layout);
     vao.Bind();
 
-    for(auto&& x: m_Textures)
-    {
-        x.Bind();
-    }
-    glDrawElements(GL_TRIANGLES, m_Indices.size(), GL_UNSIGNED_INT, nullptr);
+    renderer.Draw(vao, ebo, shader);
 }
 
