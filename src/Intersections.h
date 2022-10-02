@@ -1,4 +1,5 @@
 #pragma once
+
 #include <glm/glm.hpp>
 #include "VertexBuffer.h"
 
@@ -98,23 +99,43 @@ Ray* make_ray(Vertex v, const glm::vec3& lightPos)
 	return r;
 }
 
-void createLitVector(Vector<Vertex>& vertices, glm::vec3 lightPos)
+void createLitVector(Vector<Vertex>& vertices1, Vector<Vertex>& vertices2, glm::vec3 lightPos)
 {
 
-	for (auto v : vertices)
+	for (auto&& v : vertices1)
 	{
 		Ray* r = make_ray(v, lightPos);
-		for (int i = 0; i < vertices.size() - 2; i+=3)
+		for (int i = 0; i < vertices2.size() - 2; i+=3)
 		{
-			Intersection* intersection = intersect_ray_triangle(r, vertices[i].position, vertices[i + 1].position, vertices[i + 2].position);
+			Intersection* intersection = intersect_ray_triangle(r, vertices2[i].position, vertices2[i + 1].position, vertices2[i + 2].position);
 
 			if (intersection == NULL)
 			{
-				vertices[i].isLit = 1.0f;
+				v.isLit = 1.0f;
 			}
 			else
 			{
-				vertices[i].isLit = 0.0f;
+				v.isLit = 0.0f;
+				break;
+			}
+		}
+	}
+
+	for (auto&& v : vertices2)
+	{
+		Ray* r = make_ray(v, lightPos);
+		for (int i = 0; i < vertices1.size() - 2; i += 3)
+		{
+			Intersection* intersection = intersect_ray_triangle(r, vertices1[i].position, vertices1[i + 1].position, vertices1[i + 2].position);
+
+			if (intersection == NULL)
+			{
+				v.isLit = 1.0f;
+			}
+			else
+			{
+				v.isLit = 0.0f;
+				break;
 			}
 		}
 	}

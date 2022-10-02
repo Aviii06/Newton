@@ -3,6 +3,7 @@
 in vec3 v_CrntPos;
 in vec3 v_Normal;
 in vec3 v_Color;
+in float v_IsLit;
 
 uniform vec4 lightColor;
 uniform vec3 lightPos;

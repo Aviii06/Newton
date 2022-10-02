@@ -22,6 +22,7 @@
 #include <glm/glm.hpp>
 #include "glm/gtc/matrix_transform.hpp"
 #include "utils/timer.h"
+#include "Intersections.h"
 
 int main(void)
 {
@@ -81,6 +82,7 @@ int main(void)
 
     Renderer renderer;
     Renderer renderer2;
+    Renderer renderer3;
 
     Shader shader("../assets/shaders/phong.vertexShader.hlsl", "../assets/shaders/phong.pixelShader.hlsl");
     shader.Bind();
@@ -100,14 +102,28 @@ int main(void)
     Vector<Texture> textures2;
     textures2.push_back(texture2);
 
+    // Light Info
+    float size = 10.0f;
+    shape::quad3d q(size);
+    Vector<Vertex> verts3 = q.getPositions();
+    Vector<unsigned int> inds3 = q.getIndices();
+    size_t indSize = q.getIndicesSize();
+    size_t posSize = q.getPositionsSize();
     glm::vec4 lightColor(1.0, 1.0, 0.5, 1.0);
-    glm::vec3 lightPos(0, 1000, 1000);
+    glm::vec3 lightPos(0, 100, -406);
+    glm::mat4 lightModel = glm::translate(glm::mat4(1.0f), lightPos);
+    
+    Shader lightShader("../assets/shaders/basic.vertexShader.hlsl", "../assets/shaders/basic.pixelShader.hlsl");
+    lightShader.Bind();
+    Mesh mesh3(verts3, inds3, layout);
+    mesh3.Draw(lightShader, renderer3);
 
+    // Drawing other meshes
     Mesh mesh2(verts2, inds2, layout);
-    mesh2.Draw(shader2, renderer2, lightPos);
+    mesh2.Draw(shader2, renderer2);
 
     Mesh mesh(verts, inds, layout);
-    mesh.Draw(shader2, renderer, lightPos);
+    mesh.Draw(shader2, renderer);
 
     Timer timer;
     float time = timer.getTimeMs();
@@ -150,11 +166,15 @@ int main(void)
     glm::vec3 translationView(0, -100, 100);
     float viewRotAngle = 0;
 
+    //createLitVector(verts, lightPos);
+    createLitVector(verts, verts2, lightPos);
+
     while (!glfwWindowShouldClose(window))
     {
         /* Render here */
         renderer.Clear();
         renderer2.Clear();
+        renderer3.Clear();
 
         modelMatrix = glm::translate(glm::mat4(1.0f), translationModel);
         modelMatrix2 = glm::translate(glm::mat4(1.0f), translationModel2);
@@ -179,7 +199,7 @@ int main(void)
         shader.SetUniformMat4f("u_Proj", projectionMatrix);
         shader.SetUniform4f("lightColor", lightColor);
         shader.SetUniform3f("lightPos", lightPos);
-        mesh.Draw(shader, renderer, lightPos);
+        mesh.Draw(shader, renderer);
 
         shader2.Bind();
         shader2.SetUniform1f("u_Time", time);
@@ -188,7 +208,19 @@ int main(void)
         shader2.SetUniformMat4f("u_Proj", projectionMatrix);
         shader2.SetUniform4f("lightColor", lightColor);
         shader2.SetUniform3f("lightPos", lightPos);
-        mesh2.Draw(shader2, renderer, lightPos);
+        mesh2.Draw(shader2, renderer);
+
+        lightModel = glm::translate(glm::mat4(1.0f), lightPos);
+        lightShader.Bind();
+        lightShader.SetUniform1f("u_Time", time);
+        lightShader.SetUniformMat4f("u_Model", lightModel);
+        lightShader.SetUniformMat4f("u_View", viewMatrix);
+        lightShader.SetUniformMat4f("u_Proj", projectionMatrix);
+        lightShader.SetUniform4f("lightColor", lightColor);
+        lightShader.SetUniform3f("lightPos", lightPos);
+        mesh3.Draw(lightShader, renderer3);
+
+
         
 
         // IMGUI
