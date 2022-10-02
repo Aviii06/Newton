@@ -23,6 +23,11 @@ Vector<Vertex> Mesh::getVertices()
     return Mesh::m_Vertices;
 }
 
+Vector<unsigned int> Mesh::getIndices()
+{
+    return Mesh::m_Indices;
+}
+
 void Mesh::Draw(Shader& shader, Renderer& renderer)
 {
     VertexBuffer vbo(m_Vertices);

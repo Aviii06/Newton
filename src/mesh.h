@@ -23,6 +23,7 @@ public:
 
 	void Update(const Vector<Vertex>& vertices);
 	Vector<Vertex> getVertices();
+	Vector<unsigned int> getIndices();
 	// Draws the mesh
 	void Draw(Shader& shader, Renderer& renderer);
 };

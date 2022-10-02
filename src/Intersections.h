@@ -100,48 +100,47 @@ Ray* make_ray(Vertex v, const glm::vec3& lightPos)
 	return r;
 }
 
-void createLitVector(Mesh& mesh1, Mesh& mesh2, glm::vec3 lightPos)
+void createLitVector(Vector<Mesh*>& meshes, glm::vec3 lightPos)
 {
-	Vector<Vertex> vertices1 = mesh1.getVertices();
-	Vector<Vertex> vertices2 = mesh2.getVertices();
-	for (auto&& v : vertices1)
-	{
-		Ray* r = make_ray(v, lightPos);
-		for (int i = 0; i < vertices2.size() - 2; i+=3)
-		{
-			Intersection* intersection = intersect_ray_triangle(r, vertices2[i].position, vertices2[i + 1].position, vertices2[i + 2].position);
+	Vector<Vector<Vertex>> verticesVector;
+	Vector<Vector<unsigned int>> indicesVector;
 
-			if (intersection == NULL)
-			{
-				v.isLit = 1.0f;
-			}
-			else
-			{
-				v.isLit = 0.0f;
-				break;
-			}
-		}
+	for (auto mesh : meshes)
+	{
+		Vector<Vertex> vertices = mesh->getVertices();
+		Vector<unsigned int> indices = mesh->getIndices();
+		verticesVector.push_back(vertices);
+		indicesVector.push_back(indices);
 	}
 
-	for (auto&& v : vertices2)
+	for (int i = 0; i < verticesVector.size(); i++)
 	{
-		Ray* r = make_ray(v, lightPos);
-		for (int i = 0; i < vertices1.size() - 2; i += 3)
+		for (auto&& v : verticesVector[i])
 		{
-			Intersection* intersection = intersect_ray_triangle(r, vertices1[i].position, vertices1[i + 1].position, vertices1[i + 2].position);
+			Ray* r = make_ray(v, lightPos);
+			for (int j = 0; j < verticesVector.size(); j++)
+			{
+				if (i == j)
+				{
+					continue;
+				}
+				for (int i = 0; i < indicesVector[j].size() - 2; i += 3)
+				{
+					Intersection* intersection = intersect_ray_triangle(r, verticesVector[j][indicesVector[j][i]].position, verticesVector[j][indicesVector[j][i + 1]].position, verticesVector[j][indicesVector[j][i + 2]].position);
 
-			if (intersection == NULL)
-			{
-				v.isLit = 1.0f;
+					if (intersection == NULL)
+					{
+						v.isLit = 1.0f;
+					}
+					else
+					{
+						v.isLit = 0.0f;
+						break;
+					}
+				}
 			}
-			else
-			{
-				v.isLit = 0.0f;
-				break;
-			}
+
 		}
+		meshes[i]->Update(verticesVector[i]);
 	}
-
-	mesh1.Update(vertices1);
-	mesh2.Update(vertices2);
 }

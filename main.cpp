@@ -167,7 +167,9 @@ int main(void)
     float viewRotAngle = 0;
 
     //createLitVector(verts, lightPos);
-
+    Vector<Mesh*> meshes;
+    meshes.push_back(&mesh);
+    meshes.push_back(&mesh2);
 
     while (!glfwWindowShouldClose(window))
     {
@@ -175,7 +177,8 @@ int main(void)
         renderer.Clear();
         renderer2.Clear();
         renderer3.Clear();
-        createLitVector(mesh, mesh2, lightPos);
+
+        createLitVector(meshes, lightPos);
 
         modelMatrix = glm::translate(glm::mat4(1.0f), translationModel);
         modelMatrix2 = glm::translate(glm::mat4(1.0f), translationModel2);
@@ -227,10 +230,10 @@ int main(void)
         // IMGUI
         ImGui_ImplGlfwGL3_NewFrame();
 
-        ImGui::SliderFloat3("Translation Model 1", &translationModel.x, -960.0f, 960.0f);
-        ImGui::SliderFloat3("Translation Model 2", &translationModel2.x, -960.0f, 960.0f);
+        ImGui::SliderFloat3("Translation Model 1", &translationModel.x, -300.0f, 300.0f);
+        ImGui::SliderFloat3("Translation Model 2", &translationModel2.x, -300.0f, 300.0f);
         ImGui::SliderFloat3("Translation View", &translationView.x, -100.0f, 100.0f);
-        ImGui::SliderFloat3("Light Position", &lightPos.x, -1000.0f, 1000.0f);
+        ImGui::SliderFloat3("Light Position", &lightPos.x, -100.0f, 100.0f);
         ImGui::SliderFloat("Angle of Camera", &viewRotAngle, -90.0f, 90.0f);
         ImGui::SliderFloat("Field of View", &field_of_view, 15.0f, 90.0f);
         ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
