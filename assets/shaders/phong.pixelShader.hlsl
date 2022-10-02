@@ -50,7 +50,7 @@ void main()
 {
 	// outputs final color
 	float depth = logisticDepth(gl_FragCoord.z);
-	FragColor = vec4(vec3(v_IsLit), 1.0f); // * pointLight();
+	FragColor = pointLight();
 }
 
 //////////

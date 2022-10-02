@@ -44,11 +44,11 @@ Intersection* intersect_ray_triangle(Ray* ray, const glm::vec3& V0, const glm::v
 		return NULL;
 
 	d = ray->ori - V0;
-	a = -dot(n, d);
+	a = dot(n, ray->ori) - dot(n, V0);
 	b = dot(n, ray->dir);
 
 	if (fabs(b) < ERROR_TOLERANCE) {     // ray is parallel to triangle plane
-		if (a == 0)                  // case 1: ray lies in triangle plane
+		if ( a == 0 )                  // case 1: ray lies in triangle plane
 			return NULL;
 		else return NULL;               // case 2: ray disjoint from plane
 	}
@@ -61,7 +61,7 @@ Intersection* intersect_ray_triangle(Ray* ray, const glm::vec3& V0, const glm::v
 
 	// intersect point of ray and plane
 
-	intersection = t * (ray->dir + ray->ori);
+	intersection = t * ray->dir + ray->ori;
 
 	// is I inside T?
 
@@ -104,11 +104,16 @@ void createLitVector(Vector<Mesh*>& meshes, glm::vec3 lightPos)
 {
 	Vector<Vector<Vertex>> verticesVector;
 	Vector<Vector<unsigned int>> indicesVector;
+	Vector<glm::mat4> modelMatrices;
+
 
 	for (auto mesh : meshes)
 	{
 		Vector<Vertex> vertices = mesh->getVertices();
 		Vector<unsigned int> indices = mesh->getIndices();
+		glm::mat4 modelMatrix = mesh->getModelMatrix();
+
+		modelMatrices.push_back(modelMatrix);
 		verticesVector.push_back(vertices);
 		indicesVector.push_back(indices);
 	}
@@ -118,25 +123,42 @@ void createLitVector(Vector<Mesh*>& meshes, glm::vec3 lightPos)
 		for (auto&& v : verticesVector[i])
 		{
 			Ray* r = make_ray(v, lightPos);
+			Intersection* nearest_intersection = NULL;
+
+			int nearestJ = 0;
 			for (int j = 0; j < verticesVector.size(); j++)
 			{
 				if (i == j)
 				{
 					continue;
 				}
-				for (int i = 0; i < indicesVector[j].size() - 2; i += 3)
-				{
-					Intersection* intersection = intersect_ray_triangle(r, verticesVector[j][indicesVector[j][i]].position, verticesVector[j][indicesVector[j][i + 1]].position, verticesVector[j][indicesVector[j][i + 2]].position);
 
-					if (intersection == NULL)
+				for (int k = 0; k < indicesVector[j].size() - 2; k += 3)
+				{
+					Intersection* intersection = intersect_ray_triangle(r, verticesVector[j][indicesVector[j][k]].position, verticesVector[j][indicesVector[j][k + 1]].position, verticesVector[j][indicesVector[j][k + 2]].position);
+
+					if ( intersection )
 					{
-						v.isLit = 1.0f;
-					}
-					else
-					{
+						if (!nearest_intersection) 
+						{
+							nearest_intersection = intersection;
+							nearestJ = j;
+						}
+
+						else if (intersection->t < nearest_intersection->t) 
+						{
+							free(nearest_intersection);
+							nearest_intersection = intersection;
+							nearestJ = j;
+						}
+
+						else 
+						{
+							free(intersection);
+						}
+
 						v.isLit = 0.0f;
-						break;
-					}
+					}		
 				}
 			}
 

@@ -24,6 +24,12 @@
 #include "utils/timer.h"
 #include "Intersections.h"
 
+// Camera
+glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 0.0f);
+glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
+glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
+
+void keyCallBack(GLFWwindow* window, int key, int SCANCODE, int action, int mode);
 int main(void)
 {
     GLFWwindow* window;
@@ -44,6 +50,7 @@ int main(void)
     int Width = 640, Height = 400;
     /* Create a windowed mode window and its OpenGL context */
     window = glfwCreateWindow(Width, Height, "Newton", NULL, NULL);
+    glfwSetInputMode(window, GLFW_STICKY_KEYS, 1);
     if (!window)
     {
         glfwTerminate();
@@ -63,11 +70,11 @@ int main(void)
     Vector<Vertex> verts;
     Vector<unsigned int> inds;
 
-    loadOBJ("../assets/obj/0.obj", verts, inds);
+    loadOBJ("../assets/obj/plane.obj", verts, inds);
 
     Vector<Vertex> verts2;
     Vector<unsigned int> inds2;
-    loadOBJ("../assets/obj/0.obj", verts2, inds2);
+    loadOBJ("../assets/obj/plane.obj", verts2, inds2);
 
     GLCall(glEnable(GL_BLEND));
     GLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
@@ -110,20 +117,37 @@ int main(void)
     size_t indSize = q.getIndicesSize();
     size_t posSize = q.getPositionsSize();
     glm::vec4 lightColor(1.0, 1.0, 0.5, 1.0);
-    glm::vec3 lightPos(0, 100, -406);
+    glm::vec3 lightPos(0, 0, -400);
     glm::mat4 lightModel = glm::translate(glm::mat4(1.0f), lightPos);
     
     Shader lightShader("../assets/shaders/basic.vertexShader.hlsl", "../assets/shaders/basic.pixelShader.hlsl");
     lightShader.Bind();
-    Mesh mesh3(verts3, inds3, layout);
-    mesh3.Draw(lightShader, renderer3);
 
-    // Drawing other meshes
-    Mesh mesh2(verts2, inds2, layout);
-    mesh2.Draw(shader2, renderer2);
+    Mesh mesh3(verts3, inds3, layout, lightModel);
+    mesh3.Draw(lightShader, renderer3, lightModel);
 
-    Mesh mesh(verts, inds, layout);
-    mesh.Draw(shader2, renderer);
+    // Drawing other meshes    
+    glm::vec3 translationModel(0, 50, -400); //Default values for optimal viewing
+    glm::vec3 translationModel2(0, 100, -400);
+    glm::vec3 translationView(0, 0, 0);
+
+    glm::mat4 modelMatrix = glm::translate(glm::mat4(1.0f), translationModel);
+    glm::mat4 modelMatrix2 = glm::translate(glm::mat4(1.0f), translationModel2);
+    glm::mat4 viewMatrix = glm::translate(glm::mat4(1.0f), translationView);
+
+    // glm::vec3 translationModel(0, -118.857, -314.019); //Default values for optimal viewing
+    // glm::vec3 translationView(-20, -100, 96.262);
+    // float viewRotAngle = 43.088;
+
+
+    float viewRotAngle = 0;
+    Mesh mesh(verts, inds, layout, modelMatrix);
+    mesh.Draw(shader, renderer, modelMatrix);
+
+    Mesh mesh2(verts2, inds2, layout, modelMatrix2);
+    mesh2.Draw(shader2, renderer2, modelMatrix2);
+
+
 
     Timer timer;
     float time = timer.getTimeMs();
@@ -153,23 +177,15 @@ int main(void)
     float closestDistance = 0.1f;
     float farthestDistance = 500.0f;
 
-    glm::mat4 modelMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0));
-    glm::mat4 modelMatrix2 = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0));
-    glm::mat4 viewMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0));
-
-    // glm::vec3 translationModel(0, -118.857, -314.019); //Default values for optimal viewing
-    // glm::vec3 translationView(-20, -100, 96.262);
-    // float viewRotAngle = 43.088;
-
-    glm::vec3 translationModel(0, 150, -406); //Default values for optimal viewing
-    glm::vec3 translationModel2(0, 200, -406);
-    glm::vec3 translationView(0, -100, 100);
-    float viewRotAngle = 0;
 
     //createLitVector(verts, lightPos);
     Vector<Mesh*> meshes;
     meshes.push_back(&mesh);
     meshes.push_back(&mesh2);
+
+    //createLitVector(meshes, lightPos);
+
+
 
     while (!glfwWindowShouldClose(window))
     {
@@ -177,12 +193,14 @@ int main(void)
         renderer.Clear();
         renderer2.Clear();
         renderer3.Clear();
+        glfwSetKeyCallback(window, keyCallBack);
 
-        createLitVector(meshes, lightPos);
+
+        //createLitVector(meshes, lightPos);
 
         modelMatrix = glm::translate(glm::mat4(1.0f), translationModel);
         modelMatrix2 = glm::translate(glm::mat4(1.0f), translationModel2);
-        viewMatrix = glm::translate(glm::mat4(1.0f), translationView);
+        viewMatrix = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
 
         float rotation = time / 100.0;
         //modelMatrix = glm::rotate(modelMatrix, glm::radians(rotation), glm::vec3(0.0f, 1.0f, 0.0f));
@@ -198,31 +216,28 @@ int main(void)
         projectionMatrix = glm::perspective(glm::radians(field_of_view), aspect, closestDistance, farthestDistance);
 
         shader.SetUniform1f("u_Time", time);
-        shader.SetUniformMat4f("u_Model", modelMatrix);
         shader.SetUniformMat4f("u_View", viewMatrix);
         shader.SetUniformMat4f("u_Proj", projectionMatrix);
         shader.SetUniform4f("lightColor", lightColor);
         shader.SetUniform3f("lightPos", lightPos);
-        mesh.Draw(shader, renderer);
+        mesh.Draw(shader, renderer, modelMatrix);
 
         shader2.Bind();
         shader2.SetUniform1f("u_Time", time);
-        shader2.SetUniformMat4f("u_Model", modelMatrix2);
         shader2.SetUniformMat4f("u_View", viewMatrix);
         shader2.SetUniformMat4f("u_Proj", projectionMatrix);
         shader2.SetUniform4f("lightColor", lightColor);
         shader2.SetUniform3f("lightPos", lightPos);
-        mesh2.Draw(shader2, renderer);
+        mesh2.Draw(shader2, renderer, modelMatrix2);
 
         lightModel = glm::translate(glm::mat4(1.0f), lightPos);
         lightShader.Bind();
         lightShader.SetUniform1f("u_Time", time);
-        lightShader.SetUniformMat4f("u_Model", lightModel);
         lightShader.SetUniformMat4f("u_View", viewMatrix);
         lightShader.SetUniformMat4f("u_Proj", projectionMatrix);
         lightShader.SetUniform4f("lightColor", lightColor);
         lightShader.SetUniform3f("lightPos", lightPos);
-        mesh3.Draw(lightShader, renderer3);
+        mesh3.Draw(lightShader, renderer3, lightModel);
 
 
         
@@ -232,7 +247,7 @@ int main(void)
 
         ImGui::SliderFloat3("Translation Model 1", &translationModel.x, -300.0f, 300.0f);
         ImGui::SliderFloat3("Translation Model 2", &translationModel2.x, -300.0f, 300.0f);
-        ImGui::SliderFloat3("Translation View", &translationView.x, -100.0f, 100.0f);
+        ImGui::SliderFloat3("Translation View", &translationView.x, -300.0f, 300.0f);
         ImGui::SliderFloat3("Light Position", &lightPos.x, -100.0f, 100.0f);
         ImGui::SliderFloat("Angle of Camera", &viewRotAngle, -90.0f, 90.0f);
         ImGui::SliderFloat("Field of View", &field_of_view, 15.0f, 90.0f);
@@ -251,3 +266,16 @@ int main(void)
     glfwTerminate();
     return 0;
 }
+
+void keyCallBack(GLFWwindow* window, int key, int SCANCODE, int action, int mode) {
+    const float cameraSpeed = 5.0f; // adjust accordingly
+    if (key == GLFW_KEY_W) 
+        cameraPos += cameraSpeed * cameraFront;
+    else if (key == GLFW_KEY_S)
+        cameraPos -= cameraSpeed * cameraFront;
+    else if (key == GLFW_KEY_A)
+        cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+    else if (key == GLFW_KEY_D)
+        cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+}
+
