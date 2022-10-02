@@ -2,6 +2,7 @@
 
 #include <glm/glm.hpp>
 #include "VertexBuffer.h"
+#include "Mesh.h"
 
 #define ERROR_TOLERANCE  0.00000001
 
@@ -99,9 +100,10 @@ Ray* make_ray(Vertex v, const glm::vec3& lightPos)
 	return r;
 }
 
-void createLitVector(Vector<Vertex>& vertices1, Vector<Vertex>& vertices2, glm::vec3 lightPos)
+void createLitVector(Mesh& mesh1, Mesh& mesh2, glm::vec3 lightPos)
 {
-
+	Vector<Vertex> vertices1 = mesh1.getVertices();
+	Vector<Vertex> vertices2 = mesh2.getVertices();
 	for (auto&& v : vertices1)
 	{
 		Ray* r = make_ray(v, lightPos);
@@ -139,4 +141,7 @@ void createLitVector(Vector<Vertex>& vertices1, Vector<Vertex>& vertices2, glm::
 			}
 		}
 	}
+
+	mesh1.Update(vertices1);
+	mesh2.Update(vertices2);
 }

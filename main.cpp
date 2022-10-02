@@ -63,7 +63,7 @@ int main(void)
     Vector<Vertex> verts;
     Vector<unsigned int> inds;
 
-    loadOBJ("../assets/obj/monkey.obj", verts, inds);
+    loadOBJ("../assets/obj/0.obj", verts, inds);
 
     Vector<Vertex> verts2;
     Vector<unsigned int> inds2;
@@ -161,13 +161,13 @@ int main(void)
     // glm::vec3 translationView(-20, -100, 96.262);
     // float viewRotAngle = 43.088;
 
-    glm::vec3 translationModel(0, 0, -406); //Default values for optimal viewing
+    glm::vec3 translationModel(0, 150, -406); //Default values for optimal viewing
     glm::vec3 translationModel2(0, 200, -406);
     glm::vec3 translationView(0, -100, 100);
     float viewRotAngle = 0;
 
     //createLitVector(verts, lightPos);
-    createLitVector(verts, verts2, lightPos);
+
 
     while (!glfwWindowShouldClose(window))
     {
@@ -175,6 +175,7 @@ int main(void)
         renderer.Clear();
         renderer2.Clear();
         renderer3.Clear();
+        createLitVector(mesh, mesh2, lightPos);
 
         modelMatrix = glm::translate(glm::mat4(1.0f), translationModel);
         modelMatrix2 = glm::translate(glm::mat4(1.0f), translationModel2);
@@ -226,7 +227,8 @@ int main(void)
         // IMGUI
         ImGui_ImplGlfwGL3_NewFrame();
 
-        ImGui::SliderFloat3("Translation Model", &translationModel.x, -960.0f, 960.0f);
+        ImGui::SliderFloat3("Translation Model 1", &translationModel.x, -960.0f, 960.0f);
+        ImGui::SliderFloat3("Translation Model 2", &translationModel2.x, -960.0f, 960.0f);
         ImGui::SliderFloat3("Translation View", &translationView.x, -100.0f, 100.0f);
         ImGui::SliderFloat3("Light Position", &lightPos.x, -1000.0f, 1000.0f);
         ImGui::SliderFloat("Angle of Camera", &viewRotAngle, -90.0f, 90.0f);

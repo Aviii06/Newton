@@ -10,6 +10,19 @@ Mesh::Mesh(Vector<Vertex>& verts, Vector<unsigned int>& inds, VertexBufferLayout
     Mesh::m_Layout = layout;
 }
 
+void Mesh::Update(const Vector<Vertex>& verts)
+{
+    for (int i = 0 ; i < verts.size() ; i++)
+    {
+        m_Vertices[i].isLit = verts[i].isLit;
+    }
+}
+
+Vector<Vertex> Mesh::getVertices()
+{
+    return Mesh::m_Vertices;
+}
+
 void Mesh::Draw(Shader& shader, Renderer& renderer)
 {
     VertexBuffer vbo(m_Vertices);

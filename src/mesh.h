@@ -21,6 +21,8 @@ public:
 	// Initializes the mesh
 	Mesh(std::vector <Vertex>& vertices, std::vector <unsigned int>& indices, VertexBufferLayout layout);
 
+	void Update(const Vector<Vertex>& vertices);
+	Vector<Vertex> getVertices();
 	// Draws the mesh
 	void Draw(Shader& shader, Renderer& renderer);
 };
