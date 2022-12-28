@@ -1,5 +1,7 @@
 #pragma once
 #include <stddef.h>
+#include "../common/types.h"
+#include "VertexBuffer.h"
 
 namespace shape{
     class quad3d;
@@ -10,12 +12,12 @@ namespace shape{
 class shape::quad3d{
 private:
     float m_Size;
-    float m_Pos[8*8];
-    unsigned int m_Ind[12*3];
+    Vector<Vertex> m_Pos;
+    Vector<unsigned int> m_Ind;
 public:
     quad3d(int size);
-    float* getPositions();
-    unsigned int* getIndices();
+    Vector<Vertex>& getPositions();
+    Vector<unsigned int>& getIndices();
     size_t getPositionsSize();
     size_t getIndicesSize();
 };

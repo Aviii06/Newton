@@ -17,14 +17,22 @@
 #include "Texture.h"
 #include "Shapes.h"
 #include "OBJLoader.h"
+#include "Mesh.h"
 
-#include "glm/glm.hpp"
+#include <glm/glm.hpp>
 #include "glm/gtc/matrix_transform.hpp"
 #include "utils/timer.h"
+#include "Intersections.h"
 
+// Camera
+glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 0.0f);
+glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
+glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
+
+void keyCallBack(GLFWwindow* window, int key, int SCANCODE, int action, int mode);
 int main(void)
 {
-    GLFWwindow *window;
+    GLFWwindow* window;
 
     /* Initialize the library */
     if (!glfwInit())
@@ -42,6 +50,7 @@ int main(void)
     int Width = 640, Height = 400;
     /* Create a windowed mode window and its OpenGL context */
     window = glfwCreateWindow(Width, Height, "Newton", NULL, NULL);
+    glfwSetInputMode(window, GLFW_STICKY_KEYS, 1);
     if (!window)
     {
         glfwTerminate();
@@ -57,109 +66,88 @@ int main(void)
     {
         std::cout << "F";
     }
+    
+    Vector<Vertex> verts;
+    Vector<unsigned int> inds;
 
-    // Postions of the vertex
-    float size = 100.0f;
-    // float positions[] = {
-    //     -size, size, -size,         0.0, 0.0,           0.1, 0.3, 0.8,
-    //     size, size, -size,          1.0, 0.0,           0.8, 0.44, 0.32,
-    //     -size, -size, -size,        1.0, 1.0,           0.12, 0.5, 0.21,
-    //     size, -size, -size,         0.0, 1.0,           0.144, 0.33, 0.48, 
-    //     -size, size, size,          0.0, 0.0,           0.52, 0.23, 0.21,
-    //     size, size, size,           1.0, 0.0,           0.25, 0.43, 0.71,   
-    //     -size, -size, size,         1.0, 1.0,           0.56, 0.35, 0.19,
-    //     size, -size, size,          0.0, 1.0,           0.34, 0.31, 0.43,
-    // };
-    // unsigned int indices[] = {
-    //     0, 1, 2, // Side 0
-    //     2, 1, 3,
-    //     4, 0, 6, // Side 1
-    //     6, 0, 2,
-    //     7, 5, 6, // Side 2
-    //     6, 5, 4,
-    //     3, 1, 7, // Side 3 
-    //     7, 1, 5,
-    //     4, 5, 0, // Side 4 
-    //     0, 5, 1,
-    //     3, 7, 2, // Side 5 
-    //     2, 7, 6
-    // };
+    loadOBJ("../assets/obj/plane.obj", verts, inds);
 
-    // shape::quad3d q(size);
-    // float* positions = q.getPositions();
-    // unsigned int* indices = q.getIndices();
-    // size_t indSize = q.getIndicesSize();
-    // size_t posSize = q.getPositionsSize();
-    float gridSize = 100.0;
+    Vector<Vertex> verts2;
+    Vector<unsigned int> inds2;
+    loadOBJ("../assets/obj/plane.obj", verts2, inds2);
 
-    Vector<float> pos;
-    Vector<float> texcoord;
-    Vector<unsigned int> ind;
-
-    loadOBJ("../assets/obj/monkey.obj", pos, texcoord, ind);
-
-    float positions[(pos.size() * 8)/ 3];
-
-    int j = 0;
-    for(int i=0; i<(pos.size() * 8)/ 3; i += 8)
-    {
-        // positions
-        positions[i] = pos[j] ;
-        positions[i+1] = pos[j+1];
-        positions[i+2] = pos[j+2];
-
-        // TexCoords
-        positions[i+3] = 1.0;
-        positions[i+4] = 0.0;
-
-        // Colors
-        positions[i+5] = 1.0; //i * 3.0f / ( pos.size() * 8 ) ;
-        positions[i+6] = 1.0; //1 - i * 3.0f / ( pos.size() * 8 );
-        positions[i+7] = 1.0;
-
-        j += 3;
-    }
-
-    for(int i = 0; i < sizeof(positions) / sizeof(positions[0]); i+=8)
-    {
-        positions[i] *= gridSize;
-        positions[i+1] *= gridSize;
-        positions[i+2] *= gridSize;
-    }
-
-    j = 0;
-
-    unsigned int indices[ind.size()];
-    for(auto x : ind)
-    {
-        indices[j] = x - 1;
-        j++;
-    }
-
-    size_t indSize = sizeof(indices) / sizeof(indices[0]);
-    size_t posSize = sizeof(positions);  
-
-    VertexArray va;
-    VertexBuffer vb(positions, posSize);
-
-    IndexBuffer ib(indices, indSize);
-
-    GLCall( glEnable(GL_BLEND) );
-    GLCall( glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA) );
+    GLCall(glEnable(GL_BLEND));
+    GLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
     // GLCall( glEnable(GL_CULL_FACE) );
 
     VertexBufferLayout layout;
     layout.AddFloat(3); // Positions
     layout.AddFloat(2); // Tex coords
     layout.AddFloat(3); // Colors
+    layout.AddFloat(3); // Normal
+    layout.AddFloat(1); // isLit
 
-    va.AddBuffer(vb, layout);
+    Renderer renderer;
+    Renderer renderer2;
+    Renderer renderer3;
 
-    Shader shader("../assets/shaders/Basic.vertexShader.hlsl", "../assets/shaders/basic.pixelShader.hlsl");
+    Shader shader("../assets/shaders/phong.vertexShader.hlsl", "../assets/shaders/phong.pixelShader.hlsl");
     shader.Bind();
+
+    Shader shader2("../assets/shaders/phong.vertexShader.hlsl", "../assets/shaders/phong.pixelShader.hlsl");
+    shader2.Bind();
 
     Texture texture("../assets/textures/mandelbrot.png");
     texture.Bind();
+
+    Texture texture2("../assets/textures/mandelbrot.png");
+    texture2.Bind();
+
+    Vector<Texture> textures;
+    textures.push_back(texture);
+
+    Vector<Texture> textures2;
+    textures2.push_back(texture2);
+
+    // Light Info
+    float size = 10.0f;
+    shape::quad3d q(size);
+    Vector<Vertex> verts3 = q.getPositions();
+    Vector<unsigned int> inds3 = q.getIndices();
+    size_t indSize = q.getIndicesSize();
+    size_t posSize = q.getPositionsSize();
+    glm::vec4 lightColor(1.0, 1.0, 0.5, 1.0);
+    glm::vec3 lightPos(0, 0, -400);
+    glm::mat4 lightModel = glm::translate(glm::mat4(1.0f), lightPos);
+    
+    Shader lightShader("../assets/shaders/basic.vertexShader.hlsl", "../assets/shaders/basic.pixelShader.hlsl");
+    lightShader.Bind();
+
+    Mesh mesh3(verts3, inds3, layout, lightModel);
+    mesh3.Draw(lightShader, renderer3, lightModel);
+
+    // Drawing other meshes    
+    glm::vec3 translationModel(0, 50, -400); //Default values for optimal viewing
+    glm::vec3 translationModel2(0, 100, -400);
+    glm::vec3 translationView(0, 0, 0);
+
+    glm::mat4 modelMatrix = glm::translate(glm::mat4(1.0f), translationModel);
+    glm::mat4 modelMatrix2 = glm::translate(glm::mat4(1.0f), translationModel2);
+    glm::mat4 viewMatrix = glm::translate(glm::mat4(1.0f), translationView);
+
+    // glm::vec3 translationModel(0, -118.857, -314.019); //Default values for optimal viewing
+    // glm::vec3 translationView(-20, -100, 96.262);
+    // float viewRotAngle = 43.088;
+
+
+    float viewRotAngle = 0;
+    Mesh mesh(verts, inds, layout, modelMatrix);
+    mesh.Draw(shader, renderer, modelMatrix);
+
+    Mesh mesh2(verts2, inds2, layout, modelMatrix2);
+    mesh2.Draw(shader2, renderer2, modelMatrix2);
+
+
 
     Timer timer;
     float time = timer.getTimeMs();
@@ -167,11 +155,13 @@ int main(void)
     //Shader
     shader.SetUniform1i("u_Texture", 0);
     shader.SetUniform1f("u_Time", time);
+    shader2.SetUniform1i("u_Texture", 0);
+    shader2.SetUniform1f("u_Time", time);
 
-    float aspect = (float)Width/Height;
+
+    float aspect = (float)Width / Height;
     shader.SetUniform1f("u_Aspect", aspect);
-
-    Renderer renderer;
+    shader2.SetUniform1f("u_Aspect", aspect);
 
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
@@ -180,54 +170,85 @@ int main(void)
 
     //MVP matrix 
     glm::mat4 projectionMatrix = glm::ortho(0.0f, (float)Width,
-                                            0.0f, (float)Height,
-                                             -1.0f, 1.0f);
-    
-    float field_of_view = 45.0f;
+        0.0f, (float)Height,
+        -1.0f, 1.0f);
+
+    float field_of_view = 60.0f;
     float closestDistance = 0.1f;
     float farthestDistance = 500.0f;
-    
-    glm::mat4 modelMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(0,0,0));
-    glm::mat4 viewMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(0,0,0));
 
-    // glm::vec3 translationModel(0, -118.857, -314.019); //Default values for optimal viewing
-    // glm::vec3 translationView(-20, -100, 96.262);
-    // float viewRotAngle = 43.088;
-    
-    glm::vec3 translationModel(0,0,-406); //Default values for optimal viewing
-    glm::vec3 translationView(0,0,100);
-    float viewRotAngle =0;
+
+    //createLitVector(verts, lightPos);
+    Vector<Mesh*> meshes;
+    meshes.push_back(&mesh);
+    meshes.push_back(&mesh2);
+
+    //createLitVector(meshes, lightPos);
+
+
 
     while (!glfwWindowShouldClose(window))
     {
         /* Render here */
         renderer.Clear();
+        renderer2.Clear();
+        renderer3.Clear();
+        glfwSetKeyCallback(window, keyCallBack);
+
+
+        //createLitVector(meshes, lightPos);
 
         modelMatrix = glm::translate(glm::mat4(1.0f), translationModel);
-        viewMatrix = glm::translate(glm::mat4(1.0f), translationView);
-        
-        float rotation = time/100.0;
-        modelMatrix = glm::rotate(modelMatrix,  glm::radians(rotation), glm::vec3(0.0f, 1.0f, 0.0f));
+        modelMatrix2 = glm::translate(glm::mat4(1.0f), translationModel2);
+        viewMatrix = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
+
+        float rotation = time / 100.0;
+        //modelMatrix = glm::rotate(modelMatrix, glm::radians(rotation), glm::vec3(0.0f, 1.0f, 0.0f));
+        //modelMatrix2 = glm::rotate(modelMatrix2, glm::radians(rotation), glm::vec3(0.0f, 1.0f, 0.0f));
+
         viewMatrix = glm::rotate(viewMatrix, glm::radians(viewRotAngle), glm::vec3(1.0f, 0.0f, 0.0f));
 
         shader.Bind();
         shader.SetUniform4f("u_Color", 0.1, 0.3, 0.8, 1.0);
+        shader2.SetUniform4f("u_Color", 0.1, 0.3, 0.8, 1.0);
         time = timer.getTimeMs();
 
         projectionMatrix = glm::perspective(glm::radians(field_of_view), aspect, closestDistance, farthestDistance);
-            
+
         shader.SetUniform1f("u_Time", time);
-        shader.SetUniformMat4f("u_Model", modelMatrix);
         shader.SetUniformMat4f("u_View", viewMatrix);
         shader.SetUniformMat4f("u_Proj", projectionMatrix);
+        shader.SetUniform4f("lightColor", lightColor);
+        shader.SetUniform3f("lightPos", lightPos);
+        mesh.Draw(shader, renderer, modelMatrix);
 
-        renderer.Draw(va, ib, shader);
+        shader2.Bind();
+        shader2.SetUniform1f("u_Time", time);
+        shader2.SetUniformMat4f("u_View", viewMatrix);
+        shader2.SetUniformMat4f("u_Proj", projectionMatrix);
+        shader2.SetUniform4f("lightColor", lightColor);
+        shader2.SetUniform3f("lightPos", lightPos);
+        mesh2.Draw(shader2, renderer, modelMatrix2);
+
+        lightModel = glm::translate(glm::mat4(1.0f), lightPos);
+        lightShader.Bind();
+        lightShader.SetUniform1f("u_Time", time);
+        lightShader.SetUniformMat4f("u_View", viewMatrix);
+        lightShader.SetUniformMat4f("u_Proj", projectionMatrix);
+        lightShader.SetUniform4f("lightColor", lightColor);
+        lightShader.SetUniform3f("lightPos", lightPos);
+        mesh3.Draw(lightShader, renderer3, lightModel);
+
+
         
+
         // IMGUI
         ImGui_ImplGlfwGL3_NewFrame();
 
-        ImGui::SliderFloat3("Translation Model", &translationModel.x, -960.0f, 960.0f);
-        ImGui::SliderFloat3("Translation View", &translationView.x, -100.0f, 100.0f);
+        ImGui::SliderFloat3("Translation Model 1", &translationModel.x, -300.0f, 300.0f);
+        ImGui::SliderFloat3("Translation Model 2", &translationModel2.x, -300.0f, 300.0f);
+        ImGui::SliderFloat3("Translation View", &translationView.x, -300.0f, 300.0f);
+        ImGui::SliderFloat3("Light Position", &lightPos.x, -100.0f, 100.0f);
         ImGui::SliderFloat("Angle of Camera", &viewRotAngle, -90.0f, 90.0f);
         ImGui::SliderFloat("Field of View", &field_of_view, 15.0f, 90.0f);
         ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
@@ -245,3 +266,16 @@ int main(void)
     glfwTerminate();
     return 0;
 }
+
+void keyCallBack(GLFWwindow* window, int key, int SCANCODE, int action, int mode) {
+    const float cameraSpeed = 5.0f; // adjust accordingly
+    if (key == GLFW_KEY_W) 
+        cameraPos += cameraSpeed * cameraFront;
+    else if (key == GLFW_KEY_S)
+        cameraPos -= cameraSpeed * cameraFront;
+    else if (key == GLFW_KEY_A)
+        cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+    else if (key == GLFW_KEY_D)
+        cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+}
+

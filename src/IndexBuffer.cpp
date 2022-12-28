@@ -1,14 +1,14 @@
 #include "IndexBuffer.h"
 #include "Renderer.h"
 
-IndexBuffer::IndexBuffer(const unsigned int* data, unsigned int count)
-    : m_Count(count)
+IndexBuffer::IndexBuffer(Vector<unsigned int>& indices)
+    : m_Count(indices.size())
 {
-    ASSERT(sizeof(unsigned int) == sizeof(GLuint));
+    ASSERT(sizeof(unsigned int) == sizeof(unsigned int));
 
     GLCall(glGenBuffers(1, &m_RendererID));                      // creating a buffer
     GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_RendererID)); // binding the buffer
-    GLCall(glBufferData(GL_ELEMENT_ARRAY_BUFFER, count * sizeof(unsigned int), data, GL_STATIC_DRAW));
+    GLCall(glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), indices.data(), GL_STATIC_DRAW));
 }
 IndexBuffer::~IndexBuffer()
 {

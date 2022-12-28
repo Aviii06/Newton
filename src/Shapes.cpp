@@ -3,19 +3,54 @@
 namespace shape{
     quad3d::quad3d(int size)
     {
-        m_Size = (float)size;
-        float pos[] = {
-            -m_Size, m_Size, -m_Size,         0.0, 0.0,           0.1, 0.3, 0.8,
-            m_Size, m_Size, -m_Size,          1.0, 0.0,           0.8, 0.44, 0.32,
-            -m_Size, -m_Size, -m_Size,        1.0, 1.0,           0.12, 0.5, 0.21,
-            m_Size, -m_Size, -m_Size,         0.0, 1.0,           0.144, 0.33, 0.48, 
-            -m_Size, m_Size, m_Size,          0.0, 0.0,           0.52, 0.23, 0.21,
-            m_Size, m_Size, m_Size,           1.0, 0.0,           0.25, 0.43, 0.71,   
-            -m_Size, -m_Size, m_Size,         1.0, 1.0,           0.56, 0.35, 0.19,
-            m_Size, -m_Size, m_Size,          0.0, 1.0,           0.34, 0.31, 0.43,
-        }; 
+        quad3d::m_Size = (float)size; 
+        const float const_Size = m_Size;
 
-        unsigned int ind[] = {
+        glm::vec3 pos[8] = {
+            glm::vec3(-const_Size, const_Size, -const_Size),
+            glm::vec3(const_Size, const_Size, -const_Size),
+            glm::vec3(-const_Size,-const_Size, -const_Size),
+            glm::vec3(const_Size, -const_Size, -const_Size),
+            glm::vec3(-const_Size, const_Size, const_Size),
+            glm::vec3(const_Size, const_Size, const_Size),
+            glm::vec3(-const_Size, -const_Size, const_Size),
+            glm::vec3(const_Size, -const_Size, const_Size),
+        };
+
+        glm::vec2 tex[8] = {
+            glm::vec2(0.0, 0.0),
+            glm::vec2(1.0, 0.0),
+            glm::vec2(1.0, 1.0),
+            glm::vec2(0.0, 1.0),
+            glm::vec2(0.0, 0.0),
+            glm::vec2(1.0, 0.0),
+            glm::vec2(1.0, 1.0),
+            glm::vec2(0.0, 1.0),
+        };
+
+        glm::vec3 color[8] = {
+            glm::vec3(1.0, 1.0, 1.0),
+            glm::vec3(1.0, 1.0, 1.0),
+            glm::vec3(1.0, 1.0, 1.0),
+            glm::vec3(1.0, 1.0, 1.0),
+            glm::vec3(1.0, 1.0, 1.0),
+            glm::vec3(1.0, 1.0, 1.0),
+            glm::vec3(1.0, 1.0, 1.0),
+            glm::vec3(1.0, 1.0, 1.0),
+        };
+
+        glm::vec3 normal[8] = {
+            glm::vec3(1.0, 1.0, 1.0),
+            glm::vec3(1.0, 1.0, 1.0),
+            glm::vec3(1.0, 1.0, 1.0),
+            glm::vec3(1.0, 1.0, 1.0),
+            glm::vec3(1.0, 1.0, 1.0),
+            glm::vec3(1.0, 1.0, 1.0),
+            glm::vec3(1.0, 1.0, 1.0),
+            glm::vec3(1.0, 1.0, 1.0),
+        };
+
+        unsigned int ind[12 * 3] = {
             0, 1, 2, // Side 0
             2, 1, 3,
             4, 0, 6, // Side 1
@@ -29,16 +64,20 @@ namespace shape{
             3, 7, 2, // Side 5
             2, 7, 6
         };
-        
 
-        int i = 0;
-        for(auto x: pos)
+        m_Pos.resize(8, Vertex());
+        m_Ind.resize(12 * 3, unsigned int());
+        
+        for(int i = 0; i < 8; i++)
         {
-            m_Pos[i] = x;
-            i++;
+            m_Pos[i].position = pos[i];
+            m_Pos[i].texcoord = tex[i];
+            m_Pos[i].color = color[i];
+            m_Pos[i].normal = normal[i];
+            m_Pos[i].isLit = 1.0f;
         }
         
-        i = 0;
+        int i = 0;
         for(auto x: ind)
         {
             m_Ind[i] = x;
@@ -47,8 +86,8 @@ namespace shape{
 
     }
 
-    float* quad3d::getPositions() { return m_Pos; }   
-    unsigned int* quad3d::getIndices() { return m_Ind; }   
+    Vector<Vertex>& quad3d::getPositions() { return m_Pos; }
+    Vector<unsigned int>& quad3d::getIndices() { return m_Ind; }   
 
     size_t quad3d::getPositionsSize() { return sizeof(m_Pos); }
     size_t quad3d::getIndicesSize() { return sizeof(m_Ind)/sizeof(m_Ind[0]); }

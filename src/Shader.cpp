@@ -55,9 +55,19 @@ void Shader::SetUniform1f(const std::string &name, float value)
     GLCall(glUniform1f(GetUniformLocation(name), value));
 }
 
+void Shader::SetUniform3f(const std::string& name, glm::vec3& value)
+{
+    GLCall(glUniform3f(GetUniformLocation(name), (GLfloat)value.x, (GLfloat)value.y, (GLfloat)value.z));
+}
+
 void Shader::SetUniform4f(const std::string &name, float f0, float f1, float f2, float f3)
 {
     GLCall(glUniform4f(GetUniformLocation(name), f0, f1, f2, f3));
+}
+
+void Shader::SetUniform4f(const std::string& name, const glm::vec4& matrix)
+{
+    GLCall(glUniform4f(GetUniformLocation(name), matrix.x, matrix.y, matrix.z, matrix.w));
 }
 
 void Shader::SetUniformMat4f(const std::string &name, const glm::mat4& matrix)
