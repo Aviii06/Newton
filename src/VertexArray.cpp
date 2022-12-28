@@ -1,6 +1,6 @@
 #include "VertexArray.h"
-#include "../utils/error.h"
-#include "../common/types.h"
+#include "utils/error.h"
+#include "common/types.h"
 
 VertexArray::VertexArray()
 {

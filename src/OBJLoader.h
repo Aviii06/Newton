@@ -9,7 +9,7 @@
 
 #include<GL/GLEW.h>
 
-#include "../common/types.h"
+#include "common/types.h"
 #include "VertexBuffer.h"
 #include <glm/glm.hpp>
 

@@ -1,7 +1,7 @@
 #ifndef vertexbuffer
 #define vertexbuffer
 #include<glm/glm.hpp>
-#include "../common/types.h"
+#include "common/types.h"
 
 // Structure to standardize the vertices used in the meshes
 struct Vertex

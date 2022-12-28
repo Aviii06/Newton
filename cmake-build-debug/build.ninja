@@ -1,0 +1,1423 @@
+## This file contains all the build statements describing the
+# compilation DAG.
+
+# =============================================================================
+# Write statements declared in CMakeLists.txt:
+# 
+# Which is the root file.
+# =============================================================================
+
+# =============================================================================
+# Project: Newton
+# Configurations: Debug
+# =============================================================================
+
+#############################################
+# Minimal version of Ninja required by this file
+
+ninja_required_version = 1.5
+
+
+#############################################
+# Set configuration variable for custom commands.
+
+CONFIGURATION = Debug
+# =============================================================================
+# Include auxiliary files.
+
+
+#############################################
+# Include rules file.
+
+include CMakeFiles/rules.ninja
+
+# =============================================================================
+
+#############################################
+# Logical path to working directory; prefix for absolute paths.
+
+cmake_ninja_workdir = /Users/avi/Newton/cmake-build-debug/
+
+#############################################
+# Utility command for edit_cache
+
+build CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/avi/Newton/cmake-build-debug && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+  DESC = No interactive CMake dialog available...
+  restat = 1
+
+build edit_cache: phony CMakeFiles/edit_cache.util
+
+
+#############################################
+# Utility command for rebuild_cache
+
+build CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/avi/Newton/cmake-build-debug && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake --regenerate-during-build -S/Users/avi/Newton -B/Users/avi/Newton/cmake-build-debug
+  DESC = Running CMake to regenerate build system...
+  pool = console
+  restat = 1
+
+build rebuild_cache: phony CMakeFiles/rebuild_cache.util
+
+
+#############################################
+# Utility command for list_install_components
+
+build list_install_components: phony
+
+
+#############################################
+# Utility command for install
+
+build CMakeFiles/install.util: CUSTOM_COMMAND all
+  COMMAND = cd /Users/avi/Newton/cmake-build-debug && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -P cmake_install.cmake
+  DESC = Install the project...
+  pool = console
+  restat = 1
+
+build install: phony CMakeFiles/install.util
+
+
+#############################################
+# Utility command for install/local
+
+build CMakeFiles/install/local.util: CUSTOM_COMMAND all
+  COMMAND = cd /Users/avi/Newton/cmake-build-debug && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+  DESC = Installing only the local directory...
+  pool = console
+  restat = 1
+
+build install/local: phony CMakeFiles/install/local.util
+
+
+#############################################
+# Utility command for install/strip
+
+build CMakeFiles/install/strip.util: CUSTOM_COMMAND all
+  COMMAND = cd /Users/avi/Newton/cmake-build-debug && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+  DESC = Installing the project stripped...
+  pool = console
+  restat = 1
+
+build install/strip: phony CMakeFiles/install/strip.util
+
+# =============================================================================
+# Write statements declared in CMakeLists.txt:
+# /Users/avi/Newton/CMakeLists.txt
+# =============================================================================
+
+
+#############################################
+# Utility command for edit_cache
+
+build vendor/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/avi/Newton/cmake-build-debug/vendor && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+  DESC = No interactive CMake dialog available...
+  restat = 1
+
+build vendor/edit_cache: phony vendor/CMakeFiles/edit_cache.util
+
+
+#############################################
+# Utility command for rebuild_cache
+
+build vendor/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/avi/Newton/cmake-build-debug/vendor && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake --regenerate-during-build -S/Users/avi/Newton -B/Users/avi/Newton/cmake-build-debug
+  DESC = Running CMake to regenerate build system...
+  pool = console
+  restat = 1
+
+build vendor/rebuild_cache: phony vendor/CMakeFiles/rebuild_cache.util
+
+
+#############################################
+# Utility command for list_install_components
+
+build vendor/list_install_components: phony
+
+
+#############################################
+# Utility command for install
+
+build vendor/CMakeFiles/install.util: CUSTOM_COMMAND vendor/all
+  COMMAND = cd /Users/avi/Newton/cmake-build-debug/vendor && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -P cmake_install.cmake
+  DESC = Install the project...
+  pool = console
+  restat = 1
+
+build vendor/install: phony vendor/CMakeFiles/install.util
+
+
+#############################################
+# Utility command for install/local
+
+build vendor/CMakeFiles/install/local.util: CUSTOM_COMMAND vendor/all
+  COMMAND = cd /Users/avi/Newton/cmake-build-debug/vendor && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+  DESC = Installing only the local directory...
+  pool = console
+  restat = 1
+
+build vendor/install/local: phony vendor/CMakeFiles/install/local.util
+
+
+#############################################
+# Utility command for install/strip
+
+build vendor/CMakeFiles/install/strip.util: CUSTOM_COMMAND vendor/all
+  COMMAND = cd /Users/avi/Newton/cmake-build-debug/vendor && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+  DESC = Installing the project stripped...
+  pool = console
+  restat = 1
+
+build vendor/install/strip: phony vendor/CMakeFiles/install/strip.util
+
+# =============================================================================
+# Write statements declared in CMakeLists.txt:
+# /Users/avi/Newton/vendor/CMakeLists.txt
+# =============================================================================
+
+
+#############################################
+# Utility command for edit_cache
+
+build vendor/glfw/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/avi/Newton/cmake-build-debug/vendor/glfw && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+  DESC = No interactive CMake dialog available...
+  restat = 1
+
+build vendor/glfw/edit_cache: phony vendor/glfw/CMakeFiles/edit_cache.util
+
+
+#############################################
+# Utility command for rebuild_cache
+
+build vendor/glfw/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/avi/Newton/cmake-build-debug/vendor/glfw && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake --regenerate-during-build -S/Users/avi/Newton -B/Users/avi/Newton/cmake-build-debug
+  DESC = Running CMake to regenerate build system...
+  pool = console
+  restat = 1
+
+build vendor/glfw/rebuild_cache: phony vendor/glfw/CMakeFiles/rebuild_cache.util
+
+
+#############################################
+# Utility command for list_install_components
+
+build vendor/glfw/list_install_components: phony
+
+
+#############################################
+# Utility command for install
+
+build vendor/glfw/CMakeFiles/install.util: CUSTOM_COMMAND vendor/glfw/all
+  COMMAND = cd /Users/avi/Newton/cmake-build-debug/vendor/glfw && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -P cmake_install.cmake
+  DESC = Install the project...
+  pool = console
+  restat = 1
+
+build vendor/glfw/install: phony vendor/glfw/CMakeFiles/install.util
+
+
+#############################################
+# Utility command for install/local
+
+build vendor/glfw/CMakeFiles/install/local.util: CUSTOM_COMMAND vendor/glfw/all
+  COMMAND = cd /Users/avi/Newton/cmake-build-debug/vendor/glfw && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+  DESC = Installing only the local directory...
+  pool = console
+  restat = 1
+
+build vendor/glfw/install/local: phony vendor/glfw/CMakeFiles/install/local.util
+
+
+#############################################
+# Utility command for install/strip
+
+build vendor/glfw/CMakeFiles/install/strip.util: CUSTOM_COMMAND vendor/glfw/all
+  COMMAND = cd /Users/avi/Newton/cmake-build-debug/vendor/glfw && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+  DESC = Installing the project stripped...
+  pool = console
+  restat = 1
+
+build vendor/glfw/install/strip: phony vendor/glfw/CMakeFiles/install/strip.util
+
+# =============================================================================
+# Write statements declared in CMakeLists.txt:
+# /Users/avi/Newton/vendor/glfw/CMakeLists.txt
+# =============================================================================
+
+# =============================================================================
+# Object build statements for STATIC_LIBRARY target glfw
+
+
+#############################################
+# Order-only phony target for glfw
+
+build cmake_object_order_depends_target_glfw: phony || vendor/glfw/src/CMakeFiles/glfw.dir
+
+build vendor/glfw/src/CMakeFiles/glfw.dir/context.c.o: C_COMPILER__glfw_Debug /Users/avi/Newton/vendor/glfw/src/context.c || cmake_object_order_depends_target_glfw
+  DEFINES = -D_GLFW_COCOA
+  DEP_FILE = vendor/glfw/src/CMakeFiles/glfw.dir/context.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -fPIC -fcolor-diagnostics -Wall -std=c99
+  INCLUDES = -I/Users/avi/Newton/vendor/glfw/include -I/Users/avi/Newton/vendor/glfw/src -I/Users/avi/Newton/cmake-build-debug/vendor/glfw/src
+  OBJECT_DIR = vendor/glfw/src/CMakeFiles/glfw.dir
+  OBJECT_FILE_DIR = vendor/glfw/src/CMakeFiles/glfw.dir
+
+build vendor/glfw/src/CMakeFiles/glfw.dir/init.c.o: C_COMPILER__glfw_Debug /Users/avi/Newton/vendor/glfw/src/init.c || cmake_object_order_depends_target_glfw
+  DEFINES = -D_GLFW_COCOA
+  DEP_FILE = vendor/glfw/src/CMakeFiles/glfw.dir/init.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -fPIC -fcolor-diagnostics -Wall -std=c99
+  INCLUDES = -I/Users/avi/Newton/vendor/glfw/include -I/Users/avi/Newton/vendor/glfw/src -I/Users/avi/Newton/cmake-build-debug/vendor/glfw/src
+  OBJECT_DIR = vendor/glfw/src/CMakeFiles/glfw.dir
+  OBJECT_FILE_DIR = vendor/glfw/src/CMakeFiles/glfw.dir
+
+build vendor/glfw/src/CMakeFiles/glfw.dir/input.c.o: C_COMPILER__glfw_Debug /Users/avi/Newton/vendor/glfw/src/input.c || cmake_object_order_depends_target_glfw
+  DEFINES = -D_GLFW_COCOA
+  DEP_FILE = vendor/glfw/src/CMakeFiles/glfw.dir/input.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -fPIC -fcolor-diagnostics -Wall -std=c99
+  INCLUDES = -I/Users/avi/Newton/vendor/glfw/include -I/Users/avi/Newton/vendor/glfw/src -I/Users/avi/Newton/cmake-build-debug/vendor/glfw/src
+  OBJECT_DIR = vendor/glfw/src/CMakeFiles/glfw.dir
+  OBJECT_FILE_DIR = vendor/glfw/src/CMakeFiles/glfw.dir
+
+build vendor/glfw/src/CMakeFiles/glfw.dir/monitor.c.o: C_COMPILER__glfw_Debug /Users/avi/Newton/vendor/glfw/src/monitor.c || cmake_object_order_depends_target_glfw
+  DEFINES = -D_GLFW_COCOA
+  DEP_FILE = vendor/glfw/src/CMakeFiles/glfw.dir/monitor.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -fPIC -fcolor-diagnostics -Wall -std=c99
+  INCLUDES = -I/Users/avi/Newton/vendor/glfw/include -I/Users/avi/Newton/vendor/glfw/src -I/Users/avi/Newton/cmake-build-debug/vendor/glfw/src
+  OBJECT_DIR = vendor/glfw/src/CMakeFiles/glfw.dir
+  OBJECT_FILE_DIR = vendor/glfw/src/CMakeFiles/glfw.dir
+
+build vendor/glfw/src/CMakeFiles/glfw.dir/platform.c.o: C_COMPILER__glfw_Debug /Users/avi/Newton/vendor/glfw/src/platform.c || cmake_object_order_depends_target_glfw
+  DEFINES = -D_GLFW_COCOA
+  DEP_FILE = vendor/glfw/src/CMakeFiles/glfw.dir/platform.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -fPIC -fcolor-diagnostics -Wall -std=c99
+  INCLUDES = -I/Users/avi/Newton/vendor/glfw/include -I/Users/avi/Newton/vendor/glfw/src -I/Users/avi/Newton/cmake-build-debug/vendor/glfw/src
+  OBJECT_DIR = vendor/glfw/src/CMakeFiles/glfw.dir
+  OBJECT_FILE_DIR = vendor/glfw/src/CMakeFiles/glfw.dir
+
+build vendor/glfw/src/CMakeFiles/glfw.dir/vulkan.c.o: C_COMPILER__glfw_Debug /Users/avi/Newton/vendor/glfw/src/vulkan.c || cmake_object_order_depends_target_glfw
+  DEFINES = -D_GLFW_COCOA
+  DEP_FILE = vendor/glfw/src/CMakeFiles/glfw.dir/vulkan.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -fPIC -fcolor-diagnostics -Wall -std=c99
+  INCLUDES = -I/Users/avi/Newton/vendor/glfw/include -I/Users/avi/Newton/vendor/glfw/src -I/Users/avi/Newton/cmake-build-debug/vendor/glfw/src
+  OBJECT_DIR = vendor/glfw/src/CMakeFiles/glfw.dir
+  OBJECT_FILE_DIR = vendor/glfw/src/CMakeFiles/glfw.dir
+
+build vendor/glfw/src/CMakeFiles/glfw.dir/window.c.o: C_COMPILER__glfw_Debug /Users/avi/Newton/vendor/glfw/src/window.c || cmake_object_order_depends_target_glfw
+  DEFINES = -D_GLFW_COCOA
+  DEP_FILE = vendor/glfw/src/CMakeFiles/glfw.dir/window.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -fPIC -fcolor-diagnostics -Wall -std=c99
+  INCLUDES = -I/Users/avi/Newton/vendor/glfw/include -I/Users/avi/Newton/vendor/glfw/src -I/Users/avi/Newton/cmake-build-debug/vendor/glfw/src
+  OBJECT_DIR = vendor/glfw/src/CMakeFiles/glfw.dir
+  OBJECT_FILE_DIR = vendor/glfw/src/CMakeFiles/glfw.dir
+
+build vendor/glfw/src/CMakeFiles/glfw.dir/egl_context.c.o: C_COMPILER__glfw_Debug /Users/avi/Newton/vendor/glfw/src/egl_context.c || cmake_object_order_depends_target_glfw
+  DEFINES = -D_GLFW_COCOA
+  DEP_FILE = vendor/glfw/src/CMakeFiles/glfw.dir/egl_context.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -fPIC -fcolor-diagnostics -Wall -std=c99
+  INCLUDES = -I/Users/avi/Newton/vendor/glfw/include -I/Users/avi/Newton/vendor/glfw/src -I/Users/avi/Newton/cmake-build-debug/vendor/glfw/src
+  OBJECT_DIR = vendor/glfw/src/CMakeFiles/glfw.dir
+  OBJECT_FILE_DIR = vendor/glfw/src/CMakeFiles/glfw.dir
+
+build vendor/glfw/src/CMakeFiles/glfw.dir/osmesa_context.c.o: C_COMPILER__glfw_Debug /Users/avi/Newton/vendor/glfw/src/osmesa_context.c || cmake_object_order_depends_target_glfw
+  DEFINES = -D_GLFW_COCOA
+  DEP_FILE = vendor/glfw/src/CMakeFiles/glfw.dir/osmesa_context.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -fPIC -fcolor-diagnostics -Wall -std=c99
+  INCLUDES = -I/Users/avi/Newton/vendor/glfw/include -I/Users/avi/Newton/vendor/glfw/src -I/Users/avi/Newton/cmake-build-debug/vendor/glfw/src
+  OBJECT_DIR = vendor/glfw/src/CMakeFiles/glfw.dir
+  OBJECT_FILE_DIR = vendor/glfw/src/CMakeFiles/glfw.dir
+
+build vendor/glfw/src/CMakeFiles/glfw.dir/null_init.c.o: C_COMPILER__glfw_Debug /Users/avi/Newton/vendor/glfw/src/null_init.c || cmake_object_order_depends_target_glfw
+  DEFINES = -D_GLFW_COCOA
+  DEP_FILE = vendor/glfw/src/CMakeFiles/glfw.dir/null_init.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -fPIC -fcolor-diagnostics -Wall -std=c99
+  INCLUDES = -I/Users/avi/Newton/vendor/glfw/include -I/Users/avi/Newton/vendor/glfw/src -I/Users/avi/Newton/cmake-build-debug/vendor/glfw/src
+  OBJECT_DIR = vendor/glfw/src/CMakeFiles/glfw.dir
+  OBJECT_FILE_DIR = vendor/glfw/src/CMakeFiles/glfw.dir
+
+build vendor/glfw/src/CMakeFiles/glfw.dir/null_monitor.c.o: C_COMPILER__glfw_Debug /Users/avi/Newton/vendor/glfw/src/null_monitor.c || cmake_object_order_depends_target_glfw
+  DEFINES = -D_GLFW_COCOA
+  DEP_FILE = vendor/glfw/src/CMakeFiles/glfw.dir/null_monitor.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -fPIC -fcolor-diagnostics -Wall -std=c99
+  INCLUDES = -I/Users/avi/Newton/vendor/glfw/include -I/Users/avi/Newton/vendor/glfw/src -I/Users/avi/Newton/cmake-build-debug/vendor/glfw/src
+  OBJECT_DIR = vendor/glfw/src/CMakeFiles/glfw.dir
+  OBJECT_FILE_DIR = vendor/glfw/src/CMakeFiles/glfw.dir
+
+build vendor/glfw/src/CMakeFiles/glfw.dir/null_window.c.o: C_COMPILER__glfw_Debug /Users/avi/Newton/vendor/glfw/src/null_window.c || cmake_object_order_depends_target_glfw
+  DEFINES = -D_GLFW_COCOA
+  DEP_FILE = vendor/glfw/src/CMakeFiles/glfw.dir/null_window.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -fPIC -fcolor-diagnostics -Wall -std=c99
+  INCLUDES = -I/Users/avi/Newton/vendor/glfw/include -I/Users/avi/Newton/vendor/glfw/src -I/Users/avi/Newton/cmake-build-debug/vendor/glfw/src
+  OBJECT_DIR = vendor/glfw/src/CMakeFiles/glfw.dir
+  OBJECT_FILE_DIR = vendor/glfw/src/CMakeFiles/glfw.dir
+
+build vendor/glfw/src/CMakeFiles/glfw.dir/null_joystick.c.o: C_COMPILER__glfw_Debug /Users/avi/Newton/vendor/glfw/src/null_joystick.c || cmake_object_order_depends_target_glfw
+  DEFINES = -D_GLFW_COCOA
+  DEP_FILE = vendor/glfw/src/CMakeFiles/glfw.dir/null_joystick.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -fPIC -fcolor-diagnostics -Wall -std=c99
+  INCLUDES = -I/Users/avi/Newton/vendor/glfw/include -I/Users/avi/Newton/vendor/glfw/src -I/Users/avi/Newton/cmake-build-debug/vendor/glfw/src
+  OBJECT_DIR = vendor/glfw/src/CMakeFiles/glfw.dir
+  OBJECT_FILE_DIR = vendor/glfw/src/CMakeFiles/glfw.dir
+
+build vendor/glfw/src/CMakeFiles/glfw.dir/cocoa_time.c.o: C_COMPILER__glfw_Debug /Users/avi/Newton/vendor/glfw/src/cocoa_time.c || cmake_object_order_depends_target_glfw
+  DEFINES = -D_GLFW_COCOA
+  DEP_FILE = vendor/glfw/src/CMakeFiles/glfw.dir/cocoa_time.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -fPIC -fcolor-diagnostics -Wall -std=c99
+  INCLUDES = -I/Users/avi/Newton/vendor/glfw/include -I/Users/avi/Newton/vendor/glfw/src -I/Users/avi/Newton/cmake-build-debug/vendor/glfw/src
+  OBJECT_DIR = vendor/glfw/src/CMakeFiles/glfw.dir
+  OBJECT_FILE_DIR = vendor/glfw/src/CMakeFiles/glfw.dir
+
+build vendor/glfw/src/CMakeFiles/glfw.dir/posix_module.c.o: C_COMPILER__glfw_Debug /Users/avi/Newton/vendor/glfw/src/posix_module.c || cmake_object_order_depends_target_glfw
+  DEFINES = -D_GLFW_COCOA
+  DEP_FILE = vendor/glfw/src/CMakeFiles/glfw.dir/posix_module.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -fPIC -fcolor-diagnostics -Wall -std=c99
+  INCLUDES = -I/Users/avi/Newton/vendor/glfw/include -I/Users/avi/Newton/vendor/glfw/src -I/Users/avi/Newton/cmake-build-debug/vendor/glfw/src
+  OBJECT_DIR = vendor/glfw/src/CMakeFiles/glfw.dir
+  OBJECT_FILE_DIR = vendor/glfw/src/CMakeFiles/glfw.dir
+
+build vendor/glfw/src/CMakeFiles/glfw.dir/posix_thread.c.o: C_COMPILER__glfw_Debug /Users/avi/Newton/vendor/glfw/src/posix_thread.c || cmake_object_order_depends_target_glfw
+  DEFINES = -D_GLFW_COCOA
+  DEP_FILE = vendor/glfw/src/CMakeFiles/glfw.dir/posix_thread.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -fPIC -fcolor-diagnostics -Wall -std=c99
+  INCLUDES = -I/Users/avi/Newton/vendor/glfw/include -I/Users/avi/Newton/vendor/glfw/src -I/Users/avi/Newton/cmake-build-debug/vendor/glfw/src
+  OBJECT_DIR = vendor/glfw/src/CMakeFiles/glfw.dir
+  OBJECT_FILE_DIR = vendor/glfw/src/CMakeFiles/glfw.dir
+
+build vendor/glfw/src/CMakeFiles/glfw.dir/cocoa_init.m.o: C_COMPILER__glfw_Debug /Users/avi/Newton/vendor/glfw/src/cocoa_init.m || cmake_object_order_depends_target_glfw
+  DEFINES = -D_GLFW_COCOA
+  DEP_FILE = vendor/glfw/src/CMakeFiles/glfw.dir/cocoa_init.m.o.d
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -fPIC -fcolor-diagnostics -Wall -std=c99
+  INCLUDES = -I/Users/avi/Newton/vendor/glfw/include -I/Users/avi/Newton/vendor/glfw/src -I/Users/avi/Newton/cmake-build-debug/vendor/glfw/src
+  OBJECT_DIR = vendor/glfw/src/CMakeFiles/glfw.dir
+  OBJECT_FILE_DIR = vendor/glfw/src/CMakeFiles/glfw.dir
+
+build vendor/glfw/src/CMakeFiles/glfw.dir/cocoa_joystick.m.o: C_COMPILER__glfw_Debug /Users/avi/Newton/vendor/glfw/src/cocoa_joystick.m || cmake_object_order_depends_target_glfw
+  DEFINES = -D_GLFW_COCOA
+  DEP_FILE = vendor/glfw/src/CMakeFiles/glfw.dir/cocoa_joystick.m.o.d
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -fPIC -fcolor-diagnostics -Wall -std=c99
+  INCLUDES = -I/Users/avi/Newton/vendor/glfw/include -I/Users/avi/Newton/vendor/glfw/src -I/Users/avi/Newton/cmake-build-debug/vendor/glfw/src
+  OBJECT_DIR = vendor/glfw/src/CMakeFiles/glfw.dir
+  OBJECT_FILE_DIR = vendor/glfw/src/CMakeFiles/glfw.dir
+
+build vendor/glfw/src/CMakeFiles/glfw.dir/cocoa_monitor.m.o: C_COMPILER__glfw_Debug /Users/avi/Newton/vendor/glfw/src/cocoa_monitor.m || cmake_object_order_depends_target_glfw
+  DEFINES = -D_GLFW_COCOA
+  DEP_FILE = vendor/glfw/src/CMakeFiles/glfw.dir/cocoa_monitor.m.o.d
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -fPIC -fcolor-diagnostics -Wall -std=c99
+  INCLUDES = -I/Users/avi/Newton/vendor/glfw/include -I/Users/avi/Newton/vendor/glfw/src -I/Users/avi/Newton/cmake-build-debug/vendor/glfw/src
+  OBJECT_DIR = vendor/glfw/src/CMakeFiles/glfw.dir
+  OBJECT_FILE_DIR = vendor/glfw/src/CMakeFiles/glfw.dir
+
+build vendor/glfw/src/CMakeFiles/glfw.dir/cocoa_window.m.o: C_COMPILER__glfw_Debug /Users/avi/Newton/vendor/glfw/src/cocoa_window.m || cmake_object_order_depends_target_glfw
+  DEFINES = -D_GLFW_COCOA
+  DEP_FILE = vendor/glfw/src/CMakeFiles/glfw.dir/cocoa_window.m.o.d
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -fPIC -fcolor-diagnostics -Wall -std=c99
+  INCLUDES = -I/Users/avi/Newton/vendor/glfw/include -I/Users/avi/Newton/vendor/glfw/src -I/Users/avi/Newton/cmake-build-debug/vendor/glfw/src
+  OBJECT_DIR = vendor/glfw/src/CMakeFiles/glfw.dir
+  OBJECT_FILE_DIR = vendor/glfw/src/CMakeFiles/glfw.dir
+
+build vendor/glfw/src/CMakeFiles/glfw.dir/nsgl_context.m.o: C_COMPILER__glfw_Debug /Users/avi/Newton/vendor/glfw/src/nsgl_context.m || cmake_object_order_depends_target_glfw
+  DEFINES = -D_GLFW_COCOA
+  DEP_FILE = vendor/glfw/src/CMakeFiles/glfw.dir/nsgl_context.m.o.d
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -fPIC -fcolor-diagnostics -Wall -std=c99
+  INCLUDES = -I/Users/avi/Newton/vendor/glfw/include -I/Users/avi/Newton/vendor/glfw/src -I/Users/avi/Newton/cmake-build-debug/vendor/glfw/src
+  OBJECT_DIR = vendor/glfw/src/CMakeFiles/glfw.dir
+  OBJECT_FILE_DIR = vendor/glfw/src/CMakeFiles/glfw.dir
+
+
+# =============================================================================
+# Link build statements for STATIC_LIBRARY target glfw
+
+
+#############################################
+# Link the static library vendor/glfw/src/libglfw3.a
+
+build vendor/glfw/src/libglfw3.a: C_STATIC_LIBRARY_LINKER__glfw_Debug vendor/glfw/src/CMakeFiles/glfw.dir/context.c.o vendor/glfw/src/CMakeFiles/glfw.dir/init.c.o vendor/glfw/src/CMakeFiles/glfw.dir/input.c.o vendor/glfw/src/CMakeFiles/glfw.dir/monitor.c.o vendor/glfw/src/CMakeFiles/glfw.dir/platform.c.o vendor/glfw/src/CMakeFiles/glfw.dir/vulkan.c.o vendor/glfw/src/CMakeFiles/glfw.dir/window.c.o vendor/glfw/src/CMakeFiles/glfw.dir/egl_context.c.o vendor/glfw/src/CMakeFiles/glfw.dir/osmesa_context.c.o vendor/glfw/src/CMakeFiles/glfw.dir/null_init.c.o vendor/glfw/src/CMakeFiles/glfw.dir/null_monitor.c.o vendor/glfw/src/CMakeFiles/glfw.dir/null_window.c.o vendor/glfw/src/CMakeFiles/glfw.dir/null_joystick.c.o vendor/glfw/src/CMakeFiles/glfw.dir/cocoa_time.c.o vendor/glfw/src/CMakeFiles/glfw.dir/posix_module.c.o vendor/glfw/src/CMakeFiles/glfw.dir/posix_thread.c.o vendor/glfw/src/CMakeFiles/glfw.dir/cocoa_init.m.o vendor/glfw/src/CMakeFiles/glfw.dir/cocoa_joystick.m.o vendor/glfw/src/CMakeFiles/glfw.dir/cocoa_monitor.m.o vendor/glfw/src/CMakeFiles/glfw.dir/cocoa_window.m.o vendor/glfw/src/CMakeFiles/glfw.dir/nsgl_context.m.o
+  ARCH_FLAGS = -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk
+  LANGUAGE_COMPILE_FLAGS = -g
+  OBJECT_DIR = vendor/glfw/src/CMakeFiles/glfw.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = vendor/glfw/src/libglfw3.a
+  TARGET_PDB = glfw3.a.dbg
+
+
+#############################################
+# Utility command for update_mappings
+
+build vendor/glfw/src/update_mappings: phony vendor/glfw/src/CMakeFiles/update_mappings
+
+
+#############################################
+# Utility command for edit_cache
+
+build vendor/glfw/src/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/avi/Newton/cmake-build-debug/vendor/glfw/src && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+  DESC = No interactive CMake dialog available...
+  restat = 1
+
+build vendor/glfw/src/edit_cache: phony vendor/glfw/src/CMakeFiles/edit_cache.util
+
+
+#############################################
+# Utility command for rebuild_cache
+
+build vendor/glfw/src/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/avi/Newton/cmake-build-debug/vendor/glfw/src && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake --regenerate-during-build -S/Users/avi/Newton -B/Users/avi/Newton/cmake-build-debug
+  DESC = Running CMake to regenerate build system...
+  pool = console
+  restat = 1
+
+build vendor/glfw/src/rebuild_cache: phony vendor/glfw/src/CMakeFiles/rebuild_cache.util
+
+
+#############################################
+# Utility command for list_install_components
+
+build vendor/glfw/src/list_install_components: phony
+
+
+#############################################
+# Utility command for install
+
+build vendor/glfw/src/CMakeFiles/install.util: CUSTOM_COMMAND vendor/glfw/src/all
+  COMMAND = cd /Users/avi/Newton/cmake-build-debug/vendor/glfw/src && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -P cmake_install.cmake
+  DESC = Install the project...
+  pool = console
+  restat = 1
+
+build vendor/glfw/src/install: phony vendor/glfw/src/CMakeFiles/install.util
+
+
+#############################################
+# Utility command for install/local
+
+build vendor/glfw/src/CMakeFiles/install/local.util: CUSTOM_COMMAND vendor/glfw/src/all
+  COMMAND = cd /Users/avi/Newton/cmake-build-debug/vendor/glfw/src && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+  DESC = Installing only the local directory...
+  pool = console
+  restat = 1
+
+build vendor/glfw/src/install/local: phony vendor/glfw/src/CMakeFiles/install/local.util
+
+
+#############################################
+# Utility command for install/strip
+
+build vendor/glfw/src/CMakeFiles/install/strip.util: CUSTOM_COMMAND vendor/glfw/src/all
+  COMMAND = cd /Users/avi/Newton/cmake-build-debug/vendor/glfw/src && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+  DESC = Installing the project stripped...
+  pool = console
+  restat = 1
+
+build vendor/glfw/src/install/strip: phony vendor/glfw/src/CMakeFiles/install/strip.util
+
+
+#############################################
+# Custom command for vendor/glfw/src/CMakeFiles/update_mappings
+
+build vendor/glfw/src/CMakeFiles/update_mappings | ${cmake_ninja_workdir}vendor/glfw/src/CMakeFiles/update_mappings: CUSTOM_COMMAND
+  COMMAND = cd /Users/avi/Newton/vendor/glfw/src && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -P /Users/avi/Newton/vendor/glfw/CMake/GenerateMappings.cmake mappings.h.in mappings.h
+  DESC = Updating gamepad mappings from upstream repository
+
+# =============================================================================
+# Write statements declared in CMakeLists.txt:
+# /Users/avi/Newton/vendor/CMakeLists.txt
+# =============================================================================
+
+# =============================================================================
+# Object build statements for STATIC_LIBRARY target libglew_static
+
+
+#############################################
+# Order-only phony target for libglew_static
+
+build cmake_object_order_depends_target_libglew_static: phony || vendor/glew-cmake/CMakeFiles/libglew_static.dir
+
+build vendor/glew-cmake/CMakeFiles/libglew_static.dir/src/glew.c.o: C_COMPILER__libglew_static_Debug /Users/avi/Newton/vendor/glew-cmake/src/glew.c || cmake_object_order_depends_target_libglew_static
+  DEFINES = -DGLEW_NO_GLU -DGLEW_STATIC
+  DEP_FILE = vendor/glew-cmake/CMakeFiles/libglew_static.dir/src/glew.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -fcolor-diagnostics
+  INCLUDES = -I/Users/avi/Newton/vendor/glew-cmake/include -iframework /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk/System/Library/Frameworks
+  OBJECT_DIR = vendor/glew-cmake/CMakeFiles/libglew_static.dir
+  OBJECT_FILE_DIR = vendor/glew-cmake/CMakeFiles/libglew_static.dir/src
+
+
+# =============================================================================
+# Link build statements for STATIC_LIBRARY target libglew_static
+
+
+#############################################
+# Link the static library vendor/glew-cmake/lib/libglewd.a
+
+build vendor/glew-cmake/lib/libglewd.a: C_STATIC_LIBRARY_LINKER__libglew_static_Debug vendor/glew-cmake/CMakeFiles/libglew_static.dir/src/glew.c.o
+  ARCH_FLAGS = -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk
+  LANGUAGE_COMPILE_FLAGS = -g
+  OBJECT_DIR = vendor/glew-cmake/CMakeFiles/libglew_static.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = vendor/glew-cmake/lib/libglewd.a
+  TARGET_PDB = glewd.a.dbg
+
+# =============================================================================
+# Object build statements for SHARED_LIBRARY target libglew_shared
+
+
+#############################################
+# Order-only phony target for libglew_shared
+
+build cmake_object_order_depends_target_libglew_shared: phony || vendor/glew-cmake/CMakeFiles/libglew_shared.dir
+
+build vendor/glew-cmake/CMakeFiles/libglew_shared.dir/src/glew.c.o: C_COMPILER__libglew_shared_Debug /Users/avi/Newton/vendor/glew-cmake/src/glew.c || cmake_object_order_depends_target_libglew_shared
+  DEFINES = -DGLEW_BUILD -DGLEW_NO_GLU -Dlibglew_shared_EXPORTS
+  DEP_FILE = vendor/glew-cmake/CMakeFiles/libglew_shared.dir/src/glew.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -fPIC -fcolor-diagnostics
+  INCLUDES = -I/Users/avi/Newton/vendor/glew-cmake/include -iframework /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk/System/Library/Frameworks
+  OBJECT_DIR = vendor/glew-cmake/CMakeFiles/libglew_shared.dir
+  OBJECT_FILE_DIR = vendor/glew-cmake/CMakeFiles/libglew_shared.dir/src
+
+
+# =============================================================================
+# Link build statements for SHARED_LIBRARY target libglew_shared
+
+
+#############################################
+# Link the shared library vendor/glew-cmake/lib/libglew-sharedd.2.2.0.dylib
+
+build vendor/glew-cmake/lib/libglew-sharedd.2.2.0.dylib: C_SHARED_LIBRARY_LINKER__libglew_shared_Debug vendor/glew-cmake/CMakeFiles/libglew_shared.dir/src/glew.c.o | /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk/System/Library/Frameworks/OpenGL.framework/OpenGL.tbd
+  ARCH_FLAGS = -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk
+  INSTALLNAME_DIR = @rpath/
+  LANGUAGE_COMPILE_FLAGS = -g
+  LINK_FLAGS = -current_version 2.2.0
+  LINK_LIBRARIES = /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk/System/Library/Frameworks/OpenGL.framework/OpenGL.tbd  -Xlinker -framework -Xlinker AGL
+  OBJECT_DIR = vendor/glew-cmake/CMakeFiles/libglew_shared.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  SONAME = libglew-sharedd.2.2.0.dylib
+  SONAME_FLAG = -install_name
+  TARGET_FILE = vendor/glew-cmake/lib/libglew-sharedd.2.2.0.dylib
+  TARGET_PDB = glew-sharedd.dylib.dbg
+
+
+#############################################
+# Create library symlink vendor/glew-cmake/lib/libglew-sharedd.dylib
+
+build vendor/glew-cmake/lib/libglew-sharedd.dylib: CMAKE_SYMLINK_LIBRARY vendor/glew-cmake/lib/libglew-sharedd.2.2.0.dylib
+  POST_BUILD = :
+  SONAME = vendor/glew-cmake/lib/libglew-sharedd.2.2.0.dylib
+
+
+#############################################
+# Utility command for edit_cache
+
+build vendor/glew-cmake/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/avi/Newton/cmake-build-debug/vendor/glew-cmake && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+  DESC = No interactive CMake dialog available...
+  restat = 1
+
+build vendor/glew-cmake/edit_cache: phony vendor/glew-cmake/CMakeFiles/edit_cache.util
+
+
+#############################################
+# Utility command for rebuild_cache
+
+build vendor/glew-cmake/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/avi/Newton/cmake-build-debug/vendor/glew-cmake && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake --regenerate-during-build -S/Users/avi/Newton -B/Users/avi/Newton/cmake-build-debug
+  DESC = Running CMake to regenerate build system...
+  pool = console
+  restat = 1
+
+build vendor/glew-cmake/rebuild_cache: phony vendor/glew-cmake/CMakeFiles/rebuild_cache.util
+
+
+#############################################
+# Utility command for list_install_components
+
+build vendor/glew-cmake/list_install_components: phony
+
+
+#############################################
+# Utility command for install
+
+build vendor/glew-cmake/CMakeFiles/install.util: CUSTOM_COMMAND vendor/glew-cmake/all
+  COMMAND = cd /Users/avi/Newton/cmake-build-debug/vendor/glew-cmake && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -P cmake_install.cmake
+  DESC = Install the project...
+  pool = console
+  restat = 1
+
+build vendor/glew-cmake/install: phony vendor/glew-cmake/CMakeFiles/install.util
+
+
+#############################################
+# Utility command for install/local
+
+build vendor/glew-cmake/CMakeFiles/install/local.util: CUSTOM_COMMAND vendor/glew-cmake/all
+  COMMAND = cd /Users/avi/Newton/cmake-build-debug/vendor/glew-cmake && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+  DESC = Installing only the local directory...
+  pool = console
+  restat = 1
+
+build vendor/glew-cmake/install/local: phony vendor/glew-cmake/CMakeFiles/install/local.util
+
+
+#############################################
+# Utility command for install/strip
+
+build vendor/glew-cmake/CMakeFiles/install/strip.util: CUSTOM_COMMAND vendor/glew-cmake/all
+  COMMAND = cd /Users/avi/Newton/cmake-build-debug/vendor/glew-cmake && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+  DESC = Installing the project stripped...
+  pool = console
+  restat = 1
+
+build vendor/glew-cmake/install/strip: phony vendor/glew-cmake/CMakeFiles/install/strip.util
+
+# =============================================================================
+# Write statements declared in CMakeLists.txt:
+# /Users/avi/Newton/vendor/CMakeLists.txt
+# =============================================================================
+
+
+#############################################
+# Utility command for uninstall
+
+build vendor/glm/uninstall: phony vendor/glm/CMakeFiles/uninstall
+
+
+#############################################
+# Utility command for edit_cache
+
+build vendor/glm/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/avi/Newton/cmake-build-debug/vendor/glm && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+  DESC = No interactive CMake dialog available...
+  restat = 1
+
+build vendor/glm/edit_cache: phony vendor/glm/CMakeFiles/edit_cache.util
+
+
+#############################################
+# Utility command for rebuild_cache
+
+build vendor/glm/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/avi/Newton/cmake-build-debug/vendor/glm && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake --regenerate-during-build -S/Users/avi/Newton -B/Users/avi/Newton/cmake-build-debug
+  DESC = Running CMake to regenerate build system...
+  pool = console
+  restat = 1
+
+build vendor/glm/rebuild_cache: phony vendor/glm/CMakeFiles/rebuild_cache.util
+
+
+#############################################
+# Utility command for list_install_components
+
+build vendor/glm/list_install_components: phony
+
+
+#############################################
+# Utility command for install
+
+build vendor/glm/CMakeFiles/install.util: CUSTOM_COMMAND vendor/glm/all
+  COMMAND = cd /Users/avi/Newton/cmake-build-debug/vendor/glm && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -P cmake_install.cmake
+  DESC = Install the project...
+  pool = console
+  restat = 1
+
+build vendor/glm/install: phony vendor/glm/CMakeFiles/install.util
+
+
+#############################################
+# Utility command for install/local
+
+build vendor/glm/CMakeFiles/install/local.util: CUSTOM_COMMAND vendor/glm/all
+  COMMAND = cd /Users/avi/Newton/cmake-build-debug/vendor/glm && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+  DESC = Installing only the local directory...
+  pool = console
+  restat = 1
+
+build vendor/glm/install/local: phony vendor/glm/CMakeFiles/install/local.util
+
+
+#############################################
+# Utility command for install/strip
+
+build vendor/glm/CMakeFiles/install/strip.util: CUSTOM_COMMAND vendor/glm/all
+  COMMAND = cd /Users/avi/Newton/cmake-build-debug/vendor/glm && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+  DESC = Installing the project stripped...
+  pool = console
+  restat = 1
+
+build vendor/glm/install/strip: phony vendor/glm/CMakeFiles/install/strip.util
+
+
+#############################################
+# Custom command for vendor/glm/CMakeFiles/uninstall
+
+build vendor/glm/CMakeFiles/uninstall | ${cmake_ninja_workdir}vendor/glm/CMakeFiles/uninstall: CUSTOM_COMMAND
+  COMMAND = cd /Users/avi/Newton/cmake-build-debug/vendor/glm && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -P /Users/avi/Newton/cmake-build-debug/cmake_uninstall.cmake
+
+# =============================================================================
+# Write statements declared in CMakeLists.txt:
+# /Users/avi/Newton/vendor/glm/CMakeLists.txt
+# =============================================================================
+
+
+#############################################
+# Utility command for edit_cache
+
+build vendor/glm/glm/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/avi/Newton/cmake-build-debug/vendor/glm/glm && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+  DESC = No interactive CMake dialog available...
+  restat = 1
+
+build vendor/glm/glm/edit_cache: phony vendor/glm/glm/CMakeFiles/edit_cache.util
+
+
+#############################################
+# Utility command for rebuild_cache
+
+build vendor/glm/glm/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/avi/Newton/cmake-build-debug/vendor/glm/glm && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake --regenerate-during-build -S/Users/avi/Newton -B/Users/avi/Newton/cmake-build-debug
+  DESC = Running CMake to regenerate build system...
+  pool = console
+  restat = 1
+
+build vendor/glm/glm/rebuild_cache: phony vendor/glm/glm/CMakeFiles/rebuild_cache.util
+
+
+#############################################
+# Utility command for list_install_components
+
+build vendor/glm/glm/list_install_components: phony
+
+
+#############################################
+# Utility command for install
+
+build vendor/glm/glm/CMakeFiles/install.util: CUSTOM_COMMAND vendor/glm/glm/all
+  COMMAND = cd /Users/avi/Newton/cmake-build-debug/vendor/glm/glm && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -P cmake_install.cmake
+  DESC = Install the project...
+  pool = console
+  restat = 1
+
+build vendor/glm/glm/install: phony vendor/glm/glm/CMakeFiles/install.util
+
+
+#############################################
+# Utility command for install/local
+
+build vendor/glm/glm/CMakeFiles/install/local.util: CUSTOM_COMMAND vendor/glm/glm/all
+  COMMAND = cd /Users/avi/Newton/cmake-build-debug/vendor/glm/glm && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+  DESC = Installing only the local directory...
+  pool = console
+  restat = 1
+
+build vendor/glm/glm/install/local: phony vendor/glm/glm/CMakeFiles/install/local.util
+
+
+#############################################
+# Utility command for install/strip
+
+build vendor/glm/glm/CMakeFiles/install/strip.util: CUSTOM_COMMAND vendor/glm/glm/all
+  COMMAND = cd /Users/avi/Newton/cmake-build-debug/vendor/glm/glm && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+  DESC = Installing the project stripped...
+  pool = console
+  restat = 1
+
+build vendor/glm/glm/install/strip: phony vendor/glm/glm/CMakeFiles/install/strip.util
+
+# =============================================================================
+# Write statements declared in CMakeLists.txt:
+# /Users/avi/Newton/vendor/CMakeLists.txt
+# =============================================================================
+
+# =============================================================================
+# Object build statements for STATIC_LIBRARY target stb
+
+
+#############################################
+# Order-only phony target for stb
+
+build cmake_object_order_depends_target_stb: phony || vendor/stb_image/CMakeFiles/stb.dir
+
+build vendor/stb_image/CMakeFiles/stb.dir/stb_impl.cpp.o: CXX_COMPILER__stb_Debug /Users/avi/Newton/vendor/stb_image/stb_impl.cpp || cmake_object_order_depends_target_stb
+  DEP_FILE = vendor/stb_image/CMakeFiles/stb.dir/stb_impl.cpp.o.d
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -fPIC -fcolor-diagnostics -std=c++20
+  INCLUDES = -I/Users/avi/Newton/vendor/stb_image/..
+  OBJECT_DIR = vendor/stb_image/CMakeFiles/stb.dir
+  OBJECT_FILE_DIR = vendor/stb_image/CMakeFiles/stb.dir
+
+build vendor/stb_image/CMakeFiles/stb.dir/stb_image.cpp.o: CXX_COMPILER__stb_Debug /Users/avi/Newton/vendor/stb_image/stb_image.cpp || cmake_object_order_depends_target_stb
+  DEP_FILE = vendor/stb_image/CMakeFiles/stb.dir/stb_image.cpp.o.d
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -fPIC -fcolor-diagnostics -std=c++20
+  INCLUDES = -I/Users/avi/Newton/vendor/stb_image/..
+  OBJECT_DIR = vendor/stb_image/CMakeFiles/stb.dir
+  OBJECT_FILE_DIR = vendor/stb_image/CMakeFiles/stb.dir
+
+
+# =============================================================================
+# Link build statements for STATIC_LIBRARY target stb
+
+
+#############################################
+# Link the static library vendor/stb_image/libstb.a
+
+build vendor/stb_image/libstb.a: CXX_STATIC_LIBRARY_LINKER__stb_Debug vendor/stb_image/CMakeFiles/stb.dir/stb_impl.cpp.o vendor/stb_image/CMakeFiles/stb.dir/stb_image.cpp.o
+  ARCH_FLAGS = -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk
+  LANGUAGE_COMPILE_FLAGS = -g
+  OBJECT_DIR = vendor/stb_image/CMakeFiles/stb.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = vendor/stb_image/libstb.a
+  TARGET_PDB = stb.a.dbg
+
+
+#############################################
+# Utility command for edit_cache
+
+build vendor/stb_image/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/avi/Newton/cmake-build-debug/vendor/stb_image && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+  DESC = No interactive CMake dialog available...
+  restat = 1
+
+build vendor/stb_image/edit_cache: phony vendor/stb_image/CMakeFiles/edit_cache.util
+
+
+#############################################
+# Utility command for rebuild_cache
+
+build vendor/stb_image/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/avi/Newton/cmake-build-debug/vendor/stb_image && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake --regenerate-during-build -S/Users/avi/Newton -B/Users/avi/Newton/cmake-build-debug
+  DESC = Running CMake to regenerate build system...
+  pool = console
+  restat = 1
+
+build vendor/stb_image/rebuild_cache: phony vendor/stb_image/CMakeFiles/rebuild_cache.util
+
+
+#############################################
+# Utility command for list_install_components
+
+build vendor/stb_image/list_install_components: phony
+
+
+#############################################
+# Utility command for install
+
+build vendor/stb_image/CMakeFiles/install.util: CUSTOM_COMMAND vendor/stb_image/all
+  COMMAND = cd /Users/avi/Newton/cmake-build-debug/vendor/stb_image && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -P cmake_install.cmake
+  DESC = Install the project...
+  pool = console
+  restat = 1
+
+build vendor/stb_image/install: phony vendor/stb_image/CMakeFiles/install.util
+
+
+#############################################
+# Utility command for install/local
+
+build vendor/stb_image/CMakeFiles/install/local.util: CUSTOM_COMMAND vendor/stb_image/all
+  COMMAND = cd /Users/avi/Newton/cmake-build-debug/vendor/stb_image && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+  DESC = Installing only the local directory...
+  pool = console
+  restat = 1
+
+build vendor/stb_image/install/local: phony vendor/stb_image/CMakeFiles/install/local.util
+
+
+#############################################
+# Utility command for install/strip
+
+build vendor/stb_image/CMakeFiles/install/strip.util: CUSTOM_COMMAND vendor/stb_image/all
+  COMMAND = cd /Users/avi/Newton/cmake-build-debug/vendor/stb_image && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+  DESC = Installing the project stripped...
+  pool = console
+  restat = 1
+
+build vendor/stb_image/install/strip: phony vendor/stb_image/CMakeFiles/install/strip.util
+
+# =============================================================================
+# Write statements declared in CMakeLists.txt:
+# /Users/avi/Newton/vendor/CMakeLists.txt
+# =============================================================================
+
+# =============================================================================
+# Object build statements for STATIC_LIBRARY target imgui
+
+
+#############################################
+# Order-only phony target for imgui
+
+build cmake_object_order_depends_target_imgui: phony || cmake_object_order_depends_target_glfw
+
+build vendor/imgui/CMakeFiles/imgui.dir/imgui/imgui.cpp.o: CXX_COMPILER__imgui_Debug /Users/avi/Newton/vendor/imgui/imgui/imgui.cpp || cmake_object_order_depends_target_imgui
+  DEFINES = -DGLFW_INCLUDE_GLCOREARB -DGL_SILENCE_DEPRECATION
+  DEP_FILE = vendor/imgui/CMakeFiles/imgui.dir/imgui/imgui.cpp.o.d
+  FLAGS = -Wno-error -Wno-everything -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -fPIC -fcolor-diagnostics -std=c++20
+  INCLUDES = -I/Users/avi/Newton/vendor/imgui/imgui -I/Users/avi/Newton/vendor/imgui/../glfw/include -I/Users/avi/Newton/vendor/imgui/../glad/include -I/Users/avi/Newton/vendor/glfw/include
+  OBJECT_DIR = vendor/imgui/CMakeFiles/imgui.dir
+  OBJECT_FILE_DIR = vendor/imgui/CMakeFiles/imgui.dir/imgui
+
+build vendor/imgui/CMakeFiles/imgui.dir/imgui/imgui_draw.cpp.o: CXX_COMPILER__imgui_Debug /Users/avi/Newton/vendor/imgui/imgui/imgui_draw.cpp || cmake_object_order_depends_target_imgui
+  DEFINES = -DGLFW_INCLUDE_GLCOREARB -DGL_SILENCE_DEPRECATION
+  DEP_FILE = vendor/imgui/CMakeFiles/imgui.dir/imgui/imgui_draw.cpp.o.d
+  FLAGS = -Wno-error -Wno-everything -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -fPIC -fcolor-diagnostics -std=c++20
+  INCLUDES = -I/Users/avi/Newton/vendor/imgui/imgui -I/Users/avi/Newton/vendor/imgui/../glfw/include -I/Users/avi/Newton/vendor/imgui/../glad/include -I/Users/avi/Newton/vendor/glfw/include
+  OBJECT_DIR = vendor/imgui/CMakeFiles/imgui.dir
+  OBJECT_FILE_DIR = vendor/imgui/CMakeFiles/imgui.dir/imgui
+
+build vendor/imgui/CMakeFiles/imgui.dir/imgui/imgui_tables.cpp.o: CXX_COMPILER__imgui_Debug /Users/avi/Newton/vendor/imgui/imgui/imgui_tables.cpp || cmake_object_order_depends_target_imgui
+  DEFINES = -DGLFW_INCLUDE_GLCOREARB -DGL_SILENCE_DEPRECATION
+  DEP_FILE = vendor/imgui/CMakeFiles/imgui.dir/imgui/imgui_tables.cpp.o.d
+  FLAGS = -Wno-error -Wno-everything -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -fPIC -fcolor-diagnostics -std=c++20
+  INCLUDES = -I/Users/avi/Newton/vendor/imgui/imgui -I/Users/avi/Newton/vendor/imgui/../glfw/include -I/Users/avi/Newton/vendor/imgui/../glad/include -I/Users/avi/Newton/vendor/glfw/include
+  OBJECT_DIR = vendor/imgui/CMakeFiles/imgui.dir
+  OBJECT_FILE_DIR = vendor/imgui/CMakeFiles/imgui.dir/imgui
+
+build vendor/imgui/CMakeFiles/imgui.dir/imgui/imgui_widgets.cpp.o: CXX_COMPILER__imgui_Debug /Users/avi/Newton/vendor/imgui/imgui/imgui_widgets.cpp || cmake_object_order_depends_target_imgui
+  DEFINES = -DGLFW_INCLUDE_GLCOREARB -DGL_SILENCE_DEPRECATION
+  DEP_FILE = vendor/imgui/CMakeFiles/imgui.dir/imgui/imgui_widgets.cpp.o.d
+  FLAGS = -Wno-error -Wno-everything -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -fPIC -fcolor-diagnostics -std=c++20
+  INCLUDES = -I/Users/avi/Newton/vendor/imgui/imgui -I/Users/avi/Newton/vendor/imgui/../glfw/include -I/Users/avi/Newton/vendor/imgui/../glad/include -I/Users/avi/Newton/vendor/glfw/include
+  OBJECT_DIR = vendor/imgui/CMakeFiles/imgui.dir
+  OBJECT_FILE_DIR = vendor/imgui/CMakeFiles/imgui.dir/imgui
+
+build vendor/imgui/CMakeFiles/imgui.dir/imgui/imgui_demo.cpp.o: CXX_COMPILER__imgui_Debug /Users/avi/Newton/vendor/imgui/imgui/imgui_demo.cpp || cmake_object_order_depends_target_imgui
+  DEFINES = -DGLFW_INCLUDE_GLCOREARB -DGL_SILENCE_DEPRECATION
+  DEP_FILE = vendor/imgui/CMakeFiles/imgui.dir/imgui/imgui_demo.cpp.o.d
+  FLAGS = -Wno-error -Wno-everything -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -fPIC -fcolor-diagnostics -std=c++20
+  INCLUDES = -I/Users/avi/Newton/vendor/imgui/imgui -I/Users/avi/Newton/vendor/imgui/../glfw/include -I/Users/avi/Newton/vendor/imgui/../glad/include -I/Users/avi/Newton/vendor/glfw/include
+  OBJECT_DIR = vendor/imgui/CMakeFiles/imgui.dir
+  OBJECT_FILE_DIR = vendor/imgui/CMakeFiles/imgui.dir/imgui
+
+build vendor/imgui/CMakeFiles/imgui.dir/imgui/backends/imgui_impl_glfw.cpp.o: CXX_COMPILER__imgui_Debug /Users/avi/Newton/vendor/imgui/imgui/backends/imgui_impl_glfw.cpp || cmake_object_order_depends_target_imgui
+  DEFINES = -DGLFW_INCLUDE_GLCOREARB -DGL_SILENCE_DEPRECATION
+  DEP_FILE = vendor/imgui/CMakeFiles/imgui.dir/imgui/backends/imgui_impl_glfw.cpp.o.d
+  FLAGS = -Wno-error -Wno-everything -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -fPIC -fcolor-diagnostics -std=c++20
+  INCLUDES = -I/Users/avi/Newton/vendor/imgui/imgui -I/Users/avi/Newton/vendor/imgui/../glfw/include -I/Users/avi/Newton/vendor/imgui/../glad/include -I/Users/avi/Newton/vendor/glfw/include
+  OBJECT_DIR = vendor/imgui/CMakeFiles/imgui.dir
+  OBJECT_FILE_DIR = vendor/imgui/CMakeFiles/imgui.dir/imgui/backends
+
+build vendor/imgui/CMakeFiles/imgui.dir/imgui/backends/imgui_impl_opengl3.cpp.o: CXX_COMPILER__imgui_Debug /Users/avi/Newton/vendor/imgui/imgui/backends/imgui_impl_opengl3.cpp || cmake_object_order_depends_target_imgui
+  DEFINES = -DGLFW_INCLUDE_GLCOREARB -DGL_SILENCE_DEPRECATION
+  DEP_FILE = vendor/imgui/CMakeFiles/imgui.dir/imgui/backends/imgui_impl_opengl3.cpp.o.d
+  FLAGS = -Wno-error -Wno-everything -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -fPIC -fcolor-diagnostics -std=c++20
+  INCLUDES = -I/Users/avi/Newton/vendor/imgui/imgui -I/Users/avi/Newton/vendor/imgui/../glfw/include -I/Users/avi/Newton/vendor/imgui/../glad/include -I/Users/avi/Newton/vendor/glfw/include
+  OBJECT_DIR = vendor/imgui/CMakeFiles/imgui.dir
+  OBJECT_FILE_DIR = vendor/imgui/CMakeFiles/imgui.dir/imgui/backends
+
+
+# =============================================================================
+# Link build statements for STATIC_LIBRARY target imgui
+
+
+#############################################
+# Link the static library vendor/imgui/libimgui.a
+
+build vendor/imgui/libimgui.a: CXX_STATIC_LIBRARY_LINKER__imgui_Debug vendor/imgui/CMakeFiles/imgui.dir/imgui/imgui.cpp.o vendor/imgui/CMakeFiles/imgui.dir/imgui/imgui_draw.cpp.o vendor/imgui/CMakeFiles/imgui.dir/imgui/imgui_tables.cpp.o vendor/imgui/CMakeFiles/imgui.dir/imgui/imgui_widgets.cpp.o vendor/imgui/CMakeFiles/imgui.dir/imgui/imgui_demo.cpp.o vendor/imgui/CMakeFiles/imgui.dir/imgui/backends/imgui_impl_glfw.cpp.o vendor/imgui/CMakeFiles/imgui.dir/imgui/backends/imgui_impl_opengl3.cpp.o || vendor/glfw/src/libglfw3.a
+  ARCH_FLAGS = -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk
+  LANGUAGE_COMPILE_FLAGS = -Wno-error -Wno-everything -g
+  OBJECT_DIR = vendor/imgui/CMakeFiles/imgui.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = vendor/imgui/libimgui.a
+  TARGET_PDB = imgui.a.dbg
+
+
+#############################################
+# Utility command for edit_cache
+
+build vendor/imgui/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/avi/Newton/cmake-build-debug/vendor/imgui && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+  DESC = No interactive CMake dialog available...
+  restat = 1
+
+build vendor/imgui/edit_cache: phony vendor/imgui/CMakeFiles/edit_cache.util
+
+
+#############################################
+# Utility command for rebuild_cache
+
+build vendor/imgui/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/avi/Newton/cmake-build-debug/vendor/imgui && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake --regenerate-during-build -S/Users/avi/Newton -B/Users/avi/Newton/cmake-build-debug
+  DESC = Running CMake to regenerate build system...
+  pool = console
+  restat = 1
+
+build vendor/imgui/rebuild_cache: phony vendor/imgui/CMakeFiles/rebuild_cache.util
+
+
+#############################################
+# Utility command for list_install_components
+
+build vendor/imgui/list_install_components: phony
+
+
+#############################################
+# Utility command for install
+
+build vendor/imgui/CMakeFiles/install.util: CUSTOM_COMMAND vendor/imgui/all
+  COMMAND = cd /Users/avi/Newton/cmake-build-debug/vendor/imgui && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -P cmake_install.cmake
+  DESC = Install the project...
+  pool = console
+  restat = 1
+
+build vendor/imgui/install: phony vendor/imgui/CMakeFiles/install.util
+
+
+#############################################
+# Utility command for install/local
+
+build vendor/imgui/CMakeFiles/install/local.util: CUSTOM_COMMAND vendor/imgui/all
+  COMMAND = cd /Users/avi/Newton/cmake-build-debug/vendor/imgui && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+  DESC = Installing only the local directory...
+  pool = console
+  restat = 1
+
+build vendor/imgui/install/local: phony vendor/imgui/CMakeFiles/install/local.util
+
+
+#############################################
+# Utility command for install/strip
+
+build vendor/imgui/CMakeFiles/install/strip.util: CUSTOM_COMMAND vendor/imgui/all
+  COMMAND = cd /Users/avi/Newton/cmake-build-debug/vendor/imgui && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+  DESC = Installing the project stripped...
+  pool = console
+  restat = 1
+
+build vendor/imgui/install/strip: phony vendor/imgui/CMakeFiles/install/strip.util
+
+# =============================================================================
+# Write statements declared in CMakeLists.txt:
+# /Users/avi/Newton/CMakeLists.txt
+# =============================================================================
+
+# =============================================================================
+# Object build statements for EXECUTABLE target Newton
+
+
+#############################################
+# Order-only phony target for Newton
+
+build cmake_object_order_depends_target_Newton: phony || cmake_object_order_depends_target_glfw cmake_object_order_depends_target_imgui cmake_object_order_depends_target_libglew_static cmake_object_order_depends_target_stb
+
+build src/CMakeFiles/Newton.dir/main.cpp.o: CXX_COMPILER__Newton_Debug /Users/avi/Newton/src/main.cpp || cmake_object_order_depends_target_Newton
+  DEFINES = -DGLEW_NO_GLU -DGLEW_STATIC
+  DEP_FILE = src/CMakeFiles/Newton.dir/main.cpp.o.d
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=c++20
+  INCLUDES = -I/Users/avi/Newton/vendor -I/Users/avi/Newton/vendor/glfw/include -I/Users/avi/Newton/vendor/glew-cmake/include -I/Users/avi/Newton/vendor/glm -I/Users/avi/Newton/vendor/imgui/imgui -iframework /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk/System/Library/Frameworks
+  OBJECT_DIR = src/CMakeFiles/Newton.dir
+  OBJECT_FILE_DIR = src/CMakeFiles/Newton.dir
+
+build src/CMakeFiles/Newton.dir/Camera.cpp.o: CXX_COMPILER__Newton_Debug /Users/avi/Newton/src/Camera.cpp || cmake_object_order_depends_target_Newton
+  DEFINES = -DGLEW_NO_GLU -DGLEW_STATIC
+  DEP_FILE = src/CMakeFiles/Newton.dir/Camera.cpp.o.d
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=c++20
+  INCLUDES = -I/Users/avi/Newton/vendor -I/Users/avi/Newton/vendor/glfw/include -I/Users/avi/Newton/vendor/glew-cmake/include -I/Users/avi/Newton/vendor/glm -I/Users/avi/Newton/vendor/imgui/imgui -iframework /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk/System/Library/Frameworks
+  OBJECT_DIR = src/CMakeFiles/Newton.dir
+  OBJECT_FILE_DIR = src/CMakeFiles/Newton.dir
+
+build src/CMakeFiles/Newton.dir/IndexBuffer.cpp.o: CXX_COMPILER__Newton_Debug /Users/avi/Newton/src/IndexBuffer.cpp || cmake_object_order_depends_target_Newton
+  DEFINES = -DGLEW_NO_GLU -DGLEW_STATIC
+  DEP_FILE = src/CMakeFiles/Newton.dir/IndexBuffer.cpp.o.d
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=c++20
+  INCLUDES = -I/Users/avi/Newton/vendor -I/Users/avi/Newton/vendor/glfw/include -I/Users/avi/Newton/vendor/glew-cmake/include -I/Users/avi/Newton/vendor/glm -I/Users/avi/Newton/vendor/imgui/imgui -iframework /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk/System/Library/Frameworks
+  OBJECT_DIR = src/CMakeFiles/Newton.dir
+  OBJECT_FILE_DIR = src/CMakeFiles/Newton.dir
+
+build src/CMakeFiles/Newton.dir/Mesh.cpp.o: CXX_COMPILER__Newton_Debug /Users/avi/Newton/src/Mesh.cpp || cmake_object_order_depends_target_Newton
+  DEFINES = -DGLEW_NO_GLU -DGLEW_STATIC
+  DEP_FILE = src/CMakeFiles/Newton.dir/Mesh.cpp.o.d
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=c++20
+  INCLUDES = -I/Users/avi/Newton/vendor -I/Users/avi/Newton/vendor/glfw/include -I/Users/avi/Newton/vendor/glew-cmake/include -I/Users/avi/Newton/vendor/glm -I/Users/avi/Newton/vendor/imgui/imgui -iframework /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk/System/Library/Frameworks
+  OBJECT_DIR = src/CMakeFiles/Newton.dir
+  OBJECT_FILE_DIR = src/CMakeFiles/Newton.dir
+
+build src/CMakeFiles/Newton.dir/renderedTexture.cpp.o: CXX_COMPILER__Newton_Debug /Users/avi/Newton/src/renderedTexture.cpp || cmake_object_order_depends_target_Newton
+  DEFINES = -DGLEW_NO_GLU -DGLEW_STATIC
+  DEP_FILE = src/CMakeFiles/Newton.dir/renderedTexture.cpp.o.d
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=c++20
+  INCLUDES = -I/Users/avi/Newton/vendor -I/Users/avi/Newton/vendor/glfw/include -I/Users/avi/Newton/vendor/glew-cmake/include -I/Users/avi/Newton/vendor/glm -I/Users/avi/Newton/vendor/imgui/imgui -iframework /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk/System/Library/Frameworks
+  OBJECT_DIR = src/CMakeFiles/Newton.dir
+  OBJECT_FILE_DIR = src/CMakeFiles/Newton.dir
+
+build src/CMakeFiles/Newton.dir/Renderer.cpp.o: CXX_COMPILER__Newton_Debug /Users/avi/Newton/src/Renderer.cpp || cmake_object_order_depends_target_Newton
+  DEFINES = -DGLEW_NO_GLU -DGLEW_STATIC
+  DEP_FILE = src/CMakeFiles/Newton.dir/Renderer.cpp.o.d
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=c++20
+  INCLUDES = -I/Users/avi/Newton/vendor -I/Users/avi/Newton/vendor/glfw/include -I/Users/avi/Newton/vendor/glew-cmake/include -I/Users/avi/Newton/vendor/glm -I/Users/avi/Newton/vendor/imgui/imgui -iframework /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk/System/Library/Frameworks
+  OBJECT_DIR = src/CMakeFiles/Newton.dir
+  OBJECT_FILE_DIR = src/CMakeFiles/Newton.dir
+
+build src/CMakeFiles/Newton.dir/Shader.cpp.o: CXX_COMPILER__Newton_Debug /Users/avi/Newton/src/Shader.cpp || cmake_object_order_depends_target_Newton
+  DEFINES = -DGLEW_NO_GLU -DGLEW_STATIC
+  DEP_FILE = src/CMakeFiles/Newton.dir/Shader.cpp.o.d
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=c++20
+  INCLUDES = -I/Users/avi/Newton/vendor -I/Users/avi/Newton/vendor/glfw/include -I/Users/avi/Newton/vendor/glew-cmake/include -I/Users/avi/Newton/vendor/glm -I/Users/avi/Newton/vendor/imgui/imgui -iframework /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk/System/Library/Frameworks
+  OBJECT_DIR = src/CMakeFiles/Newton.dir
+  OBJECT_FILE_DIR = src/CMakeFiles/Newton.dir
+
+build src/CMakeFiles/Newton.dir/Shapes.cpp.o: CXX_COMPILER__Newton_Debug /Users/avi/Newton/src/Shapes.cpp || cmake_object_order_depends_target_Newton
+  DEFINES = -DGLEW_NO_GLU -DGLEW_STATIC
+  DEP_FILE = src/CMakeFiles/Newton.dir/Shapes.cpp.o.d
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=c++20
+  INCLUDES = -I/Users/avi/Newton/vendor -I/Users/avi/Newton/vendor/glfw/include -I/Users/avi/Newton/vendor/glew-cmake/include -I/Users/avi/Newton/vendor/glm -I/Users/avi/Newton/vendor/imgui/imgui -iframework /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk/System/Library/Frameworks
+  OBJECT_DIR = src/CMakeFiles/Newton.dir
+  OBJECT_FILE_DIR = src/CMakeFiles/Newton.dir
+
+build src/CMakeFiles/Newton.dir/Texture.cpp.o: CXX_COMPILER__Newton_Debug /Users/avi/Newton/src/Texture.cpp || cmake_object_order_depends_target_Newton
+  DEFINES = -DGLEW_NO_GLU -DGLEW_STATIC
+  DEP_FILE = src/CMakeFiles/Newton.dir/Texture.cpp.o.d
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=c++20
+  INCLUDES = -I/Users/avi/Newton/vendor -I/Users/avi/Newton/vendor/glfw/include -I/Users/avi/Newton/vendor/glew-cmake/include -I/Users/avi/Newton/vendor/glm -I/Users/avi/Newton/vendor/imgui/imgui -iframework /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk/System/Library/Frameworks
+  OBJECT_DIR = src/CMakeFiles/Newton.dir
+  OBJECT_FILE_DIR = src/CMakeFiles/Newton.dir
+
+build src/CMakeFiles/Newton.dir/VertexArray.cpp.o: CXX_COMPILER__Newton_Debug /Users/avi/Newton/src/VertexArray.cpp || cmake_object_order_depends_target_Newton
+  DEFINES = -DGLEW_NO_GLU -DGLEW_STATIC
+  DEP_FILE = src/CMakeFiles/Newton.dir/VertexArray.cpp.o.d
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=c++20
+  INCLUDES = -I/Users/avi/Newton/vendor -I/Users/avi/Newton/vendor/glfw/include -I/Users/avi/Newton/vendor/glew-cmake/include -I/Users/avi/Newton/vendor/glm -I/Users/avi/Newton/vendor/imgui/imgui -iframework /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk/System/Library/Frameworks
+  OBJECT_DIR = src/CMakeFiles/Newton.dir
+  OBJECT_FILE_DIR = src/CMakeFiles/Newton.dir
+
+build src/CMakeFiles/Newton.dir/VertexBuffer.cpp.o: CXX_COMPILER__Newton_Debug /Users/avi/Newton/src/VertexBuffer.cpp || cmake_object_order_depends_target_Newton
+  DEFINES = -DGLEW_NO_GLU -DGLEW_STATIC
+  DEP_FILE = src/CMakeFiles/Newton.dir/VertexBuffer.cpp.o.d
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=c++20
+  INCLUDES = -I/Users/avi/Newton/vendor -I/Users/avi/Newton/vendor/glfw/include -I/Users/avi/Newton/vendor/glew-cmake/include -I/Users/avi/Newton/vendor/glm -I/Users/avi/Newton/vendor/imgui/imgui -iframework /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk/System/Library/Frameworks
+  OBJECT_DIR = src/CMakeFiles/Newton.dir
+  OBJECT_FILE_DIR = src/CMakeFiles/Newton.dir
+
+build src/CMakeFiles/Newton.dir/utils/error.cpp.o: CXX_COMPILER__Newton_Debug /Users/avi/Newton/src/utils/error.cpp || cmake_object_order_depends_target_Newton
+  DEFINES = -DGLEW_NO_GLU -DGLEW_STATIC
+  DEP_FILE = src/CMakeFiles/Newton.dir/utils/error.cpp.o.d
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=c++20
+  INCLUDES = -I/Users/avi/Newton/vendor -I/Users/avi/Newton/vendor/glfw/include -I/Users/avi/Newton/vendor/glew-cmake/include -I/Users/avi/Newton/vendor/glm -I/Users/avi/Newton/vendor/imgui/imgui -iframework /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk/System/Library/Frameworks
+  OBJECT_DIR = src/CMakeFiles/Newton.dir
+  OBJECT_FILE_DIR = src/CMakeFiles/Newton.dir/utils
+
+build src/CMakeFiles/Newton.dir/utils/timer.cpp.o: CXX_COMPILER__Newton_Debug /Users/avi/Newton/src/utils/timer.cpp || cmake_object_order_depends_target_Newton
+  DEFINES = -DGLEW_NO_GLU -DGLEW_STATIC
+  DEP_FILE = src/CMakeFiles/Newton.dir/utils/timer.cpp.o.d
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=c++20
+  INCLUDES = -I/Users/avi/Newton/vendor -I/Users/avi/Newton/vendor/glfw/include -I/Users/avi/Newton/vendor/glew-cmake/include -I/Users/avi/Newton/vendor/glm -I/Users/avi/Newton/vendor/imgui/imgui -iframework /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk/System/Library/Frameworks
+  OBJECT_DIR = src/CMakeFiles/Newton.dir
+  OBJECT_FILE_DIR = src/CMakeFiles/Newton.dir/utils
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target Newton
+
+
+#############################################
+# Link the executable src/Newton
+
+build src/Newton: CXX_EXECUTABLE_LINKER__Newton_Debug src/CMakeFiles/Newton.dir/main.cpp.o src/CMakeFiles/Newton.dir/Camera.cpp.o src/CMakeFiles/Newton.dir/IndexBuffer.cpp.o src/CMakeFiles/Newton.dir/Mesh.cpp.o src/CMakeFiles/Newton.dir/renderedTexture.cpp.o src/CMakeFiles/Newton.dir/Renderer.cpp.o src/CMakeFiles/Newton.dir/Shader.cpp.o src/CMakeFiles/Newton.dir/Shapes.cpp.o src/CMakeFiles/Newton.dir/Texture.cpp.o src/CMakeFiles/Newton.dir/VertexArray.cpp.o src/CMakeFiles/Newton.dir/VertexBuffer.cpp.o src/CMakeFiles/Newton.dir/utils/error.cpp.o src/CMakeFiles/Newton.dir/utils/timer.cpp.o | vendor/glfw/src/libglfw3.a vendor/glew-cmake/lib/libglewd.a vendor/imgui/libimgui.a vendor/stb_image/libstb.a /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk/System/Library/Frameworks/OpenGL.framework/OpenGL.tbd vendor/glfw/src/libglfw3.a || vendor/glew-cmake/lib/libglewd.a vendor/glfw/src/libglfw3.a vendor/imgui/libimgui.a vendor/stb_image/libstb.a
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk
+  LINK_LIBRARIES = vendor/glfw/src/libglfw3.a  vendor/glew-cmake/lib/libglewd.a  vendor/imgui/libimgui.a  vendor/stb_image/libstb.a  -Xlinker -framework -Xlinker OpenGl  -Xlinker -framework -Xlinker Cocoa  -Xlinker -framework -Xlinker IOKit  -Xlinker -framework -Xlinker CoreVideo  -Xlinker -framework -Xlinker CoreFoundation  -Xlinker -framework -Xlinker GLUT  /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk/System/Library/Frameworks/OpenGL.framework/OpenGL.tbd  -Xlinker -framework -Xlinker AGL  vendor/glfw/src/libglfw3.a  -framework Cocoa  -framework IOKit  -framework CoreFoundation  -Xlinker -framework -Xlinker OpenGL
+  OBJECT_DIR = src/CMakeFiles/Newton.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = src/Newton
+  TARGET_PDB = Newton.dbg
+
+
+#############################################
+# Utility command for edit_cache
+
+build src/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/avi/Newton/cmake-build-debug/src && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+  DESC = No interactive CMake dialog available...
+  restat = 1
+
+build src/edit_cache: phony src/CMakeFiles/edit_cache.util
+
+
+#############################################
+# Utility command for rebuild_cache
+
+build src/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/avi/Newton/cmake-build-debug/src && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake --regenerate-during-build -S/Users/avi/Newton -B/Users/avi/Newton/cmake-build-debug
+  DESC = Running CMake to regenerate build system...
+  pool = console
+  restat = 1
+
+build src/rebuild_cache: phony src/CMakeFiles/rebuild_cache.util
+
+
+#############################################
+# Utility command for list_install_components
+
+build src/list_install_components: phony
+
+
+#############################################
+# Utility command for install
+
+build src/CMakeFiles/install.util: CUSTOM_COMMAND src/all
+  COMMAND = cd /Users/avi/Newton/cmake-build-debug/src && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -P cmake_install.cmake
+  DESC = Install the project...
+  pool = console
+  restat = 1
+
+build src/install: phony src/CMakeFiles/install.util
+
+
+#############################################
+# Utility command for install/local
+
+build src/CMakeFiles/install/local.util: CUSTOM_COMMAND src/all
+  COMMAND = cd /Users/avi/Newton/cmake-build-debug/src && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+  DESC = Installing only the local directory...
+  pool = console
+  restat = 1
+
+build src/install/local: phony src/CMakeFiles/install/local.util
+
+
+#############################################
+# Utility command for install/strip
+
+build src/CMakeFiles/install/strip.util: CUSTOM_COMMAND src/all
+  COMMAND = cd /Users/avi/Newton/cmake-build-debug/src && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+  DESC = Installing the project stripped...
+  pool = console
+  restat = 1
+
+build src/install/strip: phony src/CMakeFiles/install/strip.util
+
+# =============================================================================
+# Target aliases.
+
+build Newton: phony src/Newton
+
+build glfw: phony vendor/glfw/src/libglfw3.a
+
+build imgui: phony vendor/imgui/libimgui.a
+
+build libglew-sharedd.dylib: phony vendor/glew-cmake/lib/libglew-sharedd.dylib
+
+build libglew_shared: phony vendor/glew-cmake/lib/libglew-sharedd.dylib
+
+build libglew_static: phony vendor/glew-cmake/lib/libglewd.a
+
+build libglewd.a: phony vendor/glew-cmake/lib/libglewd.a
+
+build libglfw3.a: phony vendor/glfw/src/libglfw3.a
+
+build libimgui.a: phony vendor/imgui/libimgui.a
+
+build libstb.a: phony vendor/stb_image/libstb.a
+
+build stb: phony vendor/stb_image/libstb.a
+
+build uninstall: phony vendor/glm/uninstall
+
+build update_mappings: phony vendor/glfw/src/update_mappings
+
+# =============================================================================
+# Folder targets.
+
+# =============================================================================
+
+#############################################
+# Folder: /Users/avi/Newton/cmake-build-debug
+
+build all: phony vendor/all src/all
+
+# =============================================================================
+
+#############################################
+# Folder: /Users/avi/Newton/cmake-build-debug/src
+
+build src/all: phony src/Newton
+
+# =============================================================================
+
+#############################################
+# Folder: /Users/avi/Newton/cmake-build-debug/vendor
+
+build vendor/all: phony vendor/glfw/all vendor/glew-cmake/all vendor/glm/all vendor/stb_image/all vendor/imgui/all
+
+# =============================================================================
+
+#############################################
+# Folder: /Users/avi/Newton/cmake-build-debug/vendor/glew-cmake
+
+build vendor/glew-cmake/all: phony vendor/glew-cmake/lib/libglewd.a vendor/glew-cmake/lib/libglew-sharedd.dylib
+
+# =============================================================================
+
+#############################################
+# Folder: /Users/avi/Newton/cmake-build-debug/vendor/glfw
+
+build vendor/glfw/all: phony vendor/glfw/src/all
+
+# =============================================================================
+
+#############################################
+# Folder: /Users/avi/Newton/cmake-build-debug/vendor/glfw/src
+
+build vendor/glfw/src/all: phony vendor/glfw/src/libglfw3.a
+
+# =============================================================================
+
+#############################################
+# Folder: /Users/avi/Newton/cmake-build-debug/vendor/glm
+
+build vendor/glm/all: phony vendor/glm/glm/all
+
+# =============================================================================
+
+#############################################
+# Folder: /Users/avi/Newton/cmake-build-debug/vendor/glm/glm
+
+build vendor/glm/glm/all: phony
+
+# =============================================================================
+
+#############################################
+# Folder: /Users/avi/Newton/cmake-build-debug/vendor/imgui
+
+build vendor/imgui/all: phony vendor/imgui/libimgui.a
+
+# =============================================================================
+
+#############################################
+# Folder: /Users/avi/Newton/cmake-build-debug/vendor/stb_image
+
+build vendor/stb_image/all: phony vendor/stb_image/libstb.a
+
+# =============================================================================
+# Built-in targets
+
+
+#############################################
+# Re-run CMake if any of its inputs changed.
+
+build build.ninja: RERUN_CMAKE | /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/BasicConfigVersion-SameMajorVersion.cmake.in /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeCInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeCXXInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeCommonLanguageInclude.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeDependentOption.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeGenericSystem.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeInitializeConfigs.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeLanguageInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakePackageConfigHelpers.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeSystemSpecificInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeSystemSpecificInitialize.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CheckCSourceCompiles.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CheckIncludeFile.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CheckLibraryExists.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Compiler/AppleClang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Compiler/AppleClang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Compiler/CMakeCommonCompilerMacros.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Compiler/Clang.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Compiler/GNU.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/FindOpenGL.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/FindPackageHandleStandardArgs.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/FindPackageMessage.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/FindThreads.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/GNUInstallDirs.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Internal/CheckSourceCompiles.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/Apple-AppleClang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/Apple-AppleClang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/Apple-Clang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/Apple-Clang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/Apple-Clang.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/Darwin-Initialize.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/Darwin.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/UnixPaths.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/WriteBasicConfigVersionFile.cmake /Users/avi/Newton/CMakeLists.txt /Users/avi/Newton/src/CMakeLists.txt /Users/avi/Newton/vendor/CMakeLists.txt /Users/avi/Newton/vendor/glew-cmake/CMakeLists.txt /Users/avi/Newton/vendor/glew-cmake/GeneratePkgConfig.cmake /Users/avi/Newton/vendor/glfw/CMake/glfw3.pc.in /Users/avi/Newton/vendor/glfw/CMake/glfw3Config.cmake.in /Users/avi/Newton/vendor/glfw/CMakeLists.txt /Users/avi/Newton/vendor/glfw/src/CMakeLists.txt /Users/avi/Newton/vendor/glm/CMakeLists.txt /Users/avi/Newton/vendor/glm/cmake/cmake_uninstall.cmake.in /Users/avi/Newton/vendor/glm/glm/CMakeLists.txt /Users/avi/Newton/vendor/imgui/CMakeLists.txt /Users/avi/Newton/vendor/stb_image/CMakeLists.txt CMakeCache.txt CMakeFiles/3.24.2/CMakeCCompiler.cmake CMakeFiles/3.24.2/CMakeCXXCompiler.cmake CMakeFiles/3.24.2/CMakeSystem.cmake
+  pool = console
+
+
+#############################################
+# A missing CMake input file is not an error.
+
+build /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/BasicConfigVersion-SameMajorVersion.cmake.in /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeCInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeCXXInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeCommonLanguageInclude.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeDependentOption.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeGenericSystem.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeInitializeConfigs.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeLanguageInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakePackageConfigHelpers.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeSystemSpecificInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeSystemSpecificInitialize.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CheckCSourceCompiles.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CheckIncludeFile.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CheckLibraryExists.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Compiler/AppleClang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Compiler/AppleClang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Compiler/CMakeCommonCompilerMacros.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Compiler/Clang.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Compiler/GNU.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/FindOpenGL.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/FindPackageHandleStandardArgs.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/FindPackageMessage.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/FindThreads.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/GNUInstallDirs.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Internal/CheckSourceCompiles.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/Apple-AppleClang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/Apple-AppleClang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/Apple-Clang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/Apple-Clang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/Apple-Clang.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/Darwin-Initialize.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/Darwin.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/UnixPaths.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/WriteBasicConfigVersionFile.cmake /Users/avi/Newton/CMakeLists.txt /Users/avi/Newton/src/CMakeLists.txt /Users/avi/Newton/vendor/CMakeLists.txt /Users/avi/Newton/vendor/glew-cmake/CMakeLists.txt /Users/avi/Newton/vendor/glew-cmake/GeneratePkgConfig.cmake /Users/avi/Newton/vendor/glfw/CMake/glfw3.pc.in /Users/avi/Newton/vendor/glfw/CMake/glfw3Config.cmake.in /Users/avi/Newton/vendor/glfw/CMakeLists.txt /Users/avi/Newton/vendor/glfw/src/CMakeLists.txt /Users/avi/Newton/vendor/glm/CMakeLists.txt /Users/avi/Newton/vendor/glm/cmake/cmake_uninstall.cmake.in /Users/avi/Newton/vendor/glm/glm/CMakeLists.txt /Users/avi/Newton/vendor/imgui/CMakeLists.txt /Users/avi/Newton/vendor/stb_image/CMakeLists.txt CMakeCache.txt CMakeFiles/3.24.2/CMakeCCompiler.cmake CMakeFiles/3.24.2/CMakeCXXCompiler.cmake CMakeFiles/3.24.2/CMakeSystem.cmake: phony
+
+
+#############################################
+# Clean all the built files.
+
+build clean: CLEAN
+
+
+#############################################
+# Print all primary targets available.
+
+build help: HELP
+
+
+#############################################
+# Make the all target the default.
+
+default all

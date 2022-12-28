@@ -1,0 +1,11 @@
+Compiling the OBJC compiler identification source file "CMakeOBJCCompilerId.m" failed.
+Compiler: /Library/Developer/CommandLineTools/usr/bin/clang 
+Build flags: 
+Id flags:  
+
+The output was:
+1
+ld: library not found for -lSystem
+clang: error: linker command failed with exit code 1 (use -v to see invocation)
+
+

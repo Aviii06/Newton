@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../utils/error.h"
-#include "../common/types.h"
+#include "utils/error.h"
+#include "common/types.h"
 
 struct VertexBufferElement
 {

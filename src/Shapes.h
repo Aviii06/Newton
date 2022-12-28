@@ -1,6 +1,6 @@
 #pragma once
 #include <stddef.h>
-#include "../common/types.h"
+#include "common/types.h"
 #include "VertexBuffer.h"
 
 namespace shape{
