@@ -66,7 +66,7 @@ namespace shape{
         };
 
         m_Pos.resize(8, Vertex());
-        m_Ind.resize(12 * 3, unsigned int());
+        m_Ind.resize(12 * 3, int());
         
         for(int i = 0; i < 8; i++)
         {
