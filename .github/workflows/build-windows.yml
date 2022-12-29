@@ -17,9 +17,6 @@ jobs:
 
       - name: build
         run: |
-          if [ "$RUNNER_OS" == "Linux" ]; then
-            sudo apt-get update && sudo apt-get install xorg-dev libglu1-mesa-dev freeglut3-dev mesa-common-dev
-          fi
           mkdir build
           cd build
           cmake ..

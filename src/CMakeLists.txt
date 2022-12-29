@@ -47,25 +47,5 @@ target_link_libraries(${PROJECT_NAME}
         PRIVATE glm
         PUBLIC imgui
         PUBLIC stb
+        PRIVATE glad
         )
-
-macro(ADD_FRAMEWORK fwname appname)
-    find_library(FRAMEWORK_${fwname}
-            NAMES ${fwname}
-            PATHS ${CMAKE_OSX_SYSROOT}/System/Library
-            PATH_SUFFIXES Frameworks
-            NO_DEFAULT_PATH)
-    if (${FRAMEWORK_${fwname}} STREQUAL FRAMEWORK_${fwname}-NOTFOUND)
-        MESSAGE(ERROR ": Framework ${fwname} not found")
-    else ()
-        TARGET_LINK_LIBRARIES(${appname} PRIVATE ${FRAMEWORK_${fwname}})
-        MESSAGE(STATUS "Framework ${fwname} found at ${FRAMEWORK_${fwname}}")
-    endif ()
-endmacro(ADD_FRAMEWORK)
-
-add_framework(OpenGl ${PROJECT_NAME})
-add_framework(Cocoa ${PROJECT_NAME})
-add_framework(IOKit ${PROJECT_NAME})
-add_framework(CoreVideo ${PROJECT_NAME})
-add_framework(CoreFoundation ${PROJECT_NAME})
-add_framework(GLUT ${PROJECT_NAME})
