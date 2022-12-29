@@ -1,9 +1,10 @@
 #pragma once
 
 //Vector
-#include <vector>
 #include <string>
-template <class T>
+#include <vector>
+
+template<class T>
 using Vector = std::vector<T>;
 
 //OPEN GL

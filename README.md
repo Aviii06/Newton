@@ -14,6 +14,7 @@ Now run
 ```
 git clone git@github.com:Aviii06/Newton.git
 cd newton
+git submodule update --init --recursive
 mkdir build && cd build
 cmake .. -G Ninja
 ninja -j8
