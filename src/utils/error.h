@@ -1,10 +1,16 @@
 #pragma once
 
 #include <GL/glew.h>
-
+#if defined(__GNUC__) || defined(__GNUG__) || defined(__clang__)
 #define ASSERT(x) \
 	if (!(x))     \
-	__builtin_trap() // __debugbreak() for windows
+	__builtin_trap()
+#elif defined(_MSC_VER)
+#define ASSERT(x) \
+	if (!(x))     \
+	__debugbreak()
+#endif
+
 
 #define GLCall(x)   \
 	GLClearError(); \
