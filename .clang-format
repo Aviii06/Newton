@@ -9,4 +9,3 @@ TabWidth: '4'
 UseTab: ForIndentation
 NamespaceIndentation: All
 FixNamespaceComments: false
-...

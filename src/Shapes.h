@@ -4,46 +4,47 @@
 #include "common/types.h"
 #include <stddef.h>
 
-namespace shape {
-    class quad3d;
+namespace shape
+{
+	class quad3d;
 
-    class sphere;
-}// namespace shape
+	class sphere;
+} // namespace shape
 
-
-class shape::quad3d {
+class shape::quad3d
+{
 private:
-    float m_Size;
-    Vector<Vertex> m_Pos;
-    Vector<unsigned int> m_Ind;
+	float m_Size;
+	Vector<Vertex> m_Pos;
+	Vector<unsigned int> m_Ind;
 
 public:
-    quad3d(int size);
+	quad3d(int size);
 
-    Vector<Vertex> &getPositions();
+	Vector<Vertex>& getPositions();
 
-    Vector<unsigned int> &getIndices();
+	Vector<unsigned int>& getIndices();
 
-    size_t getPositionsSize();
+	size_t getPositionsSize();
 
-    size_t getIndicesSize();
+	size_t getIndicesSize();
 };
 
-
-class shape::sphere {
+class shape::sphere
+{
 private:
-    float m_Radius;
-    float m_Pos[8 * 8];
-    unsigned int m_Ind[12 * 3];
+	float m_Radius;
+	float m_Pos[8 * 8];
+	unsigned int m_Ind[12 * 3];
 
 public:
-    sphere(int size);
+	sphere(int size);
 
-    float *getPositions();
+	float* getPositions();
 
-    unsigned int *getIndices();
+	unsigned int* getIndices();
 
-    size_t getPositionsSize();
+	size_t getPositionsSize();
 
-    size_t getIndicesSize();
+	size_t getIndicesSize();
 };

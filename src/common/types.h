@@ -1,13 +1,13 @@
 #pragma once
 
-//Vector
+// Vector
 #include <string>
 #include <vector>
 
-template<class T>
+template <class T>
 using Vector = std::vector<T>;
 
-//OPEN GL
+// OPEN GL
 #define GL_BYTE 0x1400
 #define GL_UNSIGNED_BYTE 0x1401
 #define GL_SHORT 0x1402

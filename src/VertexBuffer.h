@@ -5,26 +5,28 @@
 #include <glm/glm.hpp>
 
 // Structure to standardize the vertices used in the meshes
-struct Vertex {
-    glm::vec3 position;
-    glm::vec2 texcoord;
-    glm::vec3 color;
-    glm::vec3 normal;
-    float isLit;
+struct Vertex
+{
+	glm::vec3 position;
+	glm::vec2 texcoord;
+	glm::vec3 color;
+	glm::vec3 normal;
+	float isLit;
 };
 
-class VertexBuffer {
+class VertexBuffer
+{
 private:
-    unsigned int m_RendererID;
+	unsigned int m_RendererID;
 
 public:
-    VertexBuffer(std::vector<Vertex> &vertices);
+	VertexBuffer(std::vector<Vertex>& vertices);
 
-    ~VertexBuffer();
+	~VertexBuffer();
 
-    void Bind() const;
+	void Bind() const;
 
-    void Unbind() const;
+	void Unbind() const;
 };
 
 #endif

@@ -4,21 +4,22 @@
 
 #include "common/types.h"
 
-class IndexBuffer {
+class IndexBuffer
+{
 public:
-    unsigned int m_RendererID;
-    unsigned int m_Count;
+	unsigned int m_RendererID;
+	unsigned int m_Count;
 
 public:
-    IndexBuffer() = default;
+	IndexBuffer() = default;
 
-    IndexBuffer(Vector<unsigned int> &indices);
+	IndexBuffer(Vector<unsigned int>& indices);
 
-    ~IndexBuffer();
+	~IndexBuffer();
 
-    void Bind() const;
+	void Bind() const;
 
-    void Unbind() const;
+	void Unbind() const;
 
-    inline unsigned int GetCount() const { return m_Count; }
+	inline unsigned int GetCount() const { return m_Count; }
 };
