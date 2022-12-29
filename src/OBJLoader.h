@@ -7,8 +7,6 @@
 #include <string>
 #include <vector>
 
-#include <GL/GLEW.h>
-
 #include "VertexBuffer.h"
 #include "common/types.h"
 #include <glm/glm.hpp>
