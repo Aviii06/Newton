@@ -3,7 +3,8 @@
 //Vector
 #include <vector>
 #include <string>
-template <class T>
+
+template<class T>
 using Vector = std::vector<T>;
 
 //OPEN GL

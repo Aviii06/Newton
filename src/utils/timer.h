@@ -3,6 +3,7 @@
 #include <chrono>
 
 #include "../common/types.h"
+
 #define NS_TO_MS 1e-6f
 #define MS_TO_S 1e-3f
 
@@ -10,21 +11,23 @@
 typedef std::chrono::time_point<std::chrono::high_resolution_clock> TimePoint;
 
 /// Helper to keep track of time.
-class Timer
-{
+class Timer {
 protected:
-	static const std::chrono::high_resolution_clock s_Clock;
+    static const std::chrono::high_resolution_clock s_Clock;
 
-	TimePoint m_StartTime;
-	TimePoint m_EndTime;
+    TimePoint m_StartTime;
+    TimePoint m_EndTime;
 
 public:
-	static TimePoint Now();
+    static TimePoint Now();
 
-	Timer();
-	Timer(Timer&) = delete;
-	virtual ~Timer() = default;
+    Timer();
 
-	float getTimeMs() const { return (float)(s_Clock.now() - m_StartTime).count() * NS_TO_MS; }
-	float getTimeNs() const { return (s_Clock.now() - m_StartTime).count(); }
+    Timer(Timer &) = delete;
+
+    virtual ~Timer() = default;
+
+    float getTimeMs() const { return (float) (s_Clock.now() - m_StartTime).count() * NS_TO_MS; }
+
+    float getTimeNs() const { return (s_Clock.now() - m_StartTime).count(); }
 };

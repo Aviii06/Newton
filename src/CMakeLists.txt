@@ -7,8 +7,8 @@ set(SOURCES
         Mesh.cpp
         Mesh.h
         OBJLoader.h
-        renderedTexture.cpp
-        renderedTexture.h
+        RenderedTexture.cpp
+        RenderedTexture.h
         Renderer.cpp
         Renderer.h
         Shader.cpp
@@ -28,27 +28,6 @@ set(SOURCES
         utils/timer.cpp
         utils/timer.h
         )
-#
-#add_library(sources STATIC ${SOURCES})
-#
-#
-#target_include_directories(sources PUBLIC
-#        ${PROJECT_SOURCE_DIR}/vendor
-#        ${PROJECT_SOURCE_DIR}/src
-#        )
-#
-#target_link_libraries(sources
-#        PRIVATE glfw
-#        PRIVATE libglew_static
-#        PRIVATE glm
-#        PRIVATE common
-#        PUBLIC stb
-#        PUBLIC imgui
-#        )
-#
-#LINK_DIRECTORIES(
-#        "${CMAKE_BINARY_DIR}/src/"
-#)
 
 target_sources(${PROJECT_NAME} PRIVATE ${SOURCES})
 

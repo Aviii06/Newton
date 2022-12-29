@@ -31,14 +31,13 @@ glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 0.0f);
 glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
 glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
 
-void keyCallBack(GLFWwindow* window, int key, int SCANCODE, int action, int mode);
-int main(void)
-{
-    GLFWwindow* window;
+void keyCallBack(GLFWwindow *window, int key, int SCANCODE, int action, int mode);
+
+int main(void) {
+    GLFWwindow *window;
 
     /* Initialize the library */
-    if (!glfwInit())
-    {
+    if (!glfwInit()) {
         return -1;
     }
 
@@ -53,8 +52,7 @@ int main(void)
     /* Create a windowed mode window and its OpenGL context */
     window = glfwCreateWindow(Width, Height, "Newton", NULL, NULL);
     glfwSetInputMode(window, GLFW_STICKY_KEYS, 1);
-    if (!window)
-    {
+    if (!window) {
         glfwTerminate();
         return -1;
     }
@@ -64,11 +62,10 @@ int main(void)
 
     glEnable(GL_DEPTH_TEST);
 
-    if (glewInit() != GLEW_OK)
-    {
+    if (glewInit() != GLEW_OK) {
         std::cout << "F";
     }
-    
+
     Vector<Vertex> verts;
     Vector<unsigned int> inds;
 
@@ -121,7 +118,7 @@ int main(void)
     glm::vec4 lightColor(1.0, 1.0, 0.5, 1.0);
     glm::vec3 lightPos(0, 0, -400);
     glm::mat4 lightModel = glm::translate(glm::mat4(1.0f), lightPos);
-    
+
     Shader lightShader("./../assets/shaders/basic.vertexShader.hlsl", "./../assets/shaders/basic.pixelShader.hlsl");
     lightShader.Bind();
 
@@ -150,7 +147,6 @@ int main(void)
     mesh2.Draw(shader2, renderer2, modelMatrix2);
 
 
-
     Timer timer;
     float time = timer.getTimeMs();
 
@@ -161,7 +157,7 @@ int main(void)
     shader2.SetUniform1f("u_Time", time);
 
 
-    float aspect = (float)Width / Height;
+    float aspect = (float) Width / Height;
     shader.SetUniform1f("u_Aspect", aspect);
     shader2.SetUniform1f("u_Aspect", aspect);
 
@@ -174,7 +170,7 @@ int main(void)
     glfwWindowHint(GLFW_CLIENT_API, GLFW_OPENGL_ES_API);
 #elif defined(__APPLE__)
     // GL 3.2 + GLSL 150
-    const char* glsl_version = "#version 150";
+    const char *glsl_version = "#version 150";
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);  // 3.2+ only
@@ -194,9 +190,9 @@ int main(void)
     ImGui::StyleColorsDark();
 
     //MVP matrix 
-    glm::mat4 projectionMatrix = glm::ortho(0.0f, (float)Width,
-        0.0f, (float)Height,
-        -1.0f, 1.0f);
+    glm::mat4 projectionMatrix = glm::ortho(0.0f, (float) Width,
+                                            0.0f, (float) Height,
+                                            -1.0f, 1.0f);
 
     float field_of_view = 60.0f;
     float closestDistance = 0.1f;
@@ -204,7 +200,7 @@ int main(void)
 
 
     //createLitVector(verts, lightPos);
-    Vector<Mesh*> meshes;
+    Vector<Mesh *> meshes;
     meshes.push_back(&mesh);
     meshes.push_back(&mesh2);
 
@@ -212,8 +208,7 @@ int main(void)
 
 
 
-    while (!glfwWindowShouldClose(window))
-    {
+    while (!glfwWindowShouldClose(window)) {
         /* Render here */
         renderer.Clear();
         renderer2.Clear();
@@ -265,7 +260,7 @@ int main(void)
         mesh3.Draw(lightShader, renderer3, lightModel);
 
 
-        
+
 
         // IMGUI
         ImGui_ImplGlfw_NewFrame();
@@ -279,7 +274,8 @@ int main(void)
         ImGui::SliderFloat3("Light Position", &lightPos.x, -100.0f, 100.0f);
         ImGui::SliderFloat("Angle of Camera", &viewRotAngle, -90.0f, 90.0f);
         ImGui::SliderFloat("Field of View", &field_of_view, 15.0f, 90.0f);
-        ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+        ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate,
+                    ImGui::GetIO().Framerate);
 
         ImGui::End();
         ImGui::Render();
@@ -298,9 +294,9 @@ int main(void)
     return 0;
 }
 
-void keyCallBack(GLFWwindow* window, int key, int SCANCODE, int action, int mode) {
+void keyCallBack(GLFWwindow *window, int key, int SCANCODE, int action, int mode) {
     const float cameraSpeed = 5.0f; // adjust accordingly
-    if (key == GLFW_KEY_W) 
+    if (key == GLFW_KEY_W)
         cameraPos += cameraSpeed * cameraFront;
     else if (key == GLFW_KEY_S)
         cameraPos -= cameraSpeed * cameraFront;
