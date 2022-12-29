@@ -18,7 +18,7 @@ git submodule update --init --recursive
 mkdir build && cd build
 cmake .. -G Ninja
 ninja -j8
-src/newton
+./newton
 ```
 
 # Debugging
