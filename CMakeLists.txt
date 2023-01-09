@@ -11,7 +11,7 @@ set(CMAKE_VERBOSE_MAKEFILE ON CACHE BOOL "ON")
 
 add_subdirectory(vendor)
 
-add_executable(${PROJECT_NAME} src/main.cpp)
+add_executable(${PROJECT_NAME} src/main.cpp src/renderer/Camera.cpp src/renderer/Camera.h)
 add_subdirectory(src)
 
 

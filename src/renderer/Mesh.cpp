@@ -1,18 +1,20 @@
-#pragma once
+#include "Mesh.h"
 
-#include <algorithm>
-#include <fstream>
-#include <iostream>
-#include <sstream>
-#include <string>
-#include <vector>
-
-#include "VertexBuffer.h"
-#include "common/types.h"
-#include <glm/glm.hpp>
-
-void loadOBJ(const std::string& file_name, Vector<Vertex>& vertices, Vector<unsigned int>& indices)
+Mesh::Mesh(Vector<Vertex>& verts, Vector<unsigned int>& inds, VertexBufferLayout layout, glm::mat4 modelMatrix)
 {
+	m_Vertices = verts;
+	m_Indices = inds;
+	m_Layout = layout;
+	m_ModelMatrix = modelMatrix;
+}
+
+Mesh::Mesh(const std::string& file_name)
+{
+	// Default Layout is of type Vertex
+	m_Layout.AddFloat(3); // Positions
+	m_Layout.AddFloat(2); // Tex coords
+	m_Layout.AddFloat(3); // Colors
+	m_Layout.AddFloat(3); // Normal
 
 	// Vertex portions
 	std::vector<glm::fvec3> vertex_positions;
@@ -46,33 +48,25 @@ void loadOBJ(const std::string& file_name, Vector<Vertex>& vertices, Vector<unsi
 		ss.str(line);
 		ss >> prefix;
 
-		if (prefix == "#")
-		{
-		}
-		else if (prefix == "o")
-		{
-		}
-		else if (prefix == "s")
-		{
-		}
-		else if (prefix == "use_mtl")
-		{
-		}
-		else if (prefix == "v") // Vertex position
+		// Vertex position
+		if (prefix == "v")
 		{
 			ss >> temp_vec3.x >> temp_vec3.y >> temp_vec3.z;
 			vertex_positions.push_back(temp_vec3);
 		}
+		// Vertex texture
 		else if (prefix == "vt")
 		{
 			ss >> temp_vec2.x >> temp_vec2.y;
 			vertex_texcoords.push_back(temp_vec2);
 		}
+		// Vertex normal
 		else if (prefix == "vn")
 		{
 			ss >> temp_vec3.x >> temp_vec3.y >> temp_vec3.z;
 			vertex_normals.push_back(temp_vec3);
 		}
+		// Face
 		else if (prefix == "f")
 		{
 			int counter = 0;
@@ -100,44 +94,66 @@ void loadOBJ(const std::string& file_name, Vector<Vertex>& vertices, Vector<unsi
 
 				// Reset the counter
 				if (counter > 2)
+				{
 					counter = 0;
+				}
 			}
 		}
 	}
 
-	vertices.resize(vertex_position_indicies.size(), Vertex());
+	m_Vertices.resize(vertex_position_indicies.size(), Vertex());
 	vertex_texcoord_indicies.resize(vertex_position_indicies.size(), GLint(0));
 	vertex_normal_indicies.resize(vertex_position_indicies.size(), GLint(0));
-	indices.resize(vertex_position_indicies.size(), GLint(0));
+	m_Indices.resize(vertex_position_indicies.size(), GLint(0));
 
-	for (size_t i = 0; i < vertices.size(); ++i)
+	// TODO: Optimize this
+	for (size_t i = 0; i < m_Vertices.size(); ++i)
 	{
 		if (vertex_texcoord_indicies[i] == 0)
 		{
-			vertices[i].texcoord = glm::fvec2(1.0, 0.0);
+			m_Vertices[i].texcoord = glm::fvec2(1.0, 0.0);
 		}
 		else
 		{
-			vertices[i].texcoord = vertex_texcoords[vertex_texcoord_indicies[i] - 1];
+			m_Vertices[i].texcoord = vertex_texcoords[vertex_texcoord_indicies[i] - 1];
 		}
+
 		if (vertex_normal_indicies[i] == 0)
 		{
-			vertices[i].normal = glm::fvec3(1.0, 0.0, 0.0);
+			m_Vertices[i].normal = glm::fvec3(1.0, 0.0, 0.0);
 		}
 		else
 		{
-			vertices[i].normal = vertex_normals[vertex_normal_indicies[i] - 1];
+			m_Vertices[i].normal = vertex_normals[vertex_normal_indicies[i] - 1];
 		}
-		vertices[i].position = vertex_positions[vertex_position_indicies[i] - 1] * 100.0f;
-		vertices[i].color = glm::vec3(1.f, 1.f, 1.f);
-		indices[i] = i;
-		vertices[i].isLit = 1.0f;
+		m_Vertices[i].position = vertex_positions[vertex_position_indicies[i] - 1] * 100.0f;
+		m_Vertices[i].color = glm::vec3(1.f, 1.f, 1.f);
+		m_Indices[i] = i;
 	}
-
-	// DEBUG
-	std::cout << "Nr of vertices: " << vertices.size() << "\n";
 
 	// Loaded success
 	std::cout << "OBJ file loaded!"
 	          << "\n";
+}
+
+void Mesh::Update(const glm::mat4& modelMatrix)
+{
+	m_ModelMatrix = modelMatrix;
+}
+
+void Mesh::Draw(Shader& shader, Renderer& renderer, Camera camera)
+{
+	VertexBuffer vbo(m_Vertices);
+	IndexBuffer ebo(m_Indices);
+	vbo.Bind();
+	ebo.Bind();
+
+	vao.AddBuffer(vbo, m_Layout);
+	vao.Bind();
+
+	shader.Bind();
+	shader.SetUniformMat4f("u_Model", m_ModelMatrix);
+	shader.SetUniformMat4f("u_View", camera.GetViewMatrix());
+	shader.SetUniformMat4f("u_Proj", camera.GetProjectionMatrix());
+	renderer.Draw(vao, ebo, shader);
 }

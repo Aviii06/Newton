@@ -1,25 +1,21 @@
 set(SOURCES
-        IndexBuffer.cpp
-        IndexBuffer.h
-        Intersections.h
-        Mesh.cpp
-        Mesh.h
-        OBJLoader.h
-        RenderedTexture.cpp
-        RenderedTexture.h
-        Renderer.cpp
-        Renderer.h
-        Shader.cpp
-        Shader.h
-        Shapes.cpp
-        Shapes.h
-        Texture.cpp
-        Texture.h
-        VertexArray.cpp
-        VertexArray.h
-        VertexBuffer.cpp
-        VertexBuffer.h
-        VertexBufferLayout.h
+        renderer/IndexBuffer.cpp
+        renderer/IndexBuffer.h
+        renderer/Mesh.cpp
+        renderer/Mesh.h
+        renderer/Renderer.cpp
+        renderer/Renderer.h
+        renderer/Shader.cpp
+        renderer/Shader.h
+        renderer/Shapes.cpp
+        renderer/Shapes.h
+        renderer/Texture.cpp
+        renderer/Texture.h
+        renderer/VertexArray.cpp
+        renderer/VertexArray.h
+        renderer/VertexBuffer.cpp
+        renderer/VertexBuffer.h
+        renderer/VertexBufferLayout.h
         common/types.h
         utils/error.cpp
         utils/error.h

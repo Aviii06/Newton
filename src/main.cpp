@@ -1,22 +1,19 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
-#include <fstream>
 #include <iostream>
 #include <sstream>
-#include <string>
 
-#include "IndexBuffer.h"
-#include "Mesh.h"
-#include "OBJLoader.h"
-#include "Renderer.h"
-#include "Shader.h"
-#include "Shapes.h"
-#include "Texture.h"
-#include "VertexArray.h"
-#include "VertexBuffer.h"
+#include "renderer/IndexBuffer.h"
+#include "renderer/Mesh.h"
+#include "renderer/Renderer.h"
+#include "renderer/Shader.h"
+#include "renderer/Shapes.h"
+#include "renderer/Texture.h"
+#include "renderer/VertexArray.h"
+#include "renderer/VertexBuffer.h"
+#include "renderer/Camera.h"
 
-#include "Intersections.h"
 #include "glm/gtc/matrix_transform.hpp"
 #include "utils/timer.h"
 #include <glm/glm.hpp>
@@ -69,26 +66,24 @@ int main(void)
 		std::cout << "F";
 	}
 
-	Vector<Vertex> verts;
-	Vector<unsigned int> inds;
-
-	loadOBJ("./../assets/obj/plane.obj", verts, inds);
-
-	Vector<Vertex> verts2;
-	Vector<unsigned int> inds2;
-	loadOBJ("./../assets/obj/plane.obj", verts2, inds2);
-
 	GLCall(glEnable(GL_BLEND));
 	GLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
 	// GLCall( glEnable(GL_CULL_FACE) );
+
+	// Create a camera
+	float field_of_view = 60.0f;
+	float closestDistance = 0.1f;
+	float farthestDistance = 500.0f;
+
+	Camera camera(field_of_view, (float)Width / Height, closestDistance, farthestDistance);
 
 	VertexBufferLayout layout;
 	layout.AddFloat(3); // Positions
 	layout.AddFloat(2); // Tex coords
 	layout.AddFloat(3); // Colors
 	layout.AddFloat(3); // Normal
-	layout.AddFloat(1); // isLit
 
+	// Todo: Do this in using one renderer
 	Renderer renderer;
 	Renderer renderer2;
 	Renderer renderer3;
@@ -96,22 +91,11 @@ int main(void)
 	Shader shader("./../assets/shaders/basic.vertexShader.hlsl", "./../assets/shaders/basic.pixelShader.hlsl");
 	shader.Bind();
 
-	Shader shader2("./../assets/shaders/basic.vertexShader.hlsl", "./../assets/shaders/basic.pixelShader.hlsl");
-	shader2.Bind();
-
 	Texture texture("./../assets/textures/mandelbrot.png");
 	texture.Bind();
 
-	Texture texture2("./../assets/textures/mandelbrot.png");
-	texture2.Bind();
-
-	Vector<Texture> textures;
-	textures.push_back(texture);
-
-	Vector<Texture> textures2;
-	textures2.push_back(texture2);
-
 	// Light Info
+	// Todo: Make this a class or struct
 	float size = 10.0f;
 	shape::quad3d q(size);
 	Vector<Vertex> verts3 = q.getPositions();
@@ -126,7 +110,8 @@ int main(void)
 	lightShader.Bind();
 
 	Mesh mesh3(verts3, inds3, layout, lightModel);
-	mesh3.Draw(lightShader, renderer3, lightModel);
+	mesh3.Update(lightModel);
+	mesh3.Draw(lightShader, renderer3, camera);
 
 	// Drawing other meshes
 	glm::vec3 translationModel(0, 50, -400); // Default values for optimal viewing
@@ -142,11 +127,11 @@ int main(void)
 	// float viewRotAngle = 43.088;
 
 	float viewRotAngle = 0;
-	Mesh mesh(verts, inds, layout, modelMatrix);
-	mesh.Draw(shader, renderer, modelMatrix);
+	Mesh mesh("./../assets/obj/plane.obj");
+	mesh.Draw(shader, renderer, camera);
 
-	Mesh mesh2(verts2, inds2, layout, modelMatrix2);
-	mesh2.Draw(shader2, renderer2, modelMatrix2);
+	Mesh mesh2("./../assets/obj/plane.obj");
+	mesh2.Draw(shader, renderer2, camera);
 
 	Timer timer;
 	float time = timer.getTimeMs();
@@ -154,12 +139,9 @@ int main(void)
 	// Shader
 	shader.SetUniform1i("u_Texture", 0);
 	shader.SetUniform1f("u_Time", time);
-	shader2.SetUniform1i("u_Texture", 0);
-	shader2.SetUniform1f("u_Time", time);
 
 	float aspect = (float)Width / Height;
 	shader.SetUniform1f("u_Aspect", aspect);
-	shader2.SetUniform1f("u_Aspect", aspect);
 
 	// Decide GL+GLSL versions
 #if defined(IMGUI_IMPL_OPENGL_ES2)
@@ -194,17 +176,6 @@ int main(void)
 	    0.0f, (float)Height,
 	    -1.0f, 1.0f);
 
-	float field_of_view = 60.0f;
-	float closestDistance = 0.1f;
-	float farthestDistance = 500.0f;
-
-	// createLitVector(verts, lightPos);
-	Vector<Mesh*> meshes;
-	meshes.push_back(&mesh);
-	meshes.push_back(&mesh2);
-
-	// createLitVector(meshes, lightPos);
-
 	while (!glfwWindowShouldClose(window))
 	{
 		/* Render here */
@@ -213,48 +184,35 @@ int main(void)
 		renderer3.Clear();
 		glfwSetKeyCallback(window, keyCallBack);
 
-		// createLitVector(meshes, lightPos);
-
-		modelMatrix = glm::translate(glm::mat4(1.0f), translationModel);
-		modelMatrix2 = glm::translate(glm::mat4(1.0f), translationModel2);
+		mesh.Update(glm::translate(glm::mat4(1.0f), translationModel));
+		mesh2.Update(glm::translate(glm::mat4(1.0f), translationModel2));
 		viewMatrix = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
 
 		float rotation = time / 100.0;
 		// modelMatrix = glm::rotate(modelMatrix, glm::radians(rotation), glm::vec3(0.0f, 1.0f, 0.0f));
 		// modelMatrix2 = glm::rotate(modelMatrix2, glm::radians(rotation), glm::vec3(0.0f, 1.0f, 0.0f));
 
-		viewMatrix = glm::rotate(viewMatrix, glm::radians(viewRotAngle), glm::vec3(1.0f, 0.0f, 0.0f));
+		// viewMatrix = glm::rotate(viewMatrix, glm::radians(viewRotAngle), glm::vec3(1.0f, 0.0f, 0.0f));
 
 		shader.Bind();
 		shader.SetUniform4f("u_Color", 0.1, 0.3, 0.8, 1.0);
-		shader2.SetUniform4f("u_Color", 0.1, 0.3, 0.8, 1.0);
 		time = timer.getTimeMs();
 
 		projectionMatrix = glm::perspective(glm::radians(field_of_view), aspect, closestDistance, farthestDistance);
 
 		shader.SetUniform1f("u_Time", time);
-		shader.SetUniformMat4f("u_View", viewMatrix);
-		shader.SetUniformMat4f("u_Proj", projectionMatrix);
 		shader.SetUniform4f("lightColor", lightColor);
 		shader.SetUniform3f("lightPos", lightPos);
-		mesh.Draw(shader, renderer, modelMatrix);
+		mesh.Draw(shader, renderer, camera);
 
-		shader2.Bind();
-		shader2.SetUniform1f("u_Time", time);
-		shader2.SetUniformMat4f("u_View", viewMatrix);
-		shader2.SetUniformMat4f("u_Proj", projectionMatrix);
-		shader2.SetUniform4f("lightColor", lightColor);
-		shader2.SetUniform3f("lightPos", lightPos);
-		mesh2.Draw(shader2, renderer, modelMatrix2);
+		mesh2.Draw(shader, renderer, camera);
 
 		lightModel = glm::translate(glm::mat4(1.0f), lightPos);
 		lightShader.Bind();
 		lightShader.SetUniform1f("u_Time", time);
-		lightShader.SetUniformMat4f("u_View", viewMatrix);
-		lightShader.SetUniformMat4f("u_Proj", projectionMatrix);
 		lightShader.SetUniform4f("lightColor", lightColor);
 		lightShader.SetUniform3f("lightPos", lightPos);
-		mesh3.Draw(lightShader, renderer3, lightModel);
+		mesh3.Draw(lightShader, renderer3, camera);
 
 		// IMGUI
 		ImGui_ImplGlfw_NewFrame();
@@ -268,8 +226,8 @@ int main(void)
 		ImGui::SliderFloat3("Light Position", &lightPos.x, -100.0f, 100.0f);
 		ImGui::SliderFloat("Angle of Camera", &viewRotAngle, -90.0f, 90.0f);
 		ImGui::SliderFloat("Field of View", &field_of_view, 15.0f, 90.0f);
-		ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate,
-		    ImGui::GetIO().Framerate);
+		ImGui::Text("Application average %.3f ms/frame (%.1f FPS)",
+		    1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
 
 		ImGui::End();
 		ImGui::Render();
@@ -286,17 +244,4 @@ int main(void)
 
 	glfwTerminate();
 	return 0;
-}
-
-void keyCallBack(GLFWwindow* window, int key, int SCANCODE, int action, int mode)
-{
-	const float cameraSpeed = 5.0f; // adjust accordingly
-	if (key == GLFW_KEY_W)
-		cameraPos += cameraSpeed * cameraFront;
-	else if (key == GLFW_KEY_S)
-		cameraPos -= cameraSpeed * cameraFront;
-	else if (key == GLFW_KEY_A)
-		cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
-	else if (key == GLFW_KEY_D)
-		cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
 }

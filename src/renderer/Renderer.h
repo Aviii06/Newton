@@ -3,8 +3,8 @@
 #include "IndexBuffer.h"
 #include "Shader.h"
 #include "VertexArray.h"
-#include "utils/error.h"
-#include <GL/glew.h>
+#include "../utils/error.h"
+#include "glew-cmake/include/GL/glew.h"
 #include <memory>
 
 class Renderer

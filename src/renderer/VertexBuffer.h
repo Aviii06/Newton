@@ -1,8 +1,8 @@
 #ifndef vertexbuffer
 #define vertexbuffer
 
-#include "common/types.h"
-#include <glm/glm.hpp>
+#include "../common/types.h"
+#include "glm/glm/glm.hpp"
 
 // Structure to standardize the vertices used in the meshes
 struct Vertex
@@ -11,7 +11,6 @@ struct Vertex
 	glm::vec2 texcoord;
 	glm::vec3 color;
 	glm::vec3 normal;
-	float isLit;
 };
 
 class VertexBuffer

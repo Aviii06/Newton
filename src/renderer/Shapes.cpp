@@ -75,7 +75,6 @@ namespace shape
 			m_Pos[i].texcoord = tex[i];
 			m_Pos[i].color = color[i];
 			m_Pos[i].normal = normal[i];
-			m_Pos[i].isLit = 1.0f;
 		}
 
 		int i = 0;
