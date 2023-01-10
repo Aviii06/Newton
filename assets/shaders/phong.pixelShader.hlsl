@@ -5,7 +5,7 @@ in vec3 v_Normal;
 in vec3 v_Color;
 in float v_IsLit;
 
-uniform vec4 lightColor;
+uniform vec3 lightColor;
 uniform vec3 lightPos;
 
 out vec4 FragColor;
@@ -29,7 +29,7 @@ vec4 pointLight()
 	vec3 lightDirection = normalize(lightVec);
 	float diffuse = max(dot(normal, lightDirection), 0.0f);
 
-	return vec4(diffuse, diffuse, diffuse, 1.0f) * lightColor;
+	return vec4(diffuse, diffuse, diffuse, 1.0f) * vec4(lightColor, 1.0f);
 }
 
 float near = 0.1f;

@@ -7,10 +7,10 @@
 #define NS_TO_MS 1e-6f
 #define MS_TO_S 1e-3f
 
-/// A point in time of the high resolution clock
+// A point in time of the high resolution clock
 typedef std::chrono::time_point<std::chrono::high_resolution_clock> TimePoint;
 
-/// Helper to keep track of time.
+// Helper to keep track of time.
 class Timer
 {
 protected:

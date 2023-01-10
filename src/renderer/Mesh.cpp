@@ -128,7 +128,7 @@ Mesh::Mesh(const std::string& file_name)
 		}
 		m_Vertices[i].position = vertex_positions[vertex_position_indicies[i] - 1] * 100.0f;
 		m_Vertices[i].color = glm::vec3(1.f, 1.f, 1.f);
-		m_Indices[i] = i;
+		m_Indices[i] = i + 1;
 	}
 
 	// Loaded success
@@ -136,12 +136,23 @@ Mesh::Mesh(const std::string& file_name)
 	          << "\n";
 }
 
+Mesh::Mesh(Shape& shape)
+{
+	m_Vertices = shape.GetPositions();
+	m_Indices = shape.GetIndices();
+	m_Layout.AddFloat(3); // Position
+	m_Layout.AddFloat(2); // Texcoord
+	m_Layout.AddFloat(3); // Color
+	m_Layout.AddFloat(3); // Normal
+}
+
+
 void Mesh::Update(const glm::mat4& modelMatrix)
 {
 	m_ModelMatrix = modelMatrix;
 }
 
-void Mesh::Draw(Shader& shader, Renderer& renderer, Camera camera)
+void Mesh::Draw(Shader& shader, Renderer& renderer, Camera& camera)
 {
 	VertexBuffer vbo(m_Vertices);
 	IndexBuffer ebo(m_Indices);

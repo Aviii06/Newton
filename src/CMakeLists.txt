@@ -7,8 +7,7 @@ set(SOURCES
         renderer/Renderer.h
         renderer/Shader.cpp
         renderer/Shader.h
-        renderer/Shapes.cpp
-        renderer/Shapes.h
+        renderer/shapes/Shape.h
         renderer/Texture.cpp
         renderer/Texture.h
         renderer/VertexArray.cpp
