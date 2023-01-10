@@ -128,9 +128,10 @@ Mesh::Mesh(const std::string& file_name)
 		}
 		m_Vertices[i].position = vertex_positions[vertex_position_indicies[i] - 1] * 100.0f;
 		m_Vertices[i].color = glm::vec3(1.f, 1.f, 1.f);
-		m_Indices[i] = i + 1;
+		m_Indices[i] = i;
 	}
 
+	m_Ebo = new IndexBuffer(m_Indices);
 	// Loaded success
 	std::cout << "OBJ file loaded!"
 	          << "\n";
@@ -144,6 +145,8 @@ Mesh::Mesh(Shape& shape)
 	m_Layout.AddFloat(2); // Texcoord
 	m_Layout.AddFloat(3); // Color
 	m_Layout.AddFloat(3); // Normal
+
+	m_Ebo = new IndexBuffer(m_Indices);
 }
 
 
@@ -159,12 +162,11 @@ void Mesh::Draw(Shader& shader, Renderer& renderer, Camera& camera)
 	vbo.Bind();
 	ebo.Bind();
 
-	vao.AddBuffer(vbo, m_Layout);
-	vao.Bind();
+	m_Vao.AddBuffer(vbo, m_Layout);
 
 	shader.Bind();
 	shader.SetUniformMat4f("u_Model", m_ModelMatrix);
 	shader.SetUniformMat4f("u_View", camera.GetViewMatrix());
 	shader.SetUniformMat4f("u_Proj", camera.GetProjectionMatrix());
-	renderer.Draw(vao, ebo, shader);
+	renderer.Draw(m_Vao, *this->m_Ebo, shader);
 }

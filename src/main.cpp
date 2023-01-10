@@ -85,7 +85,8 @@ int main(void)
 	glm::vec3 lightColor = glm::vec3(1.0f, 1.0f, 1.0f);
 	glm::vec3 lightPos = glm::vec3(0.0f, 0.0f, -400.0f);
 	Quad3d cube(10.0f, lightColor);
-	PointLight light(lightPos, lightColor, cube);
+	Mesh lightMesh("./../assets/obj/cube.obj");
+	PointLight light(lightPos, lightColor, &lightMesh);
 	Shader lightShader("./../assets/shaders/basic.vertexShader.hlsl", "./../assets/shaders/basic.pixelShader.hlsl");
 	lightShader.Bind();
 	light.Draw(lightShader, renderer, camera);

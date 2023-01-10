@@ -24,7 +24,8 @@ private:
 	Vector<Vertex> m_Vertices;
 	Vector<GLuint> m_Indices;
 	VertexBufferLayout m_Layout;
-	VertexArray vao;
+	VertexArray m_Vao;
+	IndexBuffer* m_Ebo;
 
 	glm::mat4 m_ModelMatrix;
 
