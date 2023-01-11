@@ -149,7 +149,6 @@ Mesh::Mesh(Shape& shape)
 	m_Ebo = new IndexBuffer(m_Indices);
 }
 
-
 void Mesh::Update(const glm::mat4& modelMatrix)
 {
 	m_ModelMatrix = modelMatrix;

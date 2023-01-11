@@ -11,7 +11,6 @@
 	__debugbreak()
 #endif
 
-
 #define GLCall(x)   \
 	GLClearError(); \
 	x;              \

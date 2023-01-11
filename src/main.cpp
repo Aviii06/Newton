@@ -91,7 +91,6 @@ int main(void)
 	lightShader.Bind();
 	light.Draw(lightShader, renderer, camera);
 
-
 	// Creating a shader
 	Shader shader("./../assets/shaders/phong.vertexShader.hlsl", "./../assets/shaders/phong.pixelShader.hlsl");
 	shader.Bind();

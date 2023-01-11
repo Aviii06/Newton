@@ -8,6 +8,7 @@ class Shape
 protected:
 	Vector<Vertex> m_Pos;
 	Vector<unsigned int> m_Ind;
+
 public:
 	Shape() = default;
 
