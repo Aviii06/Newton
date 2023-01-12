@@ -82,8 +82,8 @@ int main(void)
 	Renderer renderer;
 
 	// Light Info
-	glm::vec3 lightColor = glm::vec3(1.0f, 1.0f, 1.0f);
-	glm::vec3 lightPos = glm::vec3(0.0f, 0.0f, -400.0f);
+	Vec3 lightColor = Vec3(1.0f, 1.0f, 1.0f);
+	Vec3 lightPos = Vec3(0.0f, 0.0f, -400.0f);
 	Quad3d cube(10.0f, lightColor);
 	Mesh lightMesh("./../assets/obj/cube.obj");
 	PointLight light(lightPos, lightColor, &lightMesh);
@@ -100,12 +100,12 @@ int main(void)
 	texture.Bind();
 
 	// Drawing other meshes
-	Mesh mesh1("./../assets/obj/suzanne.obj");
+	Mesh mesh1("./../assets/obj/monki.obj");
 	glm::vec3 translationModel1(0, 50, -400);
 	mesh1.Update(glm::translate(glm::mat4(1.0f), translationModel1));
 	mesh1.Draw(shader, renderer, camera);
 
-	Mesh mesh2("./../assets/obj/plane.obj");
+	Mesh mesh2("./../assets/obj/suzanne.obj");
 	glm::vec3 translationModel2(0, 100, -400);
 	mesh2.Update(glm::translate(glm::mat4(1.0f), translationModel2));
 	// mesh2.Draw(shader, renderer, camera);

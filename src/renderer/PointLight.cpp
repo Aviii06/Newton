@@ -1,23 +1,24 @@
 #include "PointLight.h"
 
-PointLight::PointLight(glm::vec3 position, glm::vec3 color, Mesh* lightMesh)
+PointLight::PointLight(Vec3 position, Vec3 color, Mesh* lightMesh)
 {
 	m_Position = position;
 	m_Color = color;
 	m_LightMesh = lightMesh;
 }
 
-PointLight::PointLight(glm::vec3 position, glm::vec3 color, Shape& shape)
+PointLight::PointLight(Vec3 position, Vec3 color, Shape& shape)
 {
 	m_Position = position;
 	m_Color = color;
 	m_LightMesh = new Mesh(shape);
 }
 
-void PointLight::UpdateLightPosition(glm::vec3 pos)
+void PointLight::UpdateLightPosition(Vec3 pos)
 {
 	m_Position = pos;
-	m_LightMesh->Update(glm::translate(glm::mat4(1.0f), m_Position));
+	glm::vec3 tempPos = glm::vec3(m_Position.x, m_Position.y, m_Position.z);
+	m_LightMesh->Update(glm::translate(glm::mat4(1.0f), tempPos));
 }
 
 void PointLight::Draw(Shader& shader, Renderer& renderer, Camera camera)

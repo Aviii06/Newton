@@ -8,5 +8,5 @@ private:
 	float m_Size;
 
 public:
-	Quad3d(int size, glm::vec3 col = glm::vec3(1.0f, 1.0f, 1.0f));
+	Quad3d(int size, Vec3 col = Vec3(1.0f, 1.0f, 1.0f));
 };

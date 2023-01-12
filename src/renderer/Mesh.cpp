@@ -17,9 +17,9 @@ Mesh::Mesh(const std::string& file_name)
 	m_Layout.AddFloat(3); // Normal
 
 	// Vertex portions
-	std::vector<glm::fvec3> vertex_positions;
-	std::vector<glm::fvec2> vertex_texcoords;
-	std::vector<glm::fvec3> vertex_normals;
+	Vector<Vec3> vertex_positions;
+	Vector<Vec2> vertex_texcoords;
+	Vector<Vec3> vertex_normals;
 
 	// Face vectors
 	std::vector<GLint> vertex_position_indicies;
@@ -30,8 +30,8 @@ Mesh::Mesh(const std::string& file_name)
 	std::ifstream in_file(file_name.c_str());
 	std::string line = "";
 	std::string prefix = "";
-	glm::vec3 temp_vec3;
-	glm::vec2 temp_vec2;
+	Vec3 temp_vec3;
+	Vec2 temp_vec2;
 	GLint temp_glint = 0;
 
 	// File open error check
@@ -111,7 +111,7 @@ Mesh::Mesh(const std::string& file_name)
 	{
 		if (vertex_texcoord_indicies[i] == 0)
 		{
-			m_Vertices[i].texcoord = glm::fvec2(1.0, 0.0);
+			m_Vertices[i].texcoord = Vec2(1.0, 0.0);
 		}
 		else
 		{
@@ -120,14 +120,14 @@ Mesh::Mesh(const std::string& file_name)
 
 		if (vertex_normal_indicies[i] == 0)
 		{
-			m_Vertices[i].normal = glm::fvec3(1.0, 0.0, 0.0);
+			m_Vertices[i].normal = Vec3(1.0, 0.0, 0.0);
 		}
 		else
 		{
 			m_Vertices[i].normal = vertex_normals[vertex_normal_indicies[i] - 1];
 		}
 		m_Vertices[i].position = vertex_positions[vertex_position_indicies[i] - 1] * 100.0f;
-		m_Vertices[i].color = glm::vec3(1.f, 1.f, 1.f);
+		m_Vertices[i].color = Vec3(1.f, 1.f, 1.f);
 		m_Indices[i] = i;
 	}
 

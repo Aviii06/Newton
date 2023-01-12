@@ -1,6 +1,7 @@
 #pragma once
 
 #include "glm/glm.hpp"
+#include "VertexBuffer.h"
 #include <string>
 #include <unordered_map>
 
@@ -34,7 +35,7 @@ public:
 
 	void SetUniform3f(const std::string& name, float f0, float f1, float f2);
 
-	void SetUniform3f(const std::string& name, glm::vec3& value);
+	void SetUniform3f(const std::string& name, Vec3& value);
 
 	void SetUniform1f(const std::string& name, float value);
 

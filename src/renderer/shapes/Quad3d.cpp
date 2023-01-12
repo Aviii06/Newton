@@ -1,34 +1,34 @@
 #include "Quad3d.h"
 
-Quad3d::Quad3d(int size, glm::vec3 col)
+Quad3d::Quad3d(int size, Vec3 col)
 {
 	m_Size = (float)size;
 	const float const_Size = m_Size;
 
 	// TODO: Correct culling
-	glm::vec3 pos[8] = {
-		glm::vec3(-const_Size, const_Size, -const_Size),
-		glm::vec3(const_Size, const_Size, -const_Size),
-		glm::vec3(-const_Size, -const_Size, -const_Size),
-		glm::vec3(const_Size, -const_Size, -const_Size),
-		glm::vec3(-const_Size, const_Size, const_Size),
-		glm::vec3(const_Size, const_Size, const_Size),
-		glm::vec3(-const_Size, -const_Size, const_Size),
-		glm::vec3(const_Size, -const_Size, const_Size),
+	Vec3 pos[8] = {
+		Vec3(-const_Size, const_Size, -const_Size),
+		Vec3(const_Size, const_Size, -const_Size),
+		Vec3(-const_Size, -const_Size, -const_Size),
+		Vec3(const_Size, -const_Size, -const_Size),
+		Vec3(-const_Size, const_Size, const_Size),
+		Vec3(const_Size, const_Size, const_Size),
+		Vec3(-const_Size, -const_Size, const_Size),
+		Vec3(const_Size, -const_Size, const_Size),
 	};
 
-	glm::vec2 tex[8] = {
-		glm::vec2(0.0, 0.0),
-		glm::vec2(1.0, 0.0),
-		glm::vec2(1.0, 1.0),
-		glm::vec2(0.0, 1.0),
-		glm::vec2(0.0, 0.0),
-		glm::vec2(1.0, 0.0),
-		glm::vec2(1.0, 1.0),
-		glm::vec2(0.0, 1.0),
+	Vec2 tex[8] = {
+		Vec2(0.0, 0.0),
+		Vec2(1.0, 0.0),
+		Vec2(1.0, 1.0),
+		Vec2(0.0, 1.0),
+		Vec2(0.0, 0.0),
+		Vec2(1.0, 0.0),
+		Vec2(1.0, 1.0),
+		Vec2(0.0, 1.0),
 	};
 
-	glm::vec3 color[8] = {
+	Vec3 color[8] = {
 		col,
 		col,
 		col,
@@ -39,15 +39,15 @@ Quad3d::Quad3d(int size, glm::vec3 col)
 		col,
 	};
 
-	glm::vec3 normal[8] = {
-		glm::vec3(1.0, 1.0, 1.0),
-		glm::vec3(1.0, 1.0, 1.0),
-		glm::vec3(1.0, 1.0, 1.0),
-		glm::vec3(1.0, 1.0, 1.0),
-		glm::vec3(1.0, 1.0, 1.0),
-		glm::vec3(1.0, 1.0, 1.0),
-		glm::vec3(1.0, 1.0, 1.0),
-		glm::vec3(1.0, 1.0, 1.0),
+	Vec3 normal[8] = {
+		Vec3(1.0, 1.0, 1.0),
+		Vec3(1.0, 1.0, 1.0),
+		Vec3(1.0, 1.0, 1.0),
+		Vec3(1.0, 1.0, 1.0),
+		Vec3(1.0, 1.0, 1.0),
+		Vec3(1.0, 1.0, 1.0),
+		Vec3(1.0, 1.0, 1.0),
+		Vec3(1.0, 1.0, 1.0),
 	};
 
 	unsigned int ind[12 * 3] = {

@@ -6,15 +6,15 @@
 class PointLight
 {
 private:
-	glm::vec3 m_Position;
-	glm::vec3 m_Color;
+	Vec3 m_Position;
+	Vec3 m_Color;
 	Mesh* m_LightMesh;
 
 public:
-	PointLight(glm::vec3 position, glm::vec3 color, Mesh* lightMesh);
-	PointLight(glm::vec3 position, glm::vec3 color, Shape& shape);
+	PointLight(Vec3 position, Vec3 color, Mesh* lightMesh);
+	PointLight(Vec3 position, Vec3 color, Shape& shape);
 
-	void UpdateLightPosition(glm::vec3 pos);
+	void UpdateLightPosition(Vec3 pos);
 
 	void Draw(Shader& shader, Renderer& renderer, Camera camera);
 };
