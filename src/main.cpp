@@ -14,7 +14,7 @@
 #include "renderer/VertexBuffer.h"
 #include "renderer/Camera.h"
 #include "renderer/PointLight.h"
-#include "renderer/Shapes/Quad3d.h"
+#include "renderer/shapes/Quad3d.h"
 
 #include "glm/gtc/matrix_transform.hpp"
 #include "utils/timer.h"
