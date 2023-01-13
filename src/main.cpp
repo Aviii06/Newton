@@ -8,7 +8,7 @@
 #include "renderer/Mesh.h"
 #include "renderer/Renderer.h"
 #include "renderer/Shader.h"
-#include "renderer/Shapes/Shape.h"
+#include "renderer/shapes/Shape.h"
 #include "renderer/Texture.h"
 #include "renderer/VertexArray.h"
 #include "renderer/VertexBuffer.h"
@@ -85,7 +85,7 @@ int main(void)
 	Vec3 lightColor = Vec3(1.0f, 1.0f, 1.0f);
 	Vec3 lightPos = Vec3(0.0f, 0.0f, -400.0f);
 	Quad3d cube(10.0f, lightColor);
-	Mesh lightMesh("./../assets/obj/cube.obj");
+	Mesh lightMesh(cube);
 	PointLight light(lightPos, lightColor, &lightMesh);
 	Shader lightShader("./../assets/shaders/basic.vertexShader.hlsl", "./../assets/shaders/basic.pixelShader.hlsl");
 	lightShader.Bind();
@@ -100,7 +100,7 @@ int main(void)
 	texture.Bind();
 
 	// Drawing other meshes
-	Mesh mesh1("./../assets/obj/monki.obj");
+	Mesh mesh1("./../assets/obj/suzanne.obj");
 	glm::vec3 translationModel1(0, 50, -400);
 	mesh1.Update(glm::translate(glm::mat4(1.0f), translationModel1));
 	mesh1.Draw(shader, renderer, camera);
@@ -171,7 +171,7 @@ int main(void)
 
 		ImGui::Begin("Debug");
 		ImGui::SliderFloat3("Translation Model 1", &translationModel1.x, -500.0f, 500.0f);
-		ImGui::SliderFloat3("Translation Model 2", &translationModel2.x, -300.0f, 300.0f);
+		// ImGui::SliderFloat3("Translation Model 2", &translationModel2.x, -300.0f, 300.0f);
 		ImGui::SliderFloat3("Light Position", &lightPos.x, -500.0f, 500.0f);
 		ImGui::SliderFloat("Field of View", &field_of_view, 15.0f, 90.0f);
 		ImGui::Text("Application average %.3f ms/frame (%.1f FPS)",
