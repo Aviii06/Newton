@@ -6,7 +6,7 @@ void Renderer::Draw(const VertexArray& va, const IndexBuffer& ib, const Shader& 
 	va.Bind();
 	ib.Bind();
 
-	glDrawArrays(GL_TRIANGLE_STRIP, 0, ib.GetCount());
+	glDrawElements(GL_TRIANGLES, ib.GetCount(), GL_UNSIGNED_INT, nullptr);
 }
 
 void Renderer::Clear() const
