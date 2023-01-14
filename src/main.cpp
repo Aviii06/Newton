@@ -63,7 +63,7 @@ int main(void)
 	PointLight light(lightPos, lightColor, &lightMesh);
 	Shader lightShader("./../assets/shaders/basic.vertexShader.hlsl", "./../assets/shaders/basic.pixelShader.hlsl");
 	lightShader.Bind();
-	light.Draw(lightShader, renderer, camera);
+	light.Draw(lightShader);
 
 	// Creating a shader
 	Shader shader("./../assets/shaders/phong.vertexShader.hlsl", "./../assets/shaders/phong.pixelShader.hlsl");
@@ -133,7 +133,7 @@ int main(void)
 		mesh1.Draw(shader);
 
 		light.UpdateLightPosition(lightPos);
-		light.Draw(lightShader, renderer, camera);
+		light.Draw(lightShader);
 
 		/* Poll for and process events */
 
