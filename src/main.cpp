@@ -25,14 +25,16 @@
 #include "imgui/imgui/backends/imgui_impl_opengl3.h"
 #include "imgui/imgui/imgui.h"
 
-class Camera;
+Camera* Camera::s_Instance;
+Renderer* Renderer::s_Instance;
 Camera* camera = Camera::GetInstance();
+Renderer* renderer = Renderer::GetInstance();
 
-void HandleInput(GLFWwindow* window, float deltaTime, Vec2* mousePointer);
+void HandleInput(GLFWwindow* window, Camera* camera, float deltaTime, Vec2* mousePointer);
 
 int main(void)
 {
-	Window* window = new Window(1920, 1080, "Newton");
+	Window window(1920, 1080, "Newton");
 
 	glEnable(GL_DEPTH_TEST);
 
@@ -46,11 +48,6 @@ int main(void)
 	// GLCall( glEnable(GL_CULL_FACE) );
 
 	// Create a camera
-	float field_of_view = 60.0f;
-	float closestDistance = 0.1f;
-	float farthestDistance = 500.0f;
-
-	camera->SetPerspective(field_of_view, window->GetAspectRatio(), closestDistance, farthestDistance);
 
 	VertexBufferLayout layout;
 	layout.AddFloat(3); // Positions
@@ -66,7 +63,7 @@ int main(void)
 	PointLight light(lightPos, lightColor, &lightMesh);
 	Shader lightShader("./../assets/shaders/basic.vertexShader.hlsl", "./../assets/shaders/basic.pixelShader.hlsl");
 	lightShader.Bind();
-	light.Draw(lightShader);
+	light.Draw(lightShader, renderer, camera);
 
 	// Creating a shader
 	Shader shader("./../assets/shaders/phong.vertexShader.hlsl", "./../assets/shaders/phong.pixelShader.hlsl");
@@ -115,16 +112,15 @@ int main(void)
 #endif
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
-	ImGui_ImplGlfw_InitForOpenGL(window->GetWindow(), true);
+	ImGui_ImplGlfw_InitForOpenGL(window.GetWindow(), true);
 	ImGui_ImplOpenGL3_Init(glsl_version);
 	ImGui::StyleColorsDark();
 
 	double xPosPrev, yPosPrev;
 
-	while (!glfwWindowShouldClose(window->GetWindow()))
+	while (!glfwWindowShouldClose(window.GetWindow()))
 	{
 		/* Render here */
-		Renderer* renderer = Renderer::GetInstance();
 		renderer->Clear();
 
 		shader.Bind();
@@ -137,11 +133,13 @@ int main(void)
 		mesh1.Draw(shader);
 
 		light.UpdateLightPosition(lightPos);
-		light.Draw(lightShader);
+		light.Draw(lightShader, renderer, camera);
 
-		HandleInput(window->GetWindow(), timer.getTimeMs() - time, mousePointer);
+		/* Poll for and process events */
 
-		// Update Timer
+		// Handle keyboard input
+		HandleInput(window.GetWindow(), camera, timer.getTimeMs() - time, mousePointer);
+
 		time = timer.getTimeMs();
 
 		// IMGUI
@@ -153,7 +151,6 @@ int main(void)
 		ImGui::SliderFloat3("Translation Model 1", &translationModel1.x, -500.0f, 500.0f);
 		// ImGui::SliderFloat3("Translation Model 2", &translationModel2.x, -300.0f, 300.0f);
 		ImGui::SliderFloat3("Light Position", &lightPos.x, -500.0f, 500.0f);
-		ImGui::SliderFloat("Field of View", &field_of_view, 15.0f, 90.0f);
 		ImGui::Text("Application average %.3f ms/frame (%.1f FPS)",
 		    1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
 
@@ -162,7 +159,7 @@ int main(void)
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
 		/* Swap front and back buffers */
-		window->Update();
+		glfwSwapBuffers(window.GetWindow());
 
 		/* Poll for and process events */
 
@@ -174,11 +171,9 @@ int main(void)
 	return 0;
 }
 
-void HandleInput(GLFWwindow* window, float deltaTime, Vec2* mousePointer)
+void HandleInput(GLFWwindow* window, Camera* camera, float deltaTime, Vec2* mousePointer)
 {
 	glfwPollEvents();
-
-
 	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
 	{
 		camera->ProcessKeyboard(CameraMovement::FORWARD, deltaTime);

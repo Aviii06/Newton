@@ -165,8 +165,10 @@ void Mesh::Draw(Shader& shader)
 
 	shader.Bind();
 
+	Camera* camera = Camera::GetInstance();
+	Renderer* renderer = Renderer::GetInstance();
 	shader.SetUniformMat4f("u_Model", m_ModelMatrix);
-	shader.SetUniformMat4f("u_View", Camera::GetInstance()->GetViewMatrix());
-	shader.SetUniformMat4f("u_Proj", Camera::GetInstance()->GetProjectionMatrix());
-	Renderer::GetInstance()->Draw(m_Vao, *this->m_Ebo, shader);
+	shader.SetUniformMat4f("u_View", camera->GetViewMatrix());
+	shader.SetUniformMat4f("u_Proj", camera->GetProjectionMatrix());
+	renderer->Draw(m_Vao, *this->m_Ebo, shader);
 }

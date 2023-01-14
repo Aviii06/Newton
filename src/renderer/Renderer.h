@@ -10,13 +10,18 @@
 class Renderer
 {
 private:
+	static Renderer* s_Instance;
+	Renderer() = default;
 public:
 	void Draw(const VertexArray& va, const IndexBuffer& ib, const Shader& shader) const;
 
 	void Clear() const;
 	static Renderer* GetInstance()
 	{
-		static Renderer* s_Instance = new Renderer();
+		if (s_Instance == nullptr)
+		{
+			s_Instance = new Renderer();
+		}
 		return s_Instance;
 	}
 };
