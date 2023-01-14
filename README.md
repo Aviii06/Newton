@@ -1,6 +1,7 @@
 # Newton
 A Physics engine with built in renderer implemented in openGL.
-<img width="621" alt="Screenshot 2022-04-12 at 2 24 22 AM" src="https://user-images.githubusercontent.com/45993519/162830991-825b9486-5ea7-4c79-89a3-66ff444d1f28.png">
+<img width="1512" alt="Screenshot 2023-01-14 at 9 29 19 PM" src="https://user-images.githubusercontent.com/45993519/212481445-95819cdf-72d6-4744-b5eb-12a8accfff09.png">
+
 <img width="1031" alt="image" src="https://user-images.githubusercontent.com/45993519/191841279-a73a3ee9-94bb-4d39-bf76-8676b5948d13.png">
 
 
