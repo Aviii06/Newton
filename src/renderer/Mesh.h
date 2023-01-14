@@ -44,5 +44,5 @@ public:
 	glm::mat4 getModelMatrix() { return m_ModelMatrix; };
 
 	// Draws the mesh
-	void Draw(Shader& shader, Renderer& renderer, Camera& camera);
+	void Draw(Shader& shader);
 };

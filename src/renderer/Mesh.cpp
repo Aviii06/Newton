@@ -154,7 +154,7 @@ void Mesh::Update(const glm::mat4& modelMatrix)
 	m_ModelMatrix = modelMatrix;
 }
 
-void Mesh::Draw(Shader& shader, Renderer& renderer, Camera& camera)
+void Mesh::Draw(Shader& shader)
 {
 	VertexBuffer vbo(m_Vertices);
 	IndexBuffer ebo(m_Indices);
@@ -164,8 +164,11 @@ void Mesh::Draw(Shader& shader, Renderer& renderer, Camera& camera)
 	m_Vao.AddBuffer(vbo, m_Layout);
 
 	shader.Bind();
+
+	Camera* camera = Camera::GetInstance();
+	Renderer* renderer = Renderer::GetInstance();
 	shader.SetUniformMat4f("u_Model", m_ModelMatrix);
-	shader.SetUniformMat4f("u_View", camera.GetViewMatrix());
-	shader.SetUniformMat4f("u_Proj", camera.GetProjectionMatrix());
-	renderer.Draw(m_Vao, *this->m_Ebo, shader);
+	shader.SetUniformMat4f("u_View", camera->GetViewMatrix());
+	shader.SetUniformMat4f("u_Proj", camera->GetProjectionMatrix());
+	renderer->Draw(m_Vao, *this->m_Ebo, shader);
 }

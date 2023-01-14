@@ -14,6 +14,7 @@ enum class CameraMovement
 class Camera
 {
 private:
+	static Camera* s_Instance;
 	float m_FOV = 60.0f;
 	float m_NearCip = 0.1f;
 	float m_FarClip = 5000.0f;
@@ -45,11 +46,11 @@ private:
 	void updateProjectionMatrix();
 	void updateViewMatrix();
 
-public:
 	Camera() = default;
 
 	Camera(float fov, float aspect, float near, float far);
 
+public:
 	void ProcessKeyboard(CameraMovement direction, float deltaTime);
 
 	void ProcessMouseMovement(float xOffset, float yOffset, bool constrainPitch = true);
@@ -64,4 +65,14 @@ public:
 	float GetMovementSpeed() { return m_MovementSpeed; }
 	float GetMouseSensitivity() { return m_MouseSensitivity; }
 	float GetZoom() { return m_ZoomSensitivity; }
+
+	static Camera* GetInstance()
+	{
+		if (s_Instance == nullptr)
+			s_Instance = new Camera(60.0f, 1.7778f, 0.1f, 5000.0f);
+
+		return s_Instance;
+	}
+
+	void SetPerspective(float fov, float aspect, float near, float far);
 };
