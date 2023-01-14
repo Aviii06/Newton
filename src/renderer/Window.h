@@ -9,6 +9,7 @@ private:
 	GLFWwindow* m_Window;
 	int m_Width, m_Height;
 	const char* m_Title;
+
 public:
 	Window(int width, int height, const char* title);
 	~Window();

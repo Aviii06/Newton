@@ -4,7 +4,6 @@
 #include "../common/types.h"
 #include "glm/glm/glm.hpp"
 
-
 struct Vertex
 {
 	Vec3 position;

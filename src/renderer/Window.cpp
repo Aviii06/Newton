@@ -39,7 +39,7 @@ void Window::Clear() const
 void Window::Update()
 {
 	// Handle keyboard input
-//	HandleInput(m_Window, camera, timer.getTimeMs() - time, mousePointer);
+	//	HandleInput(m_Window, camera, timer.getTimeMs() - time, mousePointer);
 
 	glfwMakeContextCurrent(m_Window);
 }
