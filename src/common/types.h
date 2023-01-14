@@ -3,9 +3,20 @@
 // Vector
 #include <string>
 #include <vector>
+#include <memory>
 
 template <class T>
 using Vector = std::vector<T>;
+
+/// std::unique_ptr
+template <class T>
+using Ptr = std::unique_ptr<T>;
+/// std::shared_ptr
+template <class T>
+using Ref = std::shared_ptr<T>;
+/// std::weak_ptr
+template <class T>
+using Weak = std::weak_ptr<T>;
 
 // OPEN GL
 #define GL_BYTE 0x1400

@@ -90,3 +90,12 @@ void Camera::updateViewMatrix()
 {
 	m_ViewMatrix = glm::lookAt(m_Position, m_Position + m_Front, m_Up);
 }
+
+void Camera::SetPerspective(float fov, float aspect, float near, float far)
+{
+	m_FOV = fov;
+	m_AspectRatio = aspect;
+	m_NearCip = near;
+	m_FarClip = far;
+	updateProjectionMatrix();
+}

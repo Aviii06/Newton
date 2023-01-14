@@ -21,10 +21,10 @@ void PointLight::UpdateLightPosition(Vec3 pos)
 	m_LightMesh->Update(glm::translate(glm::mat4(1.0f), tempPos));
 }
 
-void PointLight::Draw(Shader& shader, Renderer& renderer, Camera camera)
+void PointLight::Draw(Shader& shader)
 {
 	shader.Bind();
 	shader.SetUniform3f("lightColor", m_Color);
 	shader.SetUniform3f("lightPos", m_Position);
-	m_LightMesh->Draw(shader, renderer, camera);
+	m_LightMesh->Draw(shader);
 }

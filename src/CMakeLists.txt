@@ -15,6 +15,16 @@ set(SOURCES
         renderer/VertexBuffer.cpp
         renderer/VertexBuffer.h
         renderer/VertexBufferLayout.h
+        renderer/Camera.cpp
+        renderer/Camera.h
+        renderer/PointLight.cpp
+        renderer/PointLight.h
+        renderer/shapes/Quad3d.cpp
+        renderer/shapes/Quad3d.h
+        renderer/shapes/Sphere.cpp
+        renderer/shapes/Sphere.h
+        renderer/Window.cpp
+        renderer/Window.h
         common/types.h
         utils/error.cpp
         utils/error.h

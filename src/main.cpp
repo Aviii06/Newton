@@ -15,6 +15,7 @@
 #include "renderer/Camera.h"
 #include "renderer/PointLight.h"
 #include "renderer/shapes/Quad3d.h"
+#include "renderer/Window.h"
 
 #include "glm/gtc/matrix_transform.hpp"
 #include "utils/timer.h"
@@ -24,38 +25,14 @@
 #include "imgui/imgui/backends/imgui_impl_opengl3.h"
 #include "imgui/imgui/imgui.h"
 
-void HandleInput(GLFWwindow* window, Camera& camera, float deltaTime, Vec2* mousePointer);
+class Camera;
+Camera* camera = Camera::GetInstance();
+
+void HandleInput(GLFWwindow* window, float deltaTime, Vec2* mousePointer);
 
 int main(void)
 {
-	GLFWwindow* window;
-
-	/* Initialize the library */
-	if (!glfwInit())
-	{
-		return -1;
-	}
-
-	// FOR MACOS
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
-	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-#ifdef __APPLE__
-	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-#endif
-
-	int Width = 1920, Height = 1080;
-	/* Create a windowed mode window and its OpenGL context */
-	window = glfwCreateWindow(Width, Height, "Newton", NULL, NULL);
-	glfwSetInputMode(window, GLFW_STICKY_KEYS, 1);
-	if (!window)
-	{
-		glfwTerminate();
-		return -1;
-	}
-
-	/* Make the window's context current */
-	glfwMakeContextCurrent(window);
+	Window* window = new Window(1920, 1080, "Newton");
 
 	glEnable(GL_DEPTH_TEST);
 
@@ -73,16 +50,13 @@ int main(void)
 	float closestDistance = 0.1f;
 	float farthestDistance = 500.0f;
 
-	Camera camera(field_of_view, (float)Width / Height, closestDistance, farthestDistance);
+	camera->SetPerspective(field_of_view, window->GetAspectRatio(), closestDistance, farthestDistance);
 
 	VertexBufferLayout layout;
 	layout.AddFloat(3); // Positions
 	layout.AddFloat(2); // Tex coords
 	layout.AddFloat(3); // Colors
 	layout.AddFloat(3); // Normal
-
-	// Creating a renderer
-	Renderer renderer;
 
 	// Light Info
 	Vec3 lightColor = Vec3(1.0f, 1.0f, 1.0f);
@@ -92,7 +66,7 @@ int main(void)
 	PointLight light(lightPos, lightColor, &lightMesh);
 	Shader lightShader("./../assets/shaders/basic.vertexShader.hlsl", "./../assets/shaders/basic.pixelShader.hlsl");
 	lightShader.Bind();
-	light.Draw(lightShader, renderer, camera);
+	light.Draw(lightShader);
 
 	// Creating a shader
 	Shader shader("./../assets/shaders/phong.vertexShader.hlsl", "./../assets/shaders/phong.pixelShader.hlsl");
@@ -106,12 +80,7 @@ int main(void)
 	Mesh mesh1("./../assets/obj/suzanne.obj");
 	glm::vec3 translationModel1(0, 50, -400);
 	mesh1.Update(glm::translate(glm::mat4(1.0f), translationModel1));
-	mesh1.Draw(shader, renderer, camera);
-
-	Mesh mesh2("./../assets/obj/suzanne.obj");
-	glm::vec3 translationModel2(0, 100, -400);
-	mesh2.Update(glm::translate(glm::mat4(1.0f), translationModel2));
-	// mesh2.Draw(shader, renderer, camera);
+	mesh1.Draw(shader);
 
 	// Timer
 	Timer timer;
@@ -146,16 +115,17 @@ int main(void)
 #endif
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
-	ImGui_ImplGlfw_InitForOpenGL(window, true);
+	ImGui_ImplGlfw_InitForOpenGL(window->GetWindow(), true);
 	ImGui_ImplOpenGL3_Init(glsl_version);
 	ImGui::StyleColorsDark();
 
 	double xPosPrev, yPosPrev;
 
-	while (!glfwWindowShouldClose(window))
+	while (!glfwWindowShouldClose(window->GetWindow()))
 	{
 		/* Render here */
-		renderer.Clear();
+		Renderer* renderer = Renderer::GetInstance();
+		renderer->Clear();
 
 		shader.Bind();
 		shader.SetUniform4f("u_Color", 0.1, 0.3, 0.8, 1.0);
@@ -164,30 +134,14 @@ int main(void)
 		shader.SetUniform3f("lightPos", lightPos);
 
 		mesh1.Update(glm::translate(glm::mat4(1.0f), translationModel1));
-		mesh1.Draw(shader, renderer, camera);
-
-		mesh2.Update(glm::translate(glm::mat4(1.0f), translationModel2));
-		// mesh2.Draw(shader, renderer, camera);
+		mesh1.Draw(shader);
 
 		light.UpdateLightPosition(lightPos);
-		light.Draw(lightShader, renderer, camera);
+		light.Draw(lightShader);
 
-		/* Poll for and process events */
+		HandleInput(window->GetWindow(), timer.getTimeMs() - time, mousePointer);
 
-		// Handle keyboard input
-		HandleInput(window, camera, timer.getTimeMs() - time, mousePointer);
-		//				if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)
-		//				{
-		//					double xPos, yPos;
-		//					glfwGetCursorPos(window, &xPos, &yPos);
-		//					camera.ProcessMouseMovement(xPos - xPosPrev, yPos - yPosPrev);
-		//					xPosPrev = xPos;
-		//					yPosPrev = yPos;
-		//				}
-		//				else
-		//				{
-		//					glfwGetCursorPos(window, &xPosPrev, &yPosPrev);
-		//				}
+		// Update Timer
 		time = timer.getTimeMs();
 
 		// IMGUI
@@ -208,7 +162,7 @@ int main(void)
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
 		/* Swap front and back buffers */
-		glfwSwapBuffers(window);
+		window->Update();
 
 		/* Poll for and process events */
 
@@ -220,24 +174,26 @@ int main(void)
 	return 0;
 }
 
-void HandleInput(GLFWwindow* window, Camera& camera, float deltaTime, Vec2* mousePointer)
+void HandleInput(GLFWwindow* window, float deltaTime, Vec2* mousePointer)
 {
 	glfwPollEvents();
+
+
 	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
 	{
-		camera.ProcessKeyboard(CameraMovement::FORWARD, deltaTime);
+		camera->ProcessKeyboard(CameraMovement::FORWARD, deltaTime);
 	}
 	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
 	{
-		camera.ProcessKeyboard(CameraMovement::BACKWARD, deltaTime);
+		camera->ProcessKeyboard(CameraMovement::BACKWARD, deltaTime);
 	}
 	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
 	{
-		camera.ProcessKeyboard(CameraMovement::LEFT, deltaTime);
+		camera->ProcessKeyboard(CameraMovement::LEFT, deltaTime);
 	}
 	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
 	{
-		camera.ProcessKeyboard(CameraMovement::RIGHT, deltaTime);
+		camera->ProcessKeyboard(CameraMovement::RIGHT, deltaTime);
 	}
 
 	// Handle mouse input
@@ -245,7 +201,7 @@ void HandleInput(GLFWwindow* window, Camera& camera, float deltaTime, Vec2* mous
 	if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)
 	{
 		glfwGetCursorPos(window, &mouseXPos, &mouseYPos);
-		camera.ProcessMouseMovement(mouseXPos - mousePointer->x, mouseYPos - mousePointer->y);
+		camera->ProcessMouseMovement(mouseXPos - mousePointer->x, mouseYPos - mousePointer->y);
 		mousePointer->x = mouseXPos;
 		mousePointer->y = mouseYPos;
 	}
