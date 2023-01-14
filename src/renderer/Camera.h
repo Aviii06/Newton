@@ -3,15 +3,12 @@
 #include <glm/glm.hpp>
 #include "glm/gtc/matrix_transform.hpp"
 
-struct CameraMovement
+enum class CameraMovement
 {
-	enum class Type
-	{
-		FORWARD = 1,
-		BACKWARD = 2,
-		LEFT = 3,
-		RIGHT = 4
-	};
+	FORWARD = 1,
+	BACKWARD = 2,
+	LEFT = 3,
+	RIGHT = 4
 };
 
 class Camera
@@ -19,11 +16,14 @@ class Camera
 private:
 	float m_FOV = 60.0f;
 	float m_NearCip = 0.1f;
-	float m_FarClip = 500.0f;
+	float m_FarClip = 5000.0f;
 	float m_AspectRatio = 1.7778f; // 16:9 = m_ViewportWidth / m_ViewportHeight
 
 	glm::vec3 m_Position = glm::vec3(0.0f, 0.0f, 0.0f);
+
 	glm::vec3 m_Front = glm::vec3(0.0f, 0.0f, -1.0f);
+	glm::vec3 m_Up = glm::vec3(0.0f, 1.0f, 0.0f);
+	glm::vec3 m_Right = glm::vec3(1.0f, 0.0f, 0.0f);
 
 	int m_ViewportWidth = 1280;
 	int m_ViewportHeight = 720;
@@ -35,9 +35,9 @@ private:
 	float m_Yaw = 0.0f;
 	float m_Pitch = 0.0f;
 
-	float m_MovementSpeed;
-	float m_MouseSensitivity;
-	float m_Zoom;
+	float m_MovementSpeed = 0.5f;
+	float m_MouseSensitivity = 0.08f;
+	float m_ZoomSensitivity = 0.08f;
 
 	glm::vec2 m_MousePosition = glm::vec2(0.0f, 0.0f);
 
@@ -63,5 +63,5 @@ public:
 	float GetPitch() { return m_Pitch; }
 	float GetMovementSpeed() { return m_MovementSpeed; }
 	float GetMouseSensitivity() { return m_MouseSensitivity; }
-	float GetZoom() { return m_Zoom; }
+	float GetZoom() { return m_ZoomSensitivity; }
 };

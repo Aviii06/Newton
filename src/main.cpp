@@ -24,6 +24,8 @@
 #include "imgui/imgui/backends/imgui_impl_opengl3.h"
 #include "imgui/imgui/imgui.h"
 
+void HandleInput(GLFWwindow* window, Camera& camera, float deltaTime, Vec2* mousePointer);
+
 int main(void)
 {
 	GLFWwindow* window;
@@ -41,7 +43,8 @@ int main(void)
 #ifdef __APPLE__
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 #endif
-	int Width = 1280, Height = 720;
+
+	int Width = 1920, Height = 1080;
 	/* Create a windowed mode window and its OpenGL context */
 	window = glfwCreateWindow(Width, Height, "Newton", NULL, NULL);
 	glfwSetInputMode(window, GLFW_STICKY_KEYS, 1);
@@ -83,7 +86,7 @@ int main(void)
 
 	// Light Info
 	Vec3 lightColor = Vec3(1.0f, 1.0f, 1.0f);
-	Vec3 lightPos = Vec3(0.0f, 0.0f, -400.0f);
+	Vec3 lightPos = Vec3(0.0f, 0.0f, 400.0f);
 	Quad3d cube(10.0f, lightColor);
 	Mesh lightMesh(cube);
 	PointLight light(lightPos, lightColor, &lightMesh);
@@ -113,6 +116,9 @@ int main(void)
 	// Timer
 	Timer timer;
 	float time = timer.getTimeMs();
+
+	// Cursor
+	Vec2* mousePointer = new Vec2(0.0f, 0.0f);
 
 	// IMGUI Setup
 
@@ -144,6 +150,8 @@ int main(void)
 	ImGui_ImplOpenGL3_Init(glsl_version);
 	ImGui::StyleColorsDark();
 
+	double xPosPrev, yPosPrev;
+
 	while (!glfwWindowShouldClose(window))
 	{
 		/* Render here */
@@ -163,6 +171,24 @@ int main(void)
 
 		light.UpdateLightPosition(lightPos);
 		light.Draw(lightShader, renderer, camera);
+
+		/* Poll for and process events */
+
+		// Handle keyboard input
+		HandleInput(window, camera, timer.getTimeMs() - time, mousePointer);
+		//				if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)
+		//				{
+		//					double xPos, yPos;
+		//					glfwGetCursorPos(window, &xPos, &yPos);
+		//					camera.ProcessMouseMovement(xPos - xPosPrev, yPos - yPosPrev);
+		//					xPosPrev = xPos;
+		//					yPosPrev = yPos;
+		//				}
+		//				else
+		//				{
+		//					glfwGetCursorPos(window, &xPosPrev, &yPosPrev);
+		//				}
+		time = timer.getTimeMs();
 
 		// IMGUI
 		ImGui_ImplGlfw_NewFrame();
@@ -186,10 +212,47 @@ int main(void)
 
 		/* Poll for and process events */
 
-		glfwPollEvents();
 		glClear(GL_DEPTH_BUFFER_BIT);
+		glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 	}
 
 	glfwTerminate();
 	return 0;
+}
+
+void HandleInput(GLFWwindow* window, Camera& camera, float deltaTime, Vec2* mousePointer)
+{
+	glfwPollEvents();
+	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+	{
+		camera.ProcessKeyboard(CameraMovement::FORWARD, deltaTime);
+	}
+	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+	{
+		camera.ProcessKeyboard(CameraMovement::BACKWARD, deltaTime);
+	}
+	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+	{
+		camera.ProcessKeyboard(CameraMovement::LEFT, deltaTime);
+	}
+	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+	{
+		camera.ProcessKeyboard(CameraMovement::RIGHT, deltaTime);
+	}
+
+	// Handle mouse input
+	double mouseXPos, mouseYPos;
+	if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)
+	{
+		glfwGetCursorPos(window, &mouseXPos, &mouseYPos);
+		camera.ProcessMouseMovement(mouseXPos - mousePointer->x, mouseYPos - mousePointer->y);
+		mousePointer->x = mouseXPos;
+		mousePointer->y = mouseYPos;
+	}
+	else
+	{
+		glfwGetCursorPos(window, &mouseXPos, &mouseYPos);
+		mousePointer->x = mouseXPos;
+		mousePointer->y = mouseYPos;
+	}
 }
