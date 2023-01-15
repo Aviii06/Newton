@@ -1,6 +1,16 @@
 #include "Window.h"
 #include "Camera.h"
 #include <iostream>
+#include "../confs/Config.h"
+
+#include "imgui/imgui/backends/imgui_impl_glfw.h"
+#include "imgui/imgui/backends/imgui_impl_opengl3.h"
+#include "imgui/imgui/imgui.h"
+
+#include <GL/glew.h>
+#include <GLFW/glfw3.h>
+
+#include "../utils/error.h"
 
 Window::Window(int width, int height, const char* title)
 {
@@ -29,6 +39,14 @@ Window::Window(int width, int height, const char* title)
 	}
 
 	glfwMakeContextCurrent(m_Window);
+
+	IMGUI_CONFS
+
+	IMGUI_CHECKVERSION();
+	ImGui::CreateContext();
+	ImGui_ImplGlfw_InitForOpenGL(m_Window, true);
+	ImGui_ImplOpenGL3_Init(glsl_version);
+	ImGui::StyleColorsDark();
 }
 Window::~Window()
 {
@@ -41,5 +59,25 @@ void Window::Update()
 	// Handle keyboard input
 	//	HandleInput(m_Window, camera, timer.getTimeMs() - time, mousePointer);
 
+	// IMGUI
+	ImGui_ImplGlfw_NewFrame();
+	ImGui_ImplOpenGL3_NewFrame();
+	ImGui::NewFrame();
+
+	ImGui::Begin("Debug");
+	//	ImGui::SliderFloat3("Translation Model 1", &translationModel1.x, -500.0f, 500.0f);
+	//	// ImGui::SliderFloat3("Translation Model 2", &translationModel2.x, -300.0f, 300.0f);
+	//	ImGui::SliderFloat3("Light Position", &lightPos.x, -500.0f, 500.0f);
+	ImGui::Text("Application average %.3f ms/frame (%.1f FPS)",
+	    1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+
+	ImGui::End();
+	ImGui::Render();
+	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
 	glfwMakeContextCurrent(m_Window);
+	glfwSwapBuffers(m_Window);
+
+	glClear(GL_DEPTH_BUFFER_BIT);
+	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 }

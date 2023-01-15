@@ -16,5 +16,5 @@ public:
 
 	void UpdateLightPosition(Vec3 pos);
 
-	void Draw(Shader& shader);
+	void Draw(Shader* shader);
 };

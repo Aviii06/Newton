@@ -26,6 +26,7 @@ set(SOURCES
         renderer/Window.cpp
         renderer/Window.h
         common/types.h
+        confs/Config.h
         utils/error.cpp
         utils/error.h
         utils/timer.cpp

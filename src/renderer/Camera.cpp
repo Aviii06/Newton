@@ -10,9 +10,9 @@ Camera::Camera(float fov, float aspect, float near, float far)
 }
 
 // Process keyboard input
-void Camera::ProcessKeyboard(CameraMovement direction, float deltaTime)
+void Camera::ProcessKeyboard(CameraMovement direction)
 {
-	float velocity = m_MovementSpeed * deltaTime;
+	float velocity = m_MovementSpeed;
 
 	switch (direction)
 	{
