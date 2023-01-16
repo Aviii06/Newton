@@ -30,7 +30,7 @@ private:
 
 	glm::mat4 m_ModelMatrix;
 
-	void LoadOBJ(const std::string& file_name);
+	void loadOBJ(const std::string& file_name);
 
 public:
 	// Initializes the mesh

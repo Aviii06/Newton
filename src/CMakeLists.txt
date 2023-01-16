@@ -1,4 +1,6 @@
 set(SOURCES
+        inputs/InputHandler.cpp
+        inputs/InputHandler.h
         renderer/IndexBuffer.cpp
         renderer/IndexBuffer.h
         renderer/Mesh.cpp
@@ -25,6 +27,14 @@ set(SOURCES
         renderer/shapes/Sphere.h
         renderer/Window.cpp
         renderer/Window.h
+        renderer/Camera.cpp
+        renderer/Camera.h
+        renderer/PointLight.cpp
+        renderer/PointLight.h
+        renderer/shapes/Quad3d.cpp
+        renderer/shapes/Quad3d.h
+        renderer/shapes/Sphere.cpp
+        renderer/shapes/Sphere.h
         common/types.h
         confs/Config.h
         utils/error.cpp

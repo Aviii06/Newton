@@ -10,13 +10,13 @@ Mesh::Mesh(Vector<Vertex>& verts, Vector<unsigned int>& inds, VertexBufferLayout
 
 Mesh::Mesh(const std::string& file_name)
 {
-	LoadOBJ(file_name);
+	loadOBJ(file_name);
 }
 
 Mesh::Mesh(const std::string& file_name, Shader* shader)
 {
 	BindShader(shader);
-	LoadOBJ(file_name);
+	loadOBJ(file_name);
 }
 
 Mesh::Mesh(Shape& shape)
@@ -59,7 +59,7 @@ void Mesh::BindShader(Shader* shader)
 {
 	m_Shader = shader;
 }
-void Mesh::LoadOBJ(const std::string& file_name)
+void Mesh::loadOBJ(const std::string& file_name)
 {
 	// Default Layout is of type Vertex
 	m_Layout.AddFloat(3); // Positions

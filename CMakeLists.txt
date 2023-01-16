@@ -11,7 +11,7 @@ set(CMAKE_VERBOSE_MAKEFILE ON CACHE BOOL "ON")
 
 add_subdirectory(vendor)
 
-add_executable(${PROJECT_NAME} src/main.cpp src/renderer/Camera.cpp src/renderer/Camera.h src/renderer/PointLight.cpp src/renderer/PointLight.h src/renderer/shapes/Quad3d.cpp src/renderer/shapes/Quad3d.h src/renderer/shapes/Sphere.cpp src/renderer/shapes/Sphere.h)
+add_executable(${PROJECT_NAME} src/main.cpp)
 add_subdirectory(src)
 
 

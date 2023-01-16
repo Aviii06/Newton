@@ -17,6 +17,8 @@
 #include "renderer/shapes/Quad3d.h"
 #include "renderer/Window.h"
 
+#include "inputs/InputHandler.h"
+
 #include "confs/Config.h"
 
 #include "glm/gtc/matrix_transform.hpp"
@@ -55,7 +57,6 @@ int main(void)
 	mesh1.Draw();
 
 	// Cursor
-	Vec2* mousePointer = new Vec2(0.0f, 0.0f);
 
 	while (!glfwWindowShouldClose(window.GetWindow()))
 	{
@@ -74,7 +75,7 @@ int main(void)
 		/* Poll for and process events */
 
 		// Handle keyboard input
-		HandleInput(window.GetWindow(), mousePointer);
+		//		HandleInput(window.GetWindow(), mousePointer);
 
 		window.Update();
 	}
@@ -85,37 +86,4 @@ int main(void)
 
 void HandleInput(GLFWwindow* window, Vec2* mousePointer)
 {
-	glfwPollEvents();
-	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-	{
-		camera->ProcessKeyboard(CameraMovement::FORWARD);
-	}
-	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-	{
-		camera->ProcessKeyboard(CameraMovement::BACKWARD);
-	}
-	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-	{
-		camera->ProcessKeyboard(CameraMovement::LEFT);
-	}
-	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-	{
-		camera->ProcessKeyboard(CameraMovement::RIGHT);
-	}
-
-	// Handle mouse input
-	double mouseXPos, mouseYPos;
-	if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_RIGHT) == GLFW_PRESS)
-	{
-		glfwGetCursorPos(window, &mouseXPos, &mouseYPos);
-		camera->ProcessMouseMovement(mouseXPos - mousePointer->x, mouseYPos - mousePointer->y);
-		mousePointer->x = mouseXPos;
-		mousePointer->y = mouseYPos;
-	}
-	else
-	{
-		glfwGetCursorPos(window, &mouseXPos, &mouseYPos);
-		mousePointer->x = mouseXPos;
-		mousePointer->y = mouseYPos;
-	}
 }
