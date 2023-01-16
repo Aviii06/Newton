@@ -10,6 +10,57 @@ Mesh::Mesh(Vector<Vertex>& verts, Vector<unsigned int>& inds, VertexBufferLayout
 
 Mesh::Mesh(const std::string& file_name)
 {
+	loadOBJ(file_name);
+}
+
+Mesh::Mesh(const std::string& file_name, Shader* shader)
+{
+	BindShader(shader);
+	loadOBJ(file_name);
+}
+
+Mesh::Mesh(Shape& shape)
+{
+	m_Vertices = shape.GetPositions();
+	m_Indices = shape.GetIndices();
+	m_Layout.AddFloat(3); // Position
+	m_Layout.AddFloat(2); // Texcoord
+	m_Layout.AddFloat(3); // Color
+	m_Layout.AddFloat(3); // Normal
+
+	m_Ebo = new IndexBuffer(m_Indices);
+}
+
+void Mesh::Update(const glm::mat4& modelMatrix)
+{
+	m_ModelMatrix = modelMatrix;
+}
+
+void Mesh::Draw()
+{
+	m_Shader->Bind();
+
+	VertexBuffer vbo(m_Vertices);
+	IndexBuffer ebo(m_Indices);
+	vbo.Bind();
+	ebo.Bind();
+
+	m_Vao.AddBuffer(vbo, m_Layout);
+
+	Camera* camera = Camera::GetInstance();
+	Renderer* renderer = Renderer::GetInstance();
+	m_Shader->SetUniformMat4f("u_Model", m_ModelMatrix);
+	m_Shader->SetUniformMat4f("u_View", camera->GetViewMatrix());
+	m_Shader->SetUniformMat4f("u_Proj", camera->GetProjectionMatrix());
+	renderer->Draw(m_Vao, *this->m_Ebo, m_Shader);
+}
+
+void Mesh::BindShader(Shader* shader)
+{
+	m_Shader = shader;
+}
+void Mesh::loadOBJ(const std::string& file_name)
+{
 	// Default Layout is of type Vertex
 	m_Layout.AddFloat(3); // Positions
 	m_Layout.AddFloat(2); // Tex coords
@@ -135,40 +186,4 @@ Mesh::Mesh(const std::string& file_name)
 	// Loaded success
 	std::cout << "OBJ file loaded!"
 	          << "\n";
-}
-
-Mesh::Mesh(Shape& shape)
-{
-	m_Vertices = shape.GetPositions();
-	m_Indices = shape.GetIndices();
-	m_Layout.AddFloat(3); // Position
-	m_Layout.AddFloat(2); // Texcoord
-	m_Layout.AddFloat(3); // Color
-	m_Layout.AddFloat(3); // Normal
-
-	m_Ebo = new IndexBuffer(m_Indices);
-}
-
-void Mesh::Update(const glm::mat4& modelMatrix)
-{
-	m_ModelMatrix = modelMatrix;
-}
-
-void Mesh::Draw(Shader& shader)
-{
-	VertexBuffer vbo(m_Vertices);
-	IndexBuffer ebo(m_Indices);
-	vbo.Bind();
-	ebo.Bind();
-
-	m_Vao.AddBuffer(vbo, m_Layout);
-
-	shader.Bind();
-
-	Camera* camera = Camera::GetInstance();
-	Renderer* renderer = Renderer::GetInstance();
-	shader.SetUniformMat4f("u_Model", m_ModelMatrix);
-	shader.SetUniformMat4f("u_View", camera->GetViewMatrix());
-	shader.SetUniformMat4f("u_Proj", camera->GetProjectionMatrix());
-	renderer->Draw(m_Vao, *this->m_Ebo, shader);
 }

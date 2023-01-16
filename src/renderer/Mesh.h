@@ -26,16 +26,22 @@ private:
 	VertexBufferLayout m_Layout;
 	VertexArray m_Vao;
 	IndexBuffer* m_Ebo;
+	Shader* m_Shader;
 
 	glm::mat4 m_ModelMatrix;
+
+	void loadOBJ(const std::string& file_name);
 
 public:
 	// Initializes the mesh
 	Mesh(Vector<Vertex>& verts, Vector<unsigned int>& inds, VertexBufferLayout layout, glm::mat4 modelMatrix);
 	explicit Mesh(Shape& shape);
 	explicit Mesh(const std::string& file_name);
+	explicit Mesh(const std::string& file_name, Shader* shader);
 
 	void Update(const glm::mat4& modelMatrix);
+
+	void BindShader(Shader* shader);
 
 	Vector<Vertex> getVertices() { return m_Vertices; }
 
@@ -44,5 +50,5 @@ public:
 	glm::mat4 getModelMatrix() { return m_ModelMatrix; };
 
 	// Draws the mesh
-	void Draw(Shader& shader);
+	void Draw();
 };

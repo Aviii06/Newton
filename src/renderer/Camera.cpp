@@ -10,9 +10,9 @@ Camera::Camera(float fov, float aspect, float near, float far)
 }
 
 // Process keyboard input
-void Camera::ProcessKeyboard(CameraMovement direction, float deltaTime)
+void Camera::ProcessKeyboard(CameraMovement direction)
 {
-	float velocity = m_MovementSpeed * deltaTime;
+	float velocity = m_MovementSpeed;
 
 	switch (direction)
 	{
@@ -98,4 +98,34 @@ void Camera::SetPerspective(float fov, float aspect, float near, float far)
 	m_NearCip = near;
 	m_FarClip = far;
 	updateProjectionMatrix();
+}
+
+void Camera::SetViewportSize(int width, int height)
+{
+	m_AspectRatio = (float)width / (float)height;
+	updateProjectionMatrix();
+}
+
+void Camera::MoveForward()
+{
+	m_Position += m_Front * m_MovementSpeed;
+	updateViewMatrix();
+}
+
+void Camera::MoveBackward()
+{
+	m_Position -= m_Front * m_MovementSpeed;
+	updateViewMatrix();
+}
+
+void Camera::MoveLeft()
+{
+	m_Position -= m_Right * m_MovementSpeed;
+	updateViewMatrix();
+}
+
+void Camera::MoveRight()
+{
+	m_Position += m_Right * m_MovementSpeed;
+	updateViewMatrix();
 }

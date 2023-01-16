@@ -36,7 +36,7 @@ private:
 	float m_Yaw = 0.0f;
 	float m_Pitch = 0.0f;
 
-	float m_MovementSpeed = 0.5f;
+	float m_MovementSpeed = 2.5f;
 	float m_MouseSensitivity = 0.08f;
 	float m_ZoomSensitivity = 0.08f;
 
@@ -51,7 +51,7 @@ private:
 	Camera(float fov, float aspect, float near, float far);
 
 public:
-	void ProcessKeyboard(CameraMovement direction, float deltaTime);
+	void ProcessKeyboard(CameraMovement direction);
 
 	void ProcessMouseMovement(float xOffset, float yOffset, bool constrainPitch = true);
 
@@ -75,4 +75,10 @@ public:
 	}
 
 	void SetPerspective(float fov, float aspect, float near, float far);
+
+	void SetViewportSize(int width, int height);
+	void MoveForward();
+	void MoveBackward();
+	void MoveLeft();
+	void MoveRight();
 };
