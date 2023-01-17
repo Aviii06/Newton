@@ -3,20 +3,23 @@
 #include "../VertexBuffer.h"
 #include "../../common/types.h"
 
-class Shape
+namespace NewtonRenderer
 {
-protected:
-	Vector<Vertex> m_Pos;
-	Vector<unsigned int> m_Ind;
+	class Shape
+	{
+	protected:
+		Vector<Vertex> m_Pos;
+		Vector<unsigned int> m_Ind;
 
-public:
-	Shape() = default;
+	public:
+		Shape() = default;
 
-	Vector<Vertex>& GetPositions() { return m_Pos; };
+		Vector<Vertex>& GetPositions() { return m_Pos; };
 
-	Vector<unsigned int>& GetIndices() { return m_Ind; };
+		Vector<unsigned int>& GetIndices() { return m_Ind; };
 
-	size_t GetPositionsSize() { return sizeof(m_Pos); };
+		size_t GetPositionsSize() { return sizeof(m_Pos); };
 
-	size_t GetIndicesSize() { return sizeof(m_Ind); };
-};
+		size_t GetIndicesSize() { return sizeof(m_Ind); };
+	};
+}

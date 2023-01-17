@@ -4,22 +4,25 @@
 
 #include "../common/types.h"
 
-class IndexBuffer
+namespace NewtonRenderer
 {
-public:
-	unsigned int m_RendererID;
-	unsigned int m_Count;
+	class IndexBuffer
+	{
+	public:
+		unsigned int m_RendererID;
+		unsigned int m_Count;
 
-public:
-	IndexBuffer() = default;
+	public:
+		IndexBuffer() = default;
 
-	IndexBuffer(Vector<unsigned int>& indices);
+		IndexBuffer(Vector<unsigned int>& indices);
 
-	~IndexBuffer();
+		~IndexBuffer();
 
-	void Bind() const;
+		void Bind() const;
 
-	void Unbind() const;
+		void Unbind() const;
 
-	inline unsigned int GetCount() const { return m_Count; }
-};
+		inline unsigned int GetCount() const { return m_Count; }
+	};
+}

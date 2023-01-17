@@ -1,6 +1,6 @@
 #pragma once
-#include "GLFW/glfw3.h"
 #include "../common/types.h"
+#include "GLFW/glfw3.h"
 #include <map>
 
 // Create a class on top of GLFW input handling
@@ -8,7 +8,7 @@ class InputHandler
 {
 private:
 	static InputHandler* s_Instance;
-	InputHandler();
+	InputHandler() = default;
 
 public:
 	static InputHandler* GetInstance()

@@ -1,30 +1,31 @@
-#ifndef vertexbuffer
-#define vertexbuffer
+#pragma once
 
 #include "../common/types.h"
 #include "glm/glm/glm.hpp"
 
-struct Vertex
+namespace NewtonRenderer
 {
-	Vec3 position;
-	Vec2 texcoord;
-	Vec3 color;
-	Vec3 normal;
-};
 
-class VertexBuffer
-{
-private:
-	unsigned int m_RendererID;
+	struct Vertex
+	{
+		Vec3 position;
+		Vec2 texcoord;
+		Vec3 color;
+		Vec3 normal;
+	};
 
-public:
-	VertexBuffer(std::vector<Vertex>& vertices);
+	class VertexBuffer
+	{
+	private:
+		unsigned int m_RendererID;
 
-	~VertexBuffer();
+	public:
+		VertexBuffer(std::vector<Vertex>& vertices);
 
-	void Bind() const;
+		~VertexBuffer();
 
-	void Unbind() const;
-};
+		void Bind() const;
 
-#endif
+		void Unbind() const;
+	};
+}

@@ -1,6 +1,3 @@
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-
 #include <iostream>
 #include <sstream>
 
@@ -15,7 +12,8 @@
 #include "renderer/Camera.h"
 #include "renderer/PointLight.h"
 #include "renderer/shapes/Quad3d.h"
-#include "renderer/Window.h"
+#include "Editor/Window.h"
+#include "Editor/Application.h"
 
 #include "inputs/InputHandler.h"
 
@@ -25,43 +23,43 @@
 #include "utils/timer.h"
 #include <glm/glm.hpp>
 
-Camera* Camera::s_Instance;
-Renderer* Renderer::s_Instance;
-Camera* camera = Camera::GetInstance();
-Renderer* renderer = Renderer::GetInstance();
+NewtonRenderer::Camera* NewtonRenderer::Camera::s_Instance;
+NewtonRenderer::Renderer* NewtonRenderer::Renderer::s_Instance;
+Application* Application::s_Instance;
+InputHandler* InputHandler::s_Instance;
 
 void HandleInput(GLFWwindow* window, Vec2* mousePointer);
 
 int main(void)
 {
-	Window window(1920, 1080, "Newton");
+	Application* app = Application::GetInstance();
 
 	OPENGL_CONFS
 
 	// Light Info
 	Vec3 lightColor = Vec3(1.0f, 1.0f, 1.0f);
 	Vec3 lightPos = Vec3(0.0f, 0.0f, 400.0f);
-	Quad3d cube(10.0f, lightColor);
-	Mesh lightMesh(cube);
-	PointLight light(lightPos, lightColor, &lightMesh);
-	Shader* lightShader = new Shader("./../assets/shaders/basic.vertexShader.hlsl", "./../assets/shaders/basic.pixelShader.hlsl");
+	NewtonRenderer::Quad3d cube(10.0f, lightColor);
+	NewtonRenderer::Mesh lightMesh(cube);
+	NewtonRenderer::PointLight light(lightPos, lightColor, &lightMesh);
+	NewtonRenderer::Shader* lightShader = new NewtonRenderer::Shader("./../assets/shaders/basic.vertexShader.hlsl", "./../assets/shaders/basic.pixelShader.hlsl");
 	light.Draw(lightShader);
 
 	// Creating a shader
-	Shader* shader = new Shader("./../assets/shaders/phong.vertexShader.hlsl", "./../assets/shaders/phong.pixelShader.hlsl");
+	NewtonRenderer::Shader* shader = new NewtonRenderer::Shader("./../assets/shaders/phong.vertexShader.hlsl", "./../assets/shaders/phong.pixelShader.hlsl");
 
 	// Drawing other meshes
-	Mesh mesh1("./../assets/obj/suzanne.obj", shader);
+	NewtonRenderer::Mesh mesh1("./../assets/obj/suzanne.obj", shader);
 	glm::vec3 translationModel1(0, 50, -400);
 	mesh1.Update(glm::translate(glm::mat4(1.0f), translationModel1));
 	mesh1.Draw();
 
 	// Cursor
 
-	while (!glfwWindowShouldClose(window.GetWindow()))
+	while (!glfwWindowShouldClose(app->GetWindow().GetGLFWWindow()))
 	{
 		/* Render here */
-		renderer->Clear();
+		NewtonRenderer::Renderer::GetInstance()->Clear();
 
 		shader->Bind();
 		shader->SetUniform3f("lightColor", lightColor);
@@ -77,7 +75,7 @@ int main(void)
 		// Handle keyboard input
 		//		HandleInput(window.GetWindow(), mousePointer);
 
-		window.Update();
+		app->GetWindow().Update();
 	}
 
 	glfwTerminate();
