@@ -19,6 +19,10 @@
 
 #include "confs/Config.h"
 
+#include "inputs/InputHandler.h"
+
+#include "confs/Config.h"
+
 #include "glm/gtc/matrix_transform.hpp"
 #include "utils/timer.h"
 #include <glm/glm.hpp>
@@ -27,8 +31,6 @@ NewtonRenderer::Camera* NewtonRenderer::Camera::s_Instance;
 NewtonRenderer::Renderer* NewtonRenderer::Renderer::s_Instance;
 Application* Application::s_Instance;
 InputHandler* InputHandler::s_Instance;
-
-void HandleInput(GLFWwindow* window, Vec2* mousePointer);
 
 int main(void)
 {
@@ -80,8 +82,4 @@ int main(void)
 
 	glfwTerminate();
 	return 0;
-}
-
-void HandleInput(GLFWwindow* window, Vec2* mousePointer)
-{
 }
