@@ -7,22 +7,25 @@
 #include "glew-cmake/include/GL/glew.h"
 #include <memory>
 
-class Renderer
+namespace NewtonRenderer
 {
-private:
-	static Renderer* s_Instance;
-	Renderer() = default;
-
-public:
-	void Draw(const VertexArray& va, const IndexBuffer& ib, const Shader* shader) const;
-
-	void Clear() const;
-	static Renderer* GetInstance()
+	class Renderer
 	{
-		if (s_Instance == nullptr)
+	private:
+		static Renderer* s_Instance;
+		Renderer() = default;
+
+	public:
+		void Draw(const VertexArray& va, const IndexBuffer& ib, const Shader* shader) const;
+
+		void Clear() const;
+		static Renderer* GetInstance()
 		{
-			s_Instance = new Renderer();
+			if (s_Instance == nullptr)
+			{
+				s_Instance = new Renderer();
+			}
+			return s_Instance;
 		}
-		return s_Instance;
-	}
-};
+	};
+}

@@ -3,18 +3,21 @@
 #include "Mesh.h"
 #include "shapes/Shape.h"
 
-class PointLight
+namespace NewtonRenderer
 {
-private:
-	Vec3 m_Position;
-	Vec3 m_Color;
-	Mesh* m_LightMesh;
+	class PointLight
+	{
+	private:
+		Vec3 m_Position;
+		Vec3 m_Color;
+		Mesh* m_LightMesh;
 
-public:
-	PointLight(Vec3 position, Vec3 color, Mesh* lightMesh);
-	PointLight(Vec3 position, Vec3 color, Shape& shape);
+	public:
+		PointLight(Vec3 position, Vec3 color, Mesh* lightMesh);
+		PointLight(Vec3 position, Vec3 color, Shape& shape);
 
-	void UpdateLightPosition(Vec3 pos);
+		void UpdateLightPosition(Vec3 pos);
 
-	void Draw(Shader* shader);
-};
+		void Draw(Shader* shader);
+	};
+}

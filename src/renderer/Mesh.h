@@ -18,37 +18,40 @@
 #include <iostream>
 #include <vector>
 
-class Mesh
+namespace NewtonRenderer
 {
-private:
-	Vector<Vertex> m_Vertices;
-	Vector<GLuint> m_Indices;
-	VertexBufferLayout m_Layout;
-	VertexArray m_Vao;
-	IndexBuffer* m_Ebo;
-	Shader* m_Shader;
+	class Mesh
+	{
+	private:
+		Vector<Vertex> m_Vertices;
+		Vector<GLuint> m_Indices;
+		VertexBufferLayout m_Layout;
+		VertexArray m_Vao;
+		IndexBuffer* m_Ebo;
+		Shader* m_Shader;
 
-	glm::mat4 m_ModelMatrix;
+		glm::mat4 m_ModelMatrix;
 
-	void loadOBJ(const std::string& file_name);
+		void loadOBJ(const std::string& file_name);
 
-public:
-	// Initializes the mesh
-	Mesh(Vector<Vertex>& verts, Vector<unsigned int>& inds, VertexBufferLayout layout, glm::mat4 modelMatrix);
-	explicit Mesh(Shape& shape);
-	explicit Mesh(const std::string& file_name);
-	explicit Mesh(const std::string& file_name, Shader* shader);
+	public:
+		// Initializes the mesh
+		Mesh(Vector<Vertex>& verts, Vector<unsigned int>& inds, VertexBufferLayout layout, glm::mat4 modelMatrix);
+		explicit Mesh(Shape& shape);
+		explicit Mesh(const std::string& file_name);
+		explicit Mesh(const std::string& file_name, Shader* shader);
 
-	void Update(const glm::mat4& modelMatrix);
+		void Update(const glm::mat4& modelMatrix);
 
-	void BindShader(Shader* shader);
+		void BindShader(Shader* shader);
 
-	Vector<Vertex> getVertices() { return m_Vertices; }
+		Vector<Vertex> getVertices() { return m_Vertices; }
 
-	Vector<unsigned int> getIndices() { return m_Indices; };
+		Vector<unsigned int> getIndices() { return m_Indices; };
 
-	glm::mat4 getModelMatrix() { return m_ModelMatrix; };
+		glm::mat4 getModelMatrix() { return m_ModelMatrix; };
 
-	// Draws the mesh
-	void Draw();
-};
+		// Draws the mesh
+		void Draw();
+	};
+}

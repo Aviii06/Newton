@@ -25,8 +25,10 @@ set(SOURCES
         renderer/shapes/Quad3d.h
         renderer/shapes/Sphere.cpp
         renderer/shapes/Sphere.h
-        renderer/Window.cpp
-        renderer/Window.h
+        Editor/Window.cpp
+        Editor/Window.h
+        Editor/Application.cpp
+        Editor/Application.h
         renderer/Camera.cpp
         renderer/Camera.h
         renderer/PointLight.cpp

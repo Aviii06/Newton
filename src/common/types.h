@@ -5,12 +5,21 @@
 #include <vector>
 #include <memory>
 
+// OpenGL
+#include <GL/glew.h>
+#include "GLFW/glfw3.h"
+
 template <class T>
 using Vector = std::vector<T>;
 
 /// std::unique_ptr
 template <class T>
 using Ptr = std::unique_ptr<T>;
+template <class T, typename ... Args>
+constexpr Ptr<T> MakePtr(Args&& ... args)
+{
+	return std::make_unique<T>(std::forward<Args>(args) ... );
+}
 /// std::shared_ptr
 template <class T>
 using Ref = std::shared_ptr<T>;

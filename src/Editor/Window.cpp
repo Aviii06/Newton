@@ -1,5 +1,5 @@
 #include "Window.h"
-#include "Camera.h"
+#include "../renderer/Camera.h"
 #include <iostream>
 #include "../confs/Config.h"
 #include "../inputs/InputHandler.h"
@@ -7,11 +7,6 @@
 #include "imgui/imgui/backends/imgui_impl_glfw.h"
 #include "imgui/imgui/backends/imgui_impl_opengl3.h"
 #include "imgui/imgui/imgui.h"
-
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-
-#include "../utils/error.h"
 
 Window::Window(int width, int height, const char* title)
 {
@@ -51,8 +46,9 @@ Window::Window(int width, int height, const char* title)
 	ImGui::StyleColorsDark();
 }
 
-Window::~Window()
+Ptr<Window> Window::Init(int width, int height, const char* title)
 {
+	return MakePtr<Window>(width, height, title);
 }
 
 void Window::Clear() const
@@ -66,41 +62,36 @@ void Window::Update()
 	//	HandleInput(m_Window, camera, timer.getTimeMs() - time, mousePointer);
 	glfwPollEvents();
 
-	Camera* camera = Camera::GetInstance();
-	glfwPollEvents();
-	if (glfwGetKey(m_Window, GLFW_KEY_W) == GLFW_PRESS)
+	NewtonRenderer::Camera* camera = NewtonRenderer::Camera::GetInstance();
+	if (InputHandler::GetInstance()->IsKeyPressed(GLFW_KEY_W))
 	{
-		camera->ProcessKeyboard(CameraMovement::FORWARD);
+		camera->MoveForward();
 	}
-	if (glfwGetKey(m_Window, GLFW_KEY_S) == GLFW_PRESS)
+	if (InputHandler::GetInstance()->IsKeyPressed(GLFW_KEY_S))
 	{
-		camera->ProcessKeyboard(CameraMovement::BACKWARD);
+		camera->MoveBackward();
 	}
-	if (glfwGetKey(m_Window, GLFW_KEY_A) == GLFW_PRESS)
+	if (InputHandler::GetInstance()->IsKeyPressed(GLFW_KEY_A))
 	{
-		camera->ProcessKeyboard(CameraMovement::LEFT);
+		camera->MoveLeft();
 	}
-	if (glfwGetKey(m_Window, GLFW_KEY_D) == GLFW_PRESS)
+	if (InputHandler::GetInstance()->IsKeyPressed(GLFW_KEY_D))
 	{
-		camera->ProcessKeyboard(CameraMovement::RIGHT);
+		camera->MoveRight();
 	}
 
 	// Handle mouse input
-	double mouseXPos, mouseYPos;
-	Vec2* mousePointer = new Vec2();
-	if (glfwGetMouseButton(m_Window, GLFW_MOUSE_BUTTON_RIGHT) == GLFW_PRESS)
+	Vec2 mousePosition = InputHandler::GetInstance()->GetMousePosition();
+	if (InputHandler::GetInstance()->IsMouseButtonPressed(GLFW_MOUSE_BUTTON_RIGHT))
 	{
-		glfwGetCursorPos(m_Window, &mouseXPos, &mouseYPos);
-		camera->ProcessMouseMovement(mouseXPos - m_PrevMousePosition->x, mouseYPos - m_PrevMousePosition->y);
-		camera->ProcessMouseMovement(mouseXPos - m_PrevMousePosition->x, mouseYPos - m_PrevMousePosition->y);
-		m_PrevMousePosition->x = mouseXPos;
-		m_PrevMousePosition->x = mouseYPos;
+		camera->ProcessMouseMovement(mousePosition.x - m_PrevMousePosition->x, mousePosition.y - m_PrevMousePosition->y);
+		m_PrevMousePosition->x = mousePosition.x;
+		m_PrevMousePosition->y = mousePosition.y;
 	}
 	else
 	{
-		glfwGetCursorPos(m_Window, &mouseXPos, &mouseYPos);
-		m_PrevMousePosition->x = mouseXPos;
-		m_PrevMousePosition->y = mouseYPos;
+		m_PrevMousePosition->x = mousePosition.x;
+		m_PrevMousePosition->y = mousePosition.y;
 	}
 
 	// IMGUI

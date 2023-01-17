@@ -1,8 +1,7 @@
 #pragma once
 
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
 #include "../common/types.h"
+#include "../utils/error.h"
 
 class Window
 {
@@ -14,12 +13,14 @@ private:
 
 public:
 	Window(int width, int height, const char* title);
-	~Window();
+
+	~Window() = default;
+	static Ptr<Window> Init(int width, int height, const char* title);
 	void Clear() const;
 	void Update();
 
 	int GetWidth() const { return m_Width; }
 	int GetHeight() const { return m_Height; }
-	GLFWwindow* GetWindow() const { return m_Window; }
+	GLFWwindow* GetGLFWWindow() const { return m_Window; }
 	float GetAspectRatio() const { return (float)m_Width / (float)m_Height; }
 };

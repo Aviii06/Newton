@@ -2,11 +2,14 @@
 
 #include "Shape.h"
 
-class Sphere : public Shape
+namespace NewtonRenderer
 {
-private:
-	float m_Radius;
+	class Sphere : public Shape
+	{
+	private:
+		float m_Radius;
 
-public:
-	Sphere(int radius);
-};
+	public:
+		Sphere(int radius);
+	};
+}
