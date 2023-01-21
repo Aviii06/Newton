@@ -1,36 +1,4 @@
-#include <iostream>
-#include <sstream>
-
-#include "renderer/IndexBuffer.h"
-#include "renderer/Mesh.h"
-#include "renderer/Renderer.h"
-#include "renderer/Shader.h"
-#include "renderer/shapes/Shape.h"
-#include "renderer/Texture.h"
-#include "renderer/VertexArray.h"
-#include "renderer/VertexBuffer.h"
-#include "renderer/Camera.h"
-#include "renderer/PointLight.h"
-#include "renderer/shapes/Quad3d.h"
-#include "Editor/Window.h"
-#include "Editor/Application.h"
-
-#include "inputs/InputHandler.h"
-
-#include "confs/Config.h"
-
-#include "inputs/InputHandler.h"
-
-#include "confs/Config.h"
-
-#include "glm/gtc/matrix_transform.hpp"
-#include "utils/timer.h"
-#include <glm/glm.hpp>
-
-NewtonRenderer::Camera* NewtonRenderer::Camera::s_Instance;
-NewtonRenderer::Renderer* NewtonRenderer::Renderer::s_Instance;
-Application* Application::s_Instance;
-InputHandler* InputHandler::s_Instance;
+#include "../src/NewtonRenderer.h"
 
 int main(void)
 {
@@ -71,11 +39,6 @@ int main(void)
 
 		light.UpdateLightPosition(lightPos);
 		light.Draw(lightShader);
-
-		/* Poll for and process events */
-
-		// Handle keyboard input
-		//		HandleInput(window.GetWindow(), mousePointer);
 
 		app->GetWindow().Update();
 	}

@@ -8,6 +8,9 @@
 #include "imgui/imgui/backends/imgui_impl_opengl3.h"
 #include "imgui/imgui/imgui.h"
 
+InputHandler* InputHandler::s_Instance;
+NewtonRenderer::Camera* NewtonRenderer::Camera::s_Instance;
+
 Window::Window(int width, int height, const char* title)
 {
 	m_Width = width;

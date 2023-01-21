@@ -1,5 +1,7 @@
 #include "Application.h"
 
+Application* Application::s_Instance = nullptr;
+
 Application::Application()
 {
 	m_Window = Window::Init(m_Width, m_Height, m_Title);
