@@ -1,6 +1,7 @@
 #include "Renderer2D.h"
 
-namespace NewtonRenderer{
+namespace NewtonRenderer
+{
 
 	Storage Renderer2D::s_Storage;
 	void Renderer2D::Init()
@@ -40,4 +41,3 @@ namespace NewtonRenderer{
 		s_Storage.mesh->Draw();
 	}
 }
-

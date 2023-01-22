@@ -18,6 +18,6 @@ namespace NewtonRenderer
 
 		void UpdateLightPosition(Vec3 pos);
 
-		void Draw(Ptr<Shader> shader);
+		void Draw(Ref<Shader> shader);
 	};
 }

@@ -8,7 +8,9 @@ Application::Application()
 }
 
 Application::Application(int width, int height, const char* title)
-	: m_Width(width), m_Height(height), m_Title(std::move(title))
+    : m_Width(width)
+    , m_Height(height)
+    , m_Title(std::move(title))
 {
 	if (title == nullptr)
 		m_Title = "Newton";

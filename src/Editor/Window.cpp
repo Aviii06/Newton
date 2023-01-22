@@ -98,7 +98,6 @@ void Window::Update()
 		m_PrevMousePosition->y = mousePosition.y;
 	}
 
-
 	// IMGUI
 	ImGui_ImplGlfw_NewFrame();
 	ImGui_ImplOpenGL3_NewFrame();
@@ -109,7 +108,7 @@ void Window::Update()
 	//	// ImGui::SliderFloat3("Translation Model 2", &translationModel2.x, -300.0f, 300.0f);
 	//	ImGui::SliderFloat3("Light Position", &lightPos.x, -500.0f, 500.0f);
 	ImGui::Text("Application average %.3f ms/frame (%.1f FPS)",
-				1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+	    1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
 
 	ImGui::End();
 	ImGui::Render();
