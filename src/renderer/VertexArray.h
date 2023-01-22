@@ -1,5 +1,6 @@
 #pragma once
 
+#include "IndexBuffer.h"
 #include "VertexBuffer.h"
 #include "VertexBufferLayout.h"
 
@@ -16,7 +17,8 @@ namespace NewtonRenderer
 
 		static Ref<VertexArray> Create();
 
-		void AddBuffer(const VertexBuffer& vb, const VertexBufferLayout& layout);
+		void AddVertexBuffer(const VertexBuffer& vb, const VertexBufferLayout& layout);
+		void AddIndexBuffer(const IndexBuffer& ib);
 
 		void Bind() const;
 

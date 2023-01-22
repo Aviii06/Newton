@@ -10,6 +10,7 @@ namespace NewtonRenderer
 		m_ModelMatrix = modelMatrix;
 
 		m_Ebo = new IndexBuffer(m_Indices);
+		m_Vao = VertexArray::Create();
 	}
 
 	Mesh::Mesh(Vector<Vertex>& verts, Vector<unsigned int>& inds)
@@ -25,6 +26,7 @@ namespace NewtonRenderer
 		m_ModelMatrix = glm::mat4(1.0f);
 
 		m_Ebo = new IndexBuffer(m_Indices);
+		m_Vao = VertexArray::Create();
 	}
 
 	Mesh::Mesh(const std::string& file_name)
@@ -48,27 +50,12 @@ namespace NewtonRenderer
 		m_Layout.AddFloat(3); // Normal
 
 		m_Ebo = new IndexBuffer(m_Indices);
+		m_Vao = VertexArray::Create();
 	}
 
 	void Mesh::Update(const glm::mat4& modelMatrix)
 	{
 		m_ModelMatrix = modelMatrix;
-	}
-
-	void Mesh::Draw()
-	{
-		m_Shader->Bind();
-
-		VertexBuffer vbo(m_Vertices);
-		vbo.Bind();
-
-		m_Vao.AddBuffer(vbo, m_Layout);
-
-		Camera* camera = Camera::GetInstance();
-		m_Shader->SetUniformMat4f("u_Model", m_ModelMatrix);
-		m_Shader->SetUniformMat4f("u_View", camera->GetViewMatrix());
-		m_Shader->SetUniformMat4f("u_Proj", camera->GetProjectionMatrix());
-		NewtonRenderer::Renderer::Draw(m_Vao, *this->m_Ebo, *m_Shader.get());
 	}
 
 	void Mesh::BindShader(Ref<Shader> shader)
@@ -199,6 +186,7 @@ namespace NewtonRenderer
 		}
 
 		m_Ebo = new IndexBuffer(m_Indices);
+		m_Vao = VertexArray::Create();
 		// Loaded success
 		std::cout << "OBJ file loaded!"
 		          << "\n";
@@ -218,5 +206,22 @@ namespace NewtonRenderer
 		{
 			m_Indices[i] = indices[i];
 		}
+	}
+
+	void Mesh::Draw()
+	{
+		m_Shader->Bind();
+
+		VertexBuffer vbo(m_Vertices);
+		vbo.Bind();
+
+		m_Vao->AddVertexBuffer(vbo, m_Layout);
+		m_Vao->AddIndexBuffer(*m_Ebo);
+
+		Camera* camera = Camera::GetInstance();
+		m_Shader->SetUniformMat4f("u_Model", m_ModelMatrix);
+		m_Shader->SetUniformMat4f("u_View", camera->GetViewMatrix());
+		m_Shader->SetUniformMat4f("u_Proj", camera->GetProjectionMatrix());
+		NewtonRenderer::Renderer::Draw(m_Vao, m_Ebo->GetCount());
 	}
 }

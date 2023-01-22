@@ -26,6 +26,7 @@ namespace NewtonRenderer
 	{
 		GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
 	}
+
 	Ref<IndexBuffer> IndexBuffer::Create(Vector<unsigned int>& indices)
 	{
 		return MakeRef<IndexBuffer>(indices);

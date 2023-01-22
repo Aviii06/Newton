@@ -12,7 +12,7 @@ namespace NewtonRenderer
 	{
 	}
 
-	void VertexArray::AddBuffer(const VertexBuffer& vb, const VertexBufferLayout& layout)
+	void VertexArray::AddVertexBuffer(const VertexBuffer& vb, const VertexBufferLayout& layout)
 	{
 		Bind();
 		vb.Bind();
@@ -28,6 +28,12 @@ namespace NewtonRenderer
 		}
 	}
 
+	void VertexArray::AddIndexBuffer(const IndexBuffer& ib)
+	{
+		Bind();
+		ib.Bind();
+	}
+
 	void VertexArray::Bind() const
 	{
 		GLCall(glBindVertexArray(m_RendererID));
@@ -37,6 +43,7 @@ namespace NewtonRenderer
 	{
 		GLCall(glBindVertexArray(0));
 	}
+
 	Ref<VertexArray> VertexArray::Create()
 	{
 		return MakeRef<VertexArray>();
