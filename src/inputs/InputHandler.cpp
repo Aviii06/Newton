@@ -1,6 +1,6 @@
 #include "InputHandler.h"
 #include <iostream>
-#include "../Editor/Application.h"
+#include "Editor/Application.h"
 
 bool InputHandler::IsKeyPressed(int key)
 {

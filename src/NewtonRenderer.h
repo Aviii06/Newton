@@ -3,28 +3,32 @@
 #include <iostream>
 #include <sstream>
 
-#include "../src/renderer/IndexBuffer.h"
-#include "../src/renderer/Mesh.h"
-#include "../src/renderer/Renderer.h"
-#include "../src/renderer/Shader.h"
-#include "../src/renderer/shapes/Shape.h"
-#include "../src/renderer/Texture.h"
-#include "../src/renderer/VertexArray.h"
-#include "../src/renderer/VertexBuffer.h"
-#include "../src/renderer/Camera.h"
-#include "../src/renderer/PointLight.h"
-#include "../src/renderer/shapes/Quad3d.h"
-#include "../src/Editor/Window.h"
-#include "../src/Editor/Application.h"
+#include "renderer/IndexBuffer.h"
+#include "renderer/Mesh.h"
+#include "renderer/Renderer.h"
+#include "renderer/Shader.h"
+#include "renderer/shapes/Shape.h"
+#include "renderer/Texture.h"
+#include "renderer/VertexArray.h"
+#include "renderer/VertexBuffer.h"
+#include "renderer/Camera.h"
+#include "renderer/PointLight.h"
+#include "renderer/shapes/Quad3d.h"
+#include "Editor/Window.h"
+#include "Editor/Application.h"
 
-#include "../src/inputs/InputHandler.h"
+#include "inputs/InputHandler.h"
 
-#include "../src/confs/Config.h"
+#include "confs/Config.h"
 
-#include "../src/inputs/InputHandler.h"
+#include "inputs/InputHandler.h"
 
-#include "../src/confs/Config.h"
+#include "confs/Config.h"
+
+#include "utils/Timer.h"
 
 #include "glm/gtc/matrix_transform.hpp"
-#include "../src/utils/timer.h"
 #include "glm/glm/glm.hpp"
+
+Application* Application::s_Instance = nullptr;
+NewtonRenderer::Renderer* NewtonRenderer::Renderer::s_Instance = nullptr;

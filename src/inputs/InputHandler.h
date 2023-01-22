@@ -1,5 +1,5 @@
 #pragma once
-#include "../common/types.h"
+#include "common/Types.h"
 #include "GLFW/glfw3.h"
 #include <map>
 

@@ -1,56 +1,59 @@
 set(SOURCES
-        inputs/InputHandler.cpp
-        renderer/IndexBuffer.cpp
-        renderer/Mesh.cpp
-        renderer/Renderer.cpp
-        renderer/Shader.cpp
-        renderer/Texture.cpp
-        renderer/VertexArray.cpp
-        renderer/VertexBuffer.cpp
-        renderer/Camera.cpp
-        renderer/PointLight.cpp
-        renderer/shapes/Quad3d.cpp
-        renderer/shapes/Sphere.cpp
-        Editor/Window.cpp
-        Editor/Application.cpp
-        renderer/Camera.cpp
-        renderer/PointLight.cpp
-        renderer/shapes/Quad3d.cpp
-        renderer/shapes/Sphere.cpp
-        utils/error.cpp
-        utils/timer.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/inputs/InputHandler.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/renderer/IndexBuffer.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/renderer/Mesh.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/renderer/Renderer.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/renderer/Shader.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/renderer/Texture.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/renderer/VertexArray.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/renderer/VertexBuffer.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/renderer/Camera.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/renderer/PointLight.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/renderer/shapes/Quad3d.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/renderer/shapes/Sphere.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/Editor/Window.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/Editor/Application.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/renderer/Camera.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/renderer/PointLight.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/renderer/shapes/Quad3d.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/renderer/shapes/Sphere.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/utils/Error.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/utils/Timer.cpp
         )
 
 set(HEADERS
-        inputs/InputHandler.h
-        renderer/IndexBuffer.h
-        renderer/Mesh.h
-        renderer/Renderer.h
-        renderer/Shader.h
-        renderer/shapes/Shape.h
-        renderer/Texture.h
-        renderer/VertexArray.h
-        renderer/VertexBuffer.h
-        renderer/VertexBufferLayout.h
-        renderer/Camera.h
-        renderer/PointLight.h
-        renderer/shapes/Quad3d.h
-        renderer/shapes/Sphere.h
-        Editor/Window.h
-        Editor/Application.h
-        renderer/Camera.h
-        renderer/PointLight.h
-        renderer/shapes/Quad3d.h
-        renderer/shapes/Sphere.h
-        common/types.h
-        confs/Config.h
-        utils/error.h
-        utils/timer.h
-        NewtonRenderer.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/inputs/InputHandler.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/renderer/IndexBuffer.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/renderer/Mesh.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/renderer/Renderer.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/renderer/Shader.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/renderer/shapes/Shape.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/renderer/Texture.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/renderer/VertexArray.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/renderer/VertexBuffer.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/renderer/VertexBufferLayout.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/renderer/Camera.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/renderer/PointLight.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/renderer/shapes/Quad3d.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/renderer/shapes/Sphere.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/Editor/Window.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/Editor/Application.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/renderer/Camera.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/renderer/PointLight.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/renderer/shapes/Quad3d.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/renderer/shapes/Sphere.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/common/Types.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/confs/Config.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/utils/Error.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/utils/Timer.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/NewtonRenderer.h
         )
 
 add_library(NewtonRenderer SHARED ${SOURCES} ${HEADERS})
 
+target_include_directories(NewtonRenderer PUBLIC
+        ${PROJECT_SOURCE_DIR}/src
+        )
 
 target_include_directories(NewtonRenderer PUBLIC
         ${PROJECT_SOURCE_DIR}/vendor

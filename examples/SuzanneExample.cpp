@@ -1,4 +1,4 @@
-#include "../src/NewtonRenderer.h"
+#include "NewtonRenderer.h"
 
 int main(void)
 {

@@ -1,8 +1,8 @@
 #pragma once
 
-#include "../common/types.h"
+#include "common/Types.h"
 
-#include "../common/types.h"
+#include "common/Types.h"
 
 namespace NewtonRenderer
 {

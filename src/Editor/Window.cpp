@@ -1,8 +1,8 @@
 #include "Window.h"
-#include "../renderer/Camera.h"
+#include "renderer/Camera.h"
 #include <iostream>
-#include "../confs/Config.h"
-#include "../inputs/InputHandler.h"
+#include "confs/Config.h"
+#include "inputs/InputHandler.h"
 
 #include "imgui/imgui/backends/imgui_impl_glfw.h"
 #include "imgui/imgui/backends/imgui_impl_opengl3.h"
