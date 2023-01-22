@@ -9,7 +9,7 @@ namespace NewtonRenderer
 {
 	struct Storage
 	{
-		Mesh* mesh;
+		Ref<VertexArray> vao;
 		Ref<Shader> shader;
 	};
 	class Renderer2D
@@ -26,6 +26,9 @@ namespace NewtonRenderer
 		static void BeginScene();
 		static void EndScene();
 
-		static void DrawQuad();
+		static void DrawQuad(float x, float y, float width, float height, const Vec3& color);
+		static void DrawQuad(const Vec2& vertex1, const Vec2& vertex2, const Vec2& vertex3, const Vec2& vertex4, const Vec3& color);
+
+		static void DrawLine(Vec2 start, Vec2 end, Vec3 color);
 	};
 }

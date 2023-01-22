@@ -26,7 +26,7 @@ namespace NewtonRenderer
 		Vector<Vertex> m_Vertices;
 		Vector<GLuint> m_Indices;
 		VertexBufferLayout m_Layout;
-		VertexArray m_Vao;
+		Ref<VertexArray> m_Vao;
 		IndexBuffer* m_Ebo;
 		Ref<Shader> m_Shader;
 

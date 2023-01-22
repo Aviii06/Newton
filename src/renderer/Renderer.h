@@ -15,7 +15,8 @@ namespace NewtonRenderer
 		Renderer() = default;
 
 	public:
-		static void Draw(const VertexArray& va, const IndexBuffer& ib, const Shader& shader);
+		static void Draw(Ref<VertexArray> va, unsigned int indexCount);
+		static void DrawLine(Ref<VertexArray> va, unsigned int vertexCount);
 
 		static void Clear();
 	};

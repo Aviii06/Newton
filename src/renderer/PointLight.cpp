@@ -28,7 +28,7 @@ namespace NewtonRenderer
 		shader->Bind();
 		shader->SetUniform3f("lightColor", m_Color);
 		shader->SetUniform3f("lightPos", m_Position);
-		m_LightMesh->BindShader(std::move(shader));
+		m_LightMesh->BindShader(shader);
 		m_LightMesh->Draw();
 	}
 }
