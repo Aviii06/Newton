@@ -9,10 +9,10 @@ The renderer creates a user frendly interface for rendering on OpenGL.
 
 # Devlopment
 
-First install [CMake](https://cmake.org/install/) and [Ninja](https://ninja-build.org/). For installation in MacOS run 
-```brew install cmake ninja```
+## Dependencies
+[CMake](https://cmake.org/install/) and [Ninja](https://ninja-build.org/).
 
-Now run 
+## Build 
 
 ```
 git clone git@github.com:Aviii06/Newton.git

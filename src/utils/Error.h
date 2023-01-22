@@ -1,6 +1,7 @@
 #pragma once
 
-#include "../common/types.h"
+#include "common/Types.h"
+
 #if defined(__GNUC__) || defined(__GNUG__) || defined(__clang__)
 #define ASSERT(x) \
 	if (!(x))     \

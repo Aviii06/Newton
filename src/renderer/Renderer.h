@@ -3,7 +3,7 @@
 #include "IndexBuffer.h"
 #include "Shader.h"
 #include "VertexArray.h"
-#include "../utils/error.h"
+#include "utils/Error.h"
 #include "glew-cmake/include/GL/glew.h"
 #include <memory>
 

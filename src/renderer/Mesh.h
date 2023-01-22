@@ -9,8 +9,8 @@
 #include "Camera.h"
 #include "shapes/Shape.h"
 
-#include "../common/types.h"
-#include "../utils/error.h"
+#include "common/Types.h"
+#include "utils/Error.h"
 
 #include <string>
 #include <sstream>

@@ -1,69 +1,69 @@
 set(SOURCES
-        inputs/InputHandler.cpp
-        inputs/InputHandler.h
-        renderer/IndexBuffer.cpp
-        renderer/IndexBuffer.h
-        renderer/Mesh.cpp
-        renderer/Mesh.h
-        renderer/Renderer.cpp
-        renderer/Renderer.h
-        renderer/Shader.cpp
-        renderer/Shader.h
-        renderer/shapes/Shape.h
-        renderer/Texture.cpp
-        renderer/Texture.h
-        renderer/VertexArray.cpp
-        renderer/VertexArray.h
-        renderer/VertexBuffer.cpp
-        renderer/VertexBuffer.h
-        renderer/VertexBufferLayout.h
-        renderer/Camera.cpp
-        renderer/Camera.h
-        renderer/PointLight.cpp
-        renderer/PointLight.h
-        renderer/shapes/Quad3d.cpp
-        renderer/shapes/Quad3d.h
-        renderer/shapes/Sphere.cpp
-        renderer/shapes/Sphere.h
-        Editor/Window.cpp
-        Editor/Window.h
-        Editor/Application.cpp
-        Editor/Application.h
-        renderer/Camera.cpp
-        renderer/Camera.h
-        renderer/PointLight.cpp
-        renderer/PointLight.h
-        renderer/shapes/Quad3d.cpp
-        renderer/shapes/Quad3d.h
-        renderer/shapes/Sphere.cpp
-        renderer/shapes/Sphere.h
-        common/types.h
-        confs/Config.h
-        utils/error.cpp
-        utils/error.h
-        utils/timer.cpp
-        utils/timer.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/inputs/InputHandler.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/renderer/IndexBuffer.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/renderer/Mesh.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/renderer/Renderer.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/renderer/Shader.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/renderer/Texture.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/renderer/VertexArray.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/renderer/VertexBuffer.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/renderer/Camera.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/renderer/PointLight.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/renderer/shapes/Quad3d.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/renderer/shapes/Sphere.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/Editor/Window.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/Editor/Application.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/renderer/Camera.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/renderer/PointLight.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/renderer/shapes/Quad3d.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/renderer/shapes/Sphere.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/utils/Error.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/utils/Timer.cpp
         )
 
-target_sources(${PROJECT_NAME} PRIVATE ${SOURCES})
+set(HEADERS
+        ${CMAKE_CURRENT_SOURCE_DIR}/inputs/InputHandler.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/renderer/IndexBuffer.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/renderer/Mesh.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/renderer/Renderer.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/renderer/Shader.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/renderer/shapes/Shape.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/renderer/Texture.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/renderer/VertexArray.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/renderer/VertexBuffer.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/renderer/VertexBufferLayout.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/renderer/Camera.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/renderer/PointLight.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/renderer/shapes/Quad3d.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/renderer/shapes/Sphere.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/Editor/Window.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/Editor/Application.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/renderer/Camera.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/renderer/PointLight.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/renderer/shapes/Quad3d.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/renderer/shapes/Sphere.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/common/Types.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/confs/Config.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/utils/Error.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/utils/Timer.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/NewtonRenderer.h
+        )
 
-if (MSVC)
-    set_target_properties(
-            ${PROJECT_NAME} PROPERTIES
-            VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/")
-endif ()
+add_library(NewtonRenderer SHARED ${SOURCES} ${HEADERS})
 
-file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/../assets/ DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/../assets/)
+target_include_directories(NewtonRenderer PUBLIC
+        ${PROJECT_SOURCE_DIR}/src
+        )
 
-target_include_directories(${PROJECT_NAME} PUBLIC
+target_include_directories(NewtonRenderer PUBLIC
         ${PROJECT_SOURCE_DIR}/vendor
         )
 
-target_link_libraries(${PROJECT_NAME}
-        PRIVATE glfw
-        PRIVATE libglew_static
-        PRIVATE glm
-        PUBLIC imgui
-        PUBLIC stb
-        PRIVATE glad
+target_link_libraries(NewtonRenderer
+        glfw
+        libglew_static
+        glm
+        imgui
+        stb
+        glad
         )
