@@ -2,8 +2,10 @@
 
 int main(void)
 {
-	Application* app = Application::GetInstance();
+	Application* app = Application::GetInstance(1920,1080, "Newton");
 
+
+	// Can write custom opengl cofs here
 	OPENGL_CONFS
 
 	// Light Info
@@ -24,9 +26,7 @@ int main(void)
 	mesh1.Update(glm::translate(glm::mat4(1.0f), translationModel1));
 	mesh1.Draw();
 
-	// Cursor
-
-	while (!glfwWindowShouldClose(app->GetWindow().GetGLFWWindow()))
+	while (app->IsRunning())
 	{
 		/* Render here */
 		NewtonRenderer::Renderer::GetInstance()->Clear();
