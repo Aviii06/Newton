@@ -23,7 +23,7 @@ namespace NewtonRenderer
 		m_LightMesh->Update(glm::translate(glm::mat4(1.0f), tempPos));
 	}
 
-	void PointLight::Draw(Ptr<Shader> shader)
+	void PointLight::Draw(Ref<Shader> shader)
 	{
 		shader->Bind();
 		shader->SetUniform3f("lightColor", m_Color);

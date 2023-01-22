@@ -2,8 +2,7 @@
 
 int main(void)
 {
-	Application* app = Application::GetInstance(1920,1080, "Renderer2D Example");
-
+	Application* app = Application::GetInstance(1920, 1080, "Renderer2D Example");
 
 	// Can write custom opengl confs here
 	OPENGL_CONFS

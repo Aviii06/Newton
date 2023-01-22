@@ -3,7 +3,6 @@
 #include "common/Types.h"
 #include "utils/Error.h"
 
-
 class Window
 {
 private:
@@ -24,5 +23,4 @@ public:
 	int GetHeight() const { return m_Height; }
 	GLFWwindow* GetGLFWWindow() const { return m_Window; }
 	float GetAspectRatio() const { return (float)m_Width / (float)m_Height; }
-
 };

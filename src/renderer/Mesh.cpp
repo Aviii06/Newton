@@ -206,7 +206,7 @@ namespace NewtonRenderer
 
 	void Mesh::SetVertices(Vector<Vertex> vertices)
 	{
-		for(int i = 0; i < vertices.size(); i++)
+		for (int i = 0; i < vertices.size(); i++)
 		{
 			m_Vertices[i] = vertices[i];
 		}
@@ -214,7 +214,7 @@ namespace NewtonRenderer
 
 	void Mesh::SetIndices(Vector<unsigned int> indices)
 	{
-		for(int i = 0; i < indices.size(); i++)
+		for (int i = 0; i < indices.size(); i++)
 		{
 			m_Indices[i] = indices[i];
 		}
