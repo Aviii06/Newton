@@ -28,4 +28,5 @@ public:
 	}
 
 	Window& GetWindow() { return *m_Window; }
+	void Terminate();
 };

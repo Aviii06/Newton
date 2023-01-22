@@ -14,6 +14,8 @@
 #include "renderer/Camera.h"
 #include "renderer/PointLight.h"
 #include "renderer/shapes/Quad3d.h"
+#include "renderer/Renderer2D.h"
+
 #include "Editor/Window.h"
 #include "Editor/Application.h"
 
@@ -31,4 +33,3 @@
 #include "glm/glm/glm.hpp"
 
 Application* Application::s_Instance = nullptr;
-NewtonRenderer::Renderer* NewtonRenderer::Renderer::s_Instance = nullptr;

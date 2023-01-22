@@ -2,18 +2,16 @@
 
 namespace NewtonRenderer
 {
-	Renderer* Renderer::s_Instance = nullptr;
-
-	void Renderer::Draw(const VertexArray& va, const IndexBuffer& ib, const Shader* shader) const
+	void Renderer::Draw(const VertexArray& va, const IndexBuffer& ib, const Shader& shader)
 	{
-		shader->Bind();
+		shader.Bind();
 		va.Bind();
 		ib.Bind();
 
 		glDrawElements(GL_TRIANGLES, ib.GetCount(), GL_UNSIGNED_INT, nullptr);
 	}
 
-	void Renderer::Clear() const
+	void Renderer::Clear()
 	{
 		GLCall(glClear(GL_COLOR_BUFFER_BIT));
 	}

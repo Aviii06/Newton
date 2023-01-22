@@ -28,7 +28,7 @@ namespace NewtonRenderer
 		VertexBufferLayout m_Layout;
 		VertexArray m_Vao;
 		IndexBuffer* m_Ebo;
-		Shader* m_Shader;
+		Ref<Shader> m_Shader;
 
 		glm::mat4 m_ModelMatrix;
 
@@ -36,20 +36,24 @@ namespace NewtonRenderer
 
 	public:
 		// Initializes the mesh
+		Mesh() = default;
 		Mesh(Vector<Vertex>& verts, Vector<unsigned int>& inds, VertexBufferLayout layout, glm::mat4 modelMatrix);
+		Mesh(Vector<Vertex>& verts, Vector<unsigned int>& inds);
 		explicit Mesh(Shape& shape);
 		explicit Mesh(const std::string& file_name);
-		explicit Mesh(const std::string& file_name, Shader* shader);
+		explicit Mesh(const std::string& file_name, Ptr<Shader> shader);
 
 		void Update(const glm::mat4& modelMatrix);
 
-		void BindShader(Shader* shader);
+		void BindShader(Ref<Shader> shader);
 
-		Vector<Vertex> getVertices() { return m_Vertices; }
+		Vector<Vertex> GetVertices() { return m_Vertices; }
+		Vector<unsigned int> GetIndices() { return m_Indices; };
+		glm::mat4 GetModelMatrix() { return m_ModelMatrix; };
+		Shader& GetShader() { return *m_Shader.get(); };
 
-		Vector<unsigned int> getIndices() { return m_Indices; };
-
-		glm::mat4 getModelMatrix() { return m_ModelMatrix; };
+		void SetVertices(Vector<Vertex> vertices);
+		void SetIndices(Vector<unsigned int> indices);
 
 		// Draws the mesh
 		void Draw();

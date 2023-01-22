@@ -76,6 +76,7 @@ namespace NewtonRenderer
 			return s_Instance;
 		}
 
+		void SetPerspective(glm::mat4 perspective);
 		void SetPerspective(float fov, float aspect, float near, float far);
 
 		void SetViewportSize(int width, int height);

@@ -22,6 +22,8 @@ namespace NewtonRenderer
 	public:
 		VertexBuffer(std::vector<Vertex>& vertices);
 
+		static Ref<VertexBuffer> Create(std::vector<Vertex>& vertices);
+
 		~VertexBuffer();
 
 		void Bind() const;
