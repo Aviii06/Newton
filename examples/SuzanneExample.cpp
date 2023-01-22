@@ -2,10 +2,10 @@
 
 int main(void)
 {
-	Application* app = Application::GetInstance(1920,1080, "Newton");
+	Application* app = Application::GetInstance(1920,1080, "Suzanne Example");
 
 
-	// Can write custom opengl cofs here
+	// Can write custom opengl confs here
 	OPENGL_CONFS
 
 	// Light Info
@@ -28,9 +28,6 @@ int main(void)
 
 	while (app->IsRunning())
 	{
-		/* Render here */
-		NewtonRenderer::Renderer::GetInstance()->Clear();
-
 		shader->Bind();
 		shader->SetUniform3f("lightColor", lightColor);
 		shader->SetUniform3f("lightPos", lightPos);
@@ -43,6 +40,6 @@ int main(void)
 		app->GetWindow().Update();
 	}
 
-	glfwTerminate();
+	app->Terminate();
 	return 0;
 }

@@ -12,8 +12,9 @@ namespace NewtonRenderer
 
 	public:
 		VertexArray();
-
 		~VertexArray();
+
+		static Ref<VertexArray> Create();
 
 		void AddBuffer(const VertexBuffer& vb, const VertexBufferLayout& layout);
 

@@ -17,6 +17,8 @@ namespace NewtonRenderer
 
 		IndexBuffer(Vector<unsigned int>& indices);
 
+		static Ref<IndexBuffer> Create(Vector<unsigned int>& indices);
+
 		~IndexBuffer();
 
 		void Bind() const;

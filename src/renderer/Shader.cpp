@@ -168,4 +168,9 @@ namespace NewtonRenderer
 
 		return program;
 	}
+
+	Ref<Shader> Shader::Create(const std::string& filepathVertexShader, const std::string& filepathPixelShader)
+	{
+		return MakeRef<Shader>(filepathVertexShader, filepathPixelShader);
+	}
 }

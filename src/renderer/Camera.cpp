@@ -131,4 +131,8 @@ namespace NewtonRenderer
 		m_Position += m_Right * m_MovementSpeed;
 		updateViewMatrix();
 	}
+	void Camera::SetPerspective(glm::mat4 perspective)
+	{
+		m_ProjectionMatrix = perspective;
+	}
 }

@@ -36,5 +36,9 @@ namespace NewtonRenderer
 	void VertexArray::Unbind() const
 	{
 		GLCall(glBindVertexArray(0));
+	}
+	Ref<VertexArray> VertexArray::Create()
+	{
+		return MakeRef<VertexArray>();
 	};
 }

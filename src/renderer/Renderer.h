@@ -12,20 +12,12 @@ namespace NewtonRenderer
 	class Renderer
 	{
 	private:
-		static Renderer* s_Instance;
 		Renderer() = default;
 
 	public:
-		void Draw(const VertexArray& va, const IndexBuffer& ib, const Shader* shader) const;
+		static void Draw(const VertexArray& va, const IndexBuffer& ib, const Shader& shader);
 
-		void Clear() const;
-		static Renderer* GetInstance()
-		{
-			if (s_Instance == nullptr)
-			{
-				s_Instance = new Renderer();
-			}
-			return s_Instance;
-		}
+		static void Clear();
 	};
+
 }

@@ -8,7 +8,7 @@ void main()
 {
   vec2 uv = -1.0 + 2.0 * v_TexCoord;
   vec3 col = v_Color; 
-  fragColor = vec4(col, 1.0);        
+  fragColor = vec4(1.0f, 0.5f, 0.0f, 1.0);
 }
 
 //////////

@@ -8,6 +8,23 @@ namespace NewtonRenderer
 		m_Indices = inds;
 		m_Layout = layout;
 		m_ModelMatrix = modelMatrix;
+
+		m_Ebo = new IndexBuffer(m_Indices);
+	}
+
+	Mesh::Mesh(Vector<Vertex>& verts, Vector<unsigned int>& inds)
+	{
+		m_Vertices = verts;
+		m_Indices = inds;
+
+		m_Layout.AddFloat(3); // Position
+		m_Layout.AddFloat(2); // Texcoord
+		m_Layout.AddFloat(3); // Color
+		m_Layout.AddFloat(3); // Normal
+
+		m_ModelMatrix = glm::mat4(1.0f);
+
+		m_Ebo = new IndexBuffer(m_Indices);
 	}
 
 	Mesh::Mesh(const std::string& file_name)
@@ -15,9 +32,9 @@ namespace NewtonRenderer
 		loadOBJ(file_name);
 	}
 
-	Mesh::Mesh(const std::string& file_name, Shader* shader)
+	Mesh::Mesh(const std::string& file_name, Ptr<Shader> shader)
 	{
-		BindShader(shader);
+		BindShader(std::move(shader));
 		loadOBJ(file_name);
 	}
 
@@ -43,21 +60,18 @@ namespace NewtonRenderer
 		m_Shader->Bind();
 
 		VertexBuffer vbo(m_Vertices);
-		IndexBuffer ebo(m_Indices);
 		vbo.Bind();
-		ebo.Bind();
 
 		m_Vao.AddBuffer(vbo, m_Layout);
 
 		Camera* camera = Camera::GetInstance();
-		Renderer* renderer = Renderer::GetInstance();
 		m_Shader->SetUniformMat4f("u_Model", m_ModelMatrix);
 		m_Shader->SetUniformMat4f("u_View", camera->GetViewMatrix());
 		m_Shader->SetUniformMat4f("u_Proj", camera->GetProjectionMatrix());
-		renderer->Draw(m_Vao, *this->m_Ebo, m_Shader);
+		NewtonRenderer::Renderer::Draw(m_Vao, *this->m_Ebo, *m_Shader.get());
 	}
 
-	void Mesh::BindShader(Shader* shader)
+	void Mesh::BindShader(Ref<Shader> shader)
 	{
 		m_Shader = shader;
 	}
@@ -180,7 +194,7 @@ namespace NewtonRenderer
 				m_Vertices[i].normal = vertex_normals[vertex_normal_indicies[i] - 1];
 			}
 			m_Vertices[i].position = vertex_positions[vertex_position_indicies[i] - 1] * 100.0f;
-			m_Vertices[i].color = Vec3(1.f, 1.f, 1.f);
+			m_Vertices[i].color = Vec3(1.0f, 0.0f, 1.0f);
 			m_Indices[i] = i;
 		}
 
@@ -188,5 +202,21 @@ namespace NewtonRenderer
 		// Loaded success
 		std::cout << "OBJ file loaded!"
 		          << "\n";
+	}
+
+	void Mesh::SetVertices(Vector<Vertex> vertices)
+	{
+		for(int i = 0; i < vertices.size(); i++)
+		{
+			m_Vertices[i] = vertices[i];
+		}
+	}
+
+	void Mesh::SetIndices(Vector<unsigned int> indices)
+	{
+		for(int i = 0; i < indices.size(); i++)
+		{
+			m_Indices[i] = indices[i];
+		}
 	}
 }

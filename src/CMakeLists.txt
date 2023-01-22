@@ -19,6 +19,7 @@ set(SOURCES
         ${CMAKE_CURRENT_SOURCE_DIR}/renderer/shapes/Sphere.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/utils/Error.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/utils/Timer.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/renderer/Renderer2D.cpp
         )
 
 set(HEADERS
@@ -46,6 +47,7 @@ set(HEADERS
         ${CMAKE_CURRENT_SOURCE_DIR}/confs/Config.h
         ${CMAKE_CURRENT_SOURCE_DIR}/utils/Error.h
         ${CMAKE_CURRENT_SOURCE_DIR}/utils/Timer.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/renderer/Renderer2D.h
         ${CMAKE_CURRENT_SOURCE_DIR}/NewtonRenderer.h
         )
 

@@ -23,8 +23,9 @@ namespace NewtonRenderer
 
 	public:
 		Shader(const std::string& filepathVertexShader, const std::string& filepathPixelShader);
-
 		~Shader();
+
+		static Ref<Shader> Create(const std::string& filepathVertexShader, const std::string& filepathPixelShader);
 
 		void Bind() const;
 
