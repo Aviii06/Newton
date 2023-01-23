@@ -12,7 +12,7 @@ out vec3 v_Color;
 
 void main()
 {
-  gl_Position = u_Proj * u_View * u_Model * vec4(position, 1.0f);
+  gl_Position = u_Proj * u_View * vec4(position, 1.0f);
   v_TexCoord = texCoord;
   v_Color = col;
 }

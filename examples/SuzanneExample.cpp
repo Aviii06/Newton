@@ -13,11 +13,11 @@ int main(void)
 	NewtonRenderer::Quad3d cube(10.0f, lightColor);
 	NewtonRenderer::Mesh lightMesh(cube);
 	NewtonRenderer::PointLight light(lightPos, lightColor, &lightMesh);
-	Ref<NewtonRenderer::Shader> lightShader = MakeRef<NewtonRenderer::Shader>("./../assets/shaders/basic.vertexShader.hlsl", "./../assets/shaders/basic.pixelShader.hlsl");
+	Ref<NewtonRenderer::Shader> lightShader = MakeRef<NewtonRenderer::Shader>("./../assets/shaders/basic.vertexShader.glsl", "./../assets/shaders/basic.pixelShader.glsl");
 	light.Draw(lightShader);
 
 	// Creating a shader
-	Ref<NewtonRenderer::Shader> shader = MakeRef<NewtonRenderer::Shader>("./../assets/shaders/phong.vertexShader.hlsl", "./../assets/shaders/phong.pixelShader.hlsl");
+	Ref<NewtonRenderer::Shader> shader = MakeRef<NewtonRenderer::Shader>("./../assets/shaders/phong.vertexShader.glsl", "./../assets/shaders/phong.pixelShader.glsl");
 
 	// Drawing other meshes
 	NewtonRenderer::Mesh mesh1("./../assets/obj/suzanne.obj");
