@@ -10,7 +10,8 @@ namespace NewtonRenderer
 	struct Storage
 	{
 		Ref<VertexArray> vao;
-		Ref<Shader> shader;
+		Ref<Shader> quadShader;
+		Ref<Shader> lineShader;
 	};
 	class Renderer2D
 	{
@@ -18,6 +19,7 @@ namespace NewtonRenderer
 		static Storage s_Storage;
 		Renderer2D() = default;
 		~Renderer2D() = default;
+		static void drawQuadImpl(float x, float y, float width, float height, const Vec3& color);
 
 	public:
 		static void Init();
