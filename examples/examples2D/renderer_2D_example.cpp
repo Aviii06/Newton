@@ -16,10 +16,13 @@ int main(void)
 		NewtonRenderer::Renderer2D::BeginScene();
 
 		// Draw using API
-		NewtonRenderer::Renderer2D::DrawLine(Vec2(0, 0), Vec2(150, 150), Vec3(1.0f, 0.5f, 0.0f));
+		NewtonRenderer::Renderer2D::DrawCircle(Vec2(0, 0), 200, Vec3(0.0f, 1.0f, 0.0f));
 
-		NewtonRenderer::Renderer2D::DrawQuad(-100, -100, 100, 100, Vec3(1.0f, 0.0f, 1.0f));
+//		NewtonRenderer::Renderer2D::DrawLine(Vec2(-150, 100), Vec2(150, 150),2,Vec3(1.0f, 0.5f, 0.0f));
 
+//		NewtonRenderer::Renderer2D::DrawQuad(-250, -150, 100, 100, Vec3(1.0f, 1.0f, 0.0f));
+
+		NewtonRenderer::Renderer2D::EndScene();
 		// Update App
 		app->GetWindow().Update();
 	}

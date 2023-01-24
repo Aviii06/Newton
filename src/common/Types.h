@@ -1,9 +1,9 @@
 #pragma once
 
-// Vector
 #include <string>
 #include <vector>
 #include <memory>
+#include <cmath>
 
 // OpenGL
 #include <GL/glew.h>
@@ -104,4 +104,13 @@ struct Vec2
 	}
 	Vec2 operator*(float scalar) { return Vec2(x * scalar, y * scalar); }
 	Vec2 operator+(Vec2 other) { return Vec2(x + other.x, y + other.y); }
+	Vec2 operator-(Vec2 other) { return Vec2(x - other.x, y - other.y); }
+
+	Vec2 Perpendicular() { return Vec2(-y, x); }
+
+	Vec2 Normalize()
+	{
+		float length = std::sqrt(x * x + y * y);
+		return Vec2(x / length, y / length);
+	}
 };
