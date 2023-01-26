@@ -9,6 +9,8 @@ int main(void)
 
 	// Intiialize 2D rendering Context
 	Vivid::Renderer2D::Init();
+	const GLubyte* vendor = glGetString(GL_VENDOR); // Returns the vendor
+	const GLubyte* renderer = glGetString(GL_RENDERER); // Returns a hint to the model
 	while (app->IsRunning())
 	{
 		// Begin Scene

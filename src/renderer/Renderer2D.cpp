@@ -42,6 +42,8 @@ namespace Vivid
 		s_Storage.vao = MakeRef<VertexArray>();
 		s_Storage.vao->AddVertexBuffer(vb, layout);
 		s_Storage.vao->AddIndexBuffer(ib);
+
+		s_Storage.quadVertices.reserve(100000);
 	}
 
 	void Renderer2D::Shutdown()
@@ -195,18 +197,18 @@ namespace Vivid
 		};
 
 		// Indices
-		s_Storage.quadIndices.push_back(s_Storage.quadVertices.size()); // 0
-		s_Storage.quadIndices.push_back(s_Storage.quadVertices.size() + 1); // 1
-		s_Storage.quadIndices.push_back(s_Storage.quadVertices.size() + 2); // 2
-		s_Storage.quadIndices.push_back(s_Storage.quadVertices.size() + 2); // 2
-		s_Storage.quadIndices.push_back(s_Storage.quadVertices.size() + 3); // 3
-		s_Storage.quadIndices.push_back(s_Storage.quadVertices.size()); // 0
+		s_Storage.quadIndices.emplace_back(s_Storage.quadVertices.size()); // 0
+		s_Storage.quadIndices.emplace_back(s_Storage.quadVertices.size() + 1); // 1
+		s_Storage.quadIndices.emplace_back(s_Storage.quadVertices.size() + 2); // 2
+		s_Storage.quadIndices.emplace_back(s_Storage.quadVertices.size() + 2); // 2
+		s_Storage.quadIndices.emplace_back(s_Storage.quadVertices.size() + 3); // 3
+		s_Storage.quadIndices.emplace_back(s_Storage.quadVertices.size()); // 0
 
 		// Vertices
-		s_Storage.quadVertices.push_back(quadVert1);
-		s_Storage.quadVertices.push_back(quadVert2);
-		s_Storage.quadVertices.push_back(quadVert3);
-		s_Storage.quadVertices.push_back(quadVert4);
+		s_Storage.quadVertices.emplace_back(quadVert1);
+		s_Storage.quadVertices.emplace_back(quadVert2);
+		s_Storage.quadVertices.emplace_back(quadVert3);
+		s_Storage.quadVertices.emplace_back(quadVert4);
 	}
 
 	void Renderer2D::drawEllipse(Vec2 center, float radiusX, float radiusY, Vec3 color)
