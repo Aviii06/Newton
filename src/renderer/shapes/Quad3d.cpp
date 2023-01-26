@@ -1,7 +1,8 @@
 #include "Quad3d.h"
 
-namespace NewtonRenderer
+namespace Vivid
 {
+	// TODO: Use multiple vertices to have correct normals for each vertex
 	Quad3d::Quad3d(int size, Vec3 col)
 	{
 		m_Size = (float)size;

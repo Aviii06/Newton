@@ -1,6 +1,6 @@
 #include "Camera.h"
 
-namespace NewtonRenderer
+namespace Vivid
 {
 	Camera::Camera(float fov, float aspect, float near, float far)
 	    : m_FOV(fov)
@@ -80,7 +80,8 @@ namespace NewtonRenderer
 		front.z = -cos(glm::radians(m_Yaw)) * cos(glm::radians(m_Pitch));
 		m_Front = glm::normalize(front);
 		// Also re-calculate the Right and Up vector
-		m_Right = glm::normalize(glm::cross(m_Front, glm::vec3(0.0f, 1.0f, 0.0f))); // Normalize the vectors, because their length gets closer to 0 the more you look up or down which results in slower movement.
+		// Normalize the vectors, because their length gets closer to 0 the more you look up or down which results in slower movement.
+		m_Right = glm::normalize(glm::cross(m_Front, glm::vec3(0.0f, 1.0f, 0.0f)));
 		m_Up = glm::normalize(glm::cross(m_Right, m_Front));
 	}
 	void Camera::updateProjectionMatrix()

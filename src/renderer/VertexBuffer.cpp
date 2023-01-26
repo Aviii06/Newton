@@ -1,7 +1,7 @@
 #include "VertexBuffer.h"
 #include "Renderer.h"
 
-namespace NewtonRenderer
+namespace Vivid
 {
 	VertexBuffer::VertexBuffer(std::vector<Vertex>& vertices)
 	{

@@ -1,7 +1,7 @@
 #include "IndexBuffer.h"
 #include "Renderer.h"
 
-namespace NewtonRenderer
+namespace Vivid
 {
 	IndexBuffer::IndexBuffer(Vector<unsigned int>& indices)
 	    : m_Count(indices.size())

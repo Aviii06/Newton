@@ -3,7 +3,7 @@
 #include "Mesh.h"
 #include "shapes/Shape.h"
 
-namespace NewtonRenderer
+namespace Vivid
 {
 	class PointLight
 	{
@@ -13,7 +13,7 @@ namespace NewtonRenderer
 		Mesh* m_LightMesh;
 
 	public:
-		PointLight(Vec3 position, Vec3 color, Mesh* lightMesh);
+		PointLight(Vec3& position, Vec3 color, Mesh* lightMesh);
 		PointLight(Vec3 position, Vec3 color, Shape& shape);
 
 		void UpdateLightPosition(Vec3 pos);

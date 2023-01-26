@@ -18,7 +18,7 @@
 #include <iostream>
 #include <vector>
 
-namespace NewtonRenderer
+namespace Vivid
 {
 	class Mesh
 	{

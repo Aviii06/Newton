@@ -3,7 +3,7 @@
 #include "common/Types.h"
 #include "utils/Error.h"
 
-namespace NewtonRenderer
+namespace Vivid
 {
 	struct VertexBufferElement
 	{

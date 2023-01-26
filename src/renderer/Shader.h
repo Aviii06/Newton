@@ -5,7 +5,7 @@
 #include <string>
 #include <unordered_map>
 
-namespace NewtonRenderer
+namespace Vivid
 {
 	struct ShaderProgramSource
 	{

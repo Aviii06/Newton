@@ -1,6 +1,6 @@
 #include "Renderer.h"
 
-namespace NewtonRenderer
+namespace Vivid
 {
 	void Renderer::Draw(Ref<VertexArray> va, unsigned int indexCount)
 	{

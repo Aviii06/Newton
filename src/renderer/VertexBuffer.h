@@ -3,7 +3,7 @@
 #include "common/Types.h"
 #include "glm/glm/glm.hpp"
 
-namespace NewtonRenderer
+namespace Vivid
 {
 
 	struct Vertex

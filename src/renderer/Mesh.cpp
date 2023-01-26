@@ -1,6 +1,6 @@
 #include "Mesh.h"
 
-namespace NewtonRenderer
+namespace Vivid
 {
 	Mesh::Mesh(Vector<Vertex>& verts, Vector<unsigned int>& inds, VertexBufferLayout layout, glm::mat4 modelMatrix)
 	{
@@ -181,7 +181,7 @@ namespace NewtonRenderer
 				m_Vertices[i].normal = vertex_normals[vertex_normal_indicies[i] - 1];
 			}
 			m_Vertices[i].position = vertex_positions[vertex_position_indicies[i] - 1] * 100.0f;
-			m_Vertices[i].color = Vec3(1.0f, 0.0f, 1.0f);
+			m_Vertices[i].color = Vec3(0.0f, 0.0f, 1.0f);
 			m_Indices[i] = i;
 		}
 
@@ -222,6 +222,6 @@ namespace NewtonRenderer
 		m_Shader->SetUniformMat4f("u_Model", m_ModelMatrix);
 		m_Shader->SetUniformMat4f("u_View", camera->GetViewMatrix());
 		m_Shader->SetUniformMat4f("u_Proj", camera->GetProjectionMatrix());
-		NewtonRenderer::Renderer::Draw(m_Vao, m_Ebo->GetCount());
+		Vivid::Renderer::Draw(m_Vao, m_Ebo->GetCount());
 	}
 }

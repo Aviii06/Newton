@@ -1,6 +1,6 @@
 #include "VertexArray.h"
 
-namespace NewtonRenderer
+namespace Vivid
 {
 	VertexArray::VertexArray()
 	{

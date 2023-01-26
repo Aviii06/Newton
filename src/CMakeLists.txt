@@ -51,17 +51,17 @@ set(HEADERS
         ${CMAKE_CURRENT_SOURCE_DIR}/NewtonRenderer.h
         )
 
-add_library(NewtonRenderer SHARED ${SOURCES} ${HEADERS})
+add_library(Vivid SHARED ${SOURCES} ${HEADERS})
 
-target_include_directories(NewtonRenderer PUBLIC
+target_include_directories(Vivid PUBLIC
         ${PROJECT_SOURCE_DIR}/src
         )
 
-target_include_directories(NewtonRenderer PUBLIC
+target_include_directories(Vivid PUBLIC
         ${PROJECT_SOURCE_DIR}/vendor
         )
 
-target_link_libraries(NewtonRenderer
+target_link_libraries(Vivid
         glfw
         libglew_static
         glm

@@ -7,7 +7,7 @@
 #include "glew-cmake/include/GL/glew.h"
 #include <memory>
 
-namespace NewtonRenderer
+namespace Vivid
 {
 	class Renderer
 	{

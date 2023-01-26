@@ -13,6 +13,6 @@ endif ()
 file(COPY ../../assets DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/../assets/)
 
 target_link_libraries(renderer2d
-        NewtonRenderer)
+        Vivid)
 target_link_libraries(marchingSquare
-        NewtonRenderer)
+        Vivid)

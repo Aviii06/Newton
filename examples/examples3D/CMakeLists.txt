@@ -8,4 +8,4 @@ endif ()
 file(COPY ../../assets DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/../assets/)
 
 target_link_libraries(suzanne
-        NewtonRenderer)
+        Vivid)

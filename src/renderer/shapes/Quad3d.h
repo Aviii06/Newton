@@ -2,7 +2,7 @@
 
 #include "Shape.h"
 
-namespace NewtonRenderer
+namespace Vivid
 {
 	class Quad3d : public Shape
 	{
