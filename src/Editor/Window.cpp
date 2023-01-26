@@ -10,7 +10,7 @@
 #include "renderer/Renderer.h"
 
 InputHandler* InputHandler::s_Instance;
-NewtonRenderer::Camera* NewtonRenderer::Camera::s_Instance;
+Vivid::Camera* Vivid::Camera::s_Instance;
 
 Window::Window(int width, int height, const char* title)
 {
@@ -63,10 +63,9 @@ void Window::Clear() const
 void Window::Update()
 {
 	// Handle keyboard input
-	//	HandleInput(m_Window, camera, timer.getTimeMs() - time, mousePointer);
 	glfwPollEvents();
 
-	NewtonRenderer::Camera* camera = NewtonRenderer::Camera::GetInstance();
+	Vivid::Camera* camera = Vivid::Camera::GetInstance();
 	if (InputHandler::GetInstance()->IsKeyPressed(GLFW_KEY_W))
 	{
 		camera->MoveForward();
@@ -88,7 +87,8 @@ void Window::Update()
 	Vec2 mousePosition = InputHandler::GetInstance()->GetMousePosition();
 	if (InputHandler::GetInstance()->IsMouseButtonPressed(GLFW_MOUSE_BUTTON_RIGHT))
 	{
-		camera->ProcessMouseMovement(mousePosition.x - m_PrevMousePosition->x, mousePosition.y - m_PrevMousePosition->y);
+		camera->ProcessMouseMovement(mousePosition.x - m_PrevMousePosition->x,
+		    mousePosition.y - m_PrevMousePosition->y);
 		m_PrevMousePosition->x = mousePosition.x;
 		m_PrevMousePosition->y = mousePosition.y;
 	}
@@ -120,5 +120,5 @@ void Window::Update()
 	glClear(GL_DEPTH_BUFFER_BIT);
 	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 
-	NewtonRenderer::Renderer::Clear();
+	Vivid::Renderer::Clear();
 }

@@ -1,20 +1,27 @@
 #include "Renderer2D.h"
 
-namespace NewtonRenderer
+namespace Vivid
 {
 
 	Storage Renderer2D::s_Storage;
 	void Renderer2D::Init()
 	{
 		// Initialize shaders
-		s_Storage.quadShader = MakeRef<Shader>("./../assets/shaders/quad.vertexShader.glsl", "./../assets/shaders/quad.pixelShader.glsl");
-		s_Storage.lineShader = MakeRef<Shader>("./../assets/shaders/quad.vertexShader.glsl", "./../assets/shaders/line.pixelShader.glsl");
-		s_Storage.ellipseShader = MakeRef<Shader>("./../assets/shaders/quad.vertexShader.glsl", "./../assets/shaders/ellipse.pixelShader.glsl");
+		s_Storage.quadShader = MakeRef<Shader>("./../assets/shaders/quad.vertexShader.glsl",
+		    "./../assets/shaders/quad.pixelShader.glsl");
+		s_Storage.lineShader = MakeRef<Shader>("./../assets/shaders/quad.vertexShader.glsl",
+		    "./../assets/shaders/line.pixelShader.glsl");
+		s_Storage.ellipseShader = MakeRef<Shader>("./../assets/shaders/quad.vertexShader.glsl",
+		    "./../assets/shaders/ellipse.pixelShader.glsl");
 		// Create vertices of a square
-		Vertex squareVert1 = { { 0.0f, 100.0f, -20.0f }, { 1.0f, 1.0f }, { 0.0f, 1.0f, 0.0f }, { 1.0f, 1.0f, 1.0f } };
-		Vertex squareVert2 = { { 100.0f, 100.0f, -20.0f }, { 1.0f, 1.0f }, { 0.0f, 1.0f, 0.0f }, { 1.0f, 1.0f, 1.0f } };
-		Vertex squareVert3 = { { 100.0f, 0.0f, -20.0f }, { 1.0f, 1.0f }, { 0.0f, 1.0f, 0.0f }, { 1.0f, 1.0f, 1.0f } };
-		Vertex squareVert4 = { { 0.0f, 0.0f, -20.0f }, { 1.0f, 1.0f }, { 0.0f, 1.0f, 0.0f }, { 1.0f, 1.0f, 1.0f } };
+		Vertex squareVert1 = { { 0.0f, 100.0f, -20.0f }, { 1.0f, 1.0f },
+			{ 0.0f, 1.0f, 0.0f }, { 1.0f, 1.0f, 1.0f } };
+		Vertex squareVert2 = { { 100.0f, 100.0f, -20.0f }, { 1.0f, 1.0f },
+			{ 0.0f, 1.0f, 0.0f }, { 1.0f, 1.0f, 1.0f } };
+		Vertex squareVert3 = { { 100.0f, 0.0f, -20.0f }, { 1.0f, 1.0f },
+			{ 0.0f, 1.0f, 0.0f }, { 1.0f, 1.0f, 1.0f } };
+		Vertex squareVert4 = { { 0.0f, 0.0f, -20.0f }, { 1.0f, 1.0f },
+			{ 0.0f, 1.0f, 0.0f }, { 1.0f, 1.0f, 1.0f } };
 
 		Vector<Vertex> verts = { squareVert1, squareVert2, squareVert3, squareVert4 };
 
@@ -67,9 +74,10 @@ namespace NewtonRenderer
 		drawQuad(x, y, width, height, color);
 	}
 
-	void Renderer2D::DrawQuad(const Vec2& vertex1, const Vec2& vertex2, const Vec2& vertex3, const Vec2& vertex4, const Vec3& color)
+	void Renderer2D::DrawQuad(const Vec2& vertex1, const Vec2& vertex2, const Vec2& vertex3,
+	    const Vec2& vertex4, const Vec3& color)
 	{
-		drawQuad(vertex1.x, vertex1.y, vertex2.x - vertex1.x, vertex3.y - vertex1.y, color);
+		drawQuad(vertex1, vertex2, vertex3, vertex4, color);
 	}
 
 	void Renderer2D::DrawLine(Vec2 start, Vec2 end, float thickness, Vec3 color)
@@ -92,6 +100,7 @@ namespace NewtonRenderer
 		drawEllipse(center, radius, radius, color);
 	}
 
+	// Todo: The order doesn't matter
 	void Renderer2D::EndScene()
 	{
 		if (!s_Storage.quadVertices.empty())
@@ -164,17 +173,21 @@ namespace NewtonRenderer
 	// All private implementations
 	void Renderer2D::drawQuad(float x, float y, float width, float height, const Vec3& color)
 	{
-		drawQuad(Vec2(x - width/2, y - height/2), Vec2(x - width/2, y + height/2), Vec2(x + width/2, y+height/2), Vec2(x+width/2, y-height/2), color);
+		drawQuad(Vec2(x - width / 2, y - height / 2), Vec2(x - width / 2, y + height / 2),
+		    Vec2(x + width / 2, y + height / 2), Vec2(x + width / 2, y - height / 2), color);
 	}
 
 	// Winding order is clockwise
 	void Renderer2D::drawQuad(Vec2 vertex1, Vec2 vertex2, Vec2 vertex3, Vec2 vertex4, Vec3 color)
 	{
-		Vertex quadVert1 = { { vertex1.x, vertex1.y, -20.0f }, { 0.0f, 0.0f }, { color.x, color.y, color.z }, { 1.0f, 1.0f, 1.0f } };
-		Vertex quadVert2 = { { vertex2.x, vertex2.y, -20.0f }, { 1.0f, 0.0f }, { color.x, color.y, color.z }, { 1.0f, 1.0f, 1.0f } };
-		Vertex quadVert3 = { { vertex3.x, vertex3.y, -20.0f }, { 1.0f, 1.0f }, { color.x, color.y, color.z }, { 1.0f, 1.0f, 1.0f } };
-		Vertex quadVert4 = { { vertex4.x, vertex4.y, -20.0f }, { 0.0f, 1.0f }, { color.x, color.y, color.z }, { 1.0f, 1.0f, 1.0f } };
-
+		Vertex quadVert1 = { { vertex1.x, vertex1.y, -20.0f }, { 0.0f, 0.0f },
+			{ color.x, color.y, color.z }, { 1.0f, 1.0f, 1.0f } };
+		Vertex quadVert2 = { { vertex2.x, vertex2.y, -20.0f }, { 1.0f, 0.0f },
+			{ color.x, color.y, color.z }, { 1.0f, 1.0f, 1.0f } };
+		Vertex quadVert3 = { { vertex3.x, vertex3.y, -20.0f }, { 1.0f, 1.0f },
+			{ color.x, color.y, color.z }, { 1.0f, 1.0f, 1.0f } };
+		Vertex quadVert4 = { { vertex4.x, vertex4.y, -20.0f }, { 0.0f, 1.0f },
+			{ color.x, color.y, color.z }, { 1.0f, 1.0f, 1.0f } };
 
 		Vector<unsigned int> indices = {
 			0, 1, 2,
@@ -198,10 +211,14 @@ namespace NewtonRenderer
 
 	void Renderer2D::drawEllipse(Vec2 center, float radiusX, float radiusY, Vec3 color)
 	{
-		Vertex vertex1 = {{center.x - radiusX, center.y - radiusY, -20.0f}, {0.0f, 0.0f}, {color.x, color.y, color.z}, {1.0f, 1.0f, 1.0f}};
-		Vertex vertex2 = {{center.x + radiusX, center.y - radiusY, -20.0f}, {1.0f, 0.0f}, {color.x, color.y, color.z}, {1.0f, 1.0f, 1.0f}};
-		Vertex vertex3 = {{center.x + radiusX, center.y + radiusY, -20.0f}, {1.0f, 1.0f}, {color.x, color.y, color.z}, {1.0f, 1.0f, 1.0f}};
-		Vertex vertex4 = {{center.x - radiusX, center.y + radiusY, -20.0f}, {0.0f, 1.0f}, {color.x, color.y, color.z}, {1.0f, 1.0f, 1.0f}};
+		Vertex vertex1 = { { center.x - radiusX, center.y - radiusY, -20.0f }, { 0.0f, 0.0f },
+			{ color.x, color.y, color.z }, { 1.0f, 1.0f, 1.0f } };
+		Vertex vertex2 = { { center.x + radiusX, center.y - radiusY, -20.0f }, { 1.0f, 0.0f },
+			{ color.x, color.y, color.z }, { 1.0f, 1.0f, 1.0f } };
+		Vertex vertex3 = { { center.x + radiusX, center.y + radiusY, -20.0f }, { 1.0f, 1.0f },
+			{ color.x, color.y, color.z }, { 1.0f, 1.0f, 1.0f } };
+		Vertex vertex4 = { { center.x - radiusX, center.y + radiusY, -20.0f }, { 0.0f, 1.0f },
+			{ color.x, color.y, color.z }, { 1.0f, 1.0f, 1.0f } };
 
 		Vector<unsigned int> indices = {
 			0, 1, 2,
@@ -225,10 +242,14 @@ namespace NewtonRenderer
 
 	void Renderer2D::drawLine(Vec2 vertex1, Vec2 vertex2, Vec2 vertex3, Vec2 vertex4, Vec3 color)
 	{
-		Vertex lineVert1 = { { vertex1.x, vertex1.y, -20.0f }, { 0.0f, 0.0f }, { color.x, color.y, color.z }, { 1.0f, 1.0f, 1.0f } };
-		Vertex lineVert2 = { { vertex2.x, vertex2.y, -20.0f }, { 1.0f, 0.0f }, { color.x, color.y, color.z }, { 1.0f, 1.0f, 1.0f } };
-		Vertex lineVert3 = { { vertex3.x, vertex3.y, -20.0f }, { 1.0f, 1.0f }, { color.x, color.y, color.z }, { 1.0f, 1.0f, 1.0f } };
-		Vertex lineVert4 = { { vertex4.x, vertex4.y, -20.0f }, { 0.0f, 1.0f }, { color.x, color.y, color.z }, { 1.0f, 1.0f, 1.0f } };
+		Vertex lineVert1 = { { vertex1.x, vertex1.y, -20.0f }, { 0.0f, 0.0f },
+			{ color.x, color.y, color.z }, { 1.0f, 1.0f, 1.0f } };
+		Vertex lineVert2 = { { vertex2.x, vertex2.y, -20.0f }, { 1.0f, 0.0f },
+			{ color.x, color.y, color.z }, { 1.0f, 1.0f, 1.0f } };
+		Vertex lineVert3 = { { vertex3.x, vertex3.y, -20.0f }, { 1.0f, 1.0f },
+			{ color.x, color.y, color.z }, { 1.0f, 1.0f, 1.0f } };
+		Vertex lineVert4 = { { vertex4.x, vertex4.y, -20.0f }, { 0.0f, 1.0f },
+			{ color.x, color.y, color.z }, { 1.0f, 1.0f, 1.0f } };
 
 		Vector<unsigned int> indices = {
 			0, 1, 2,

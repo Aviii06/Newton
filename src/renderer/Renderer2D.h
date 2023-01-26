@@ -5,7 +5,7 @@
 #include "renderer/Mesh.h"
 #include "renderer/Camera.h"
 
-namespace NewtonRenderer
+namespace Vivid
 {
 	struct Storage
 	{
@@ -40,12 +40,12 @@ namespace NewtonRenderer
 		static void EndScene();
 
 		static void DrawQuad(float x, float y, float width, float height, const Vec3& color);
-		static void DrawQuad(const Vec2& vertex1, const Vec2& vertex2, const Vec2& vertex3, const Vec2& vertex4, const Vec3& color);
+		static void DrawQuad(const Vec2& vertex1, const Vec2& vertex2, const Vec2& vertex3,
+		    const Vec2& vertex4, const Vec3& color);
 
 		static void DrawLine(Vec2 start, Vec2 end, float thickness, Vec3 color);
 
 		static void DrawEllipse(Vec2 center, float radiusX, float radiusY, Vec3 color);
 		static void DrawCircle(Vec2 center, float radius, Vec3 color);
-
 	};
 }

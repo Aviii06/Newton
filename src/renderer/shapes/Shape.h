@@ -3,7 +3,7 @@
 #include "../VertexBuffer.h"
 #include "../../common/Types.h"
 
-namespace NewtonRenderer
+namespace Vivid
 {
 	class Shape
 	{

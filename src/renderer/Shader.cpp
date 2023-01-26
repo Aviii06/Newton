@@ -6,7 +6,7 @@
 #include <sstream>
 #include <string>
 
-namespace NewtonRenderer
+namespace Vivid
 {
 	Shader::Shader(const std::string& filepathVertexShader, const std::string& filepathPixelShader)
 	    : m_FilePathVS(filepathVertexShader)

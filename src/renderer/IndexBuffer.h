@@ -4,7 +4,7 @@
 
 #include "common/Types.h"
 
-namespace NewtonRenderer
+namespace Vivid
 {
 	class IndexBuffer
 	{

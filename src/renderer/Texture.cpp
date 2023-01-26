@@ -1,6 +1,6 @@
 #include "Texture.h"
 
-namespace NewtonRenderer
+namespace Vivid
 {
 	Texture::Texture(const std::string& path)
 	    : m_RendererID(0)
