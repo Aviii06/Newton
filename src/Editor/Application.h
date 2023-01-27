@@ -1,6 +1,8 @@
 #pragma once
+
 #include "common/Types.h"
 #include "Window.h"
+#include "ui/UI.h"
 #include <iostream>
 
 class Application
@@ -14,6 +16,9 @@ private:
 
 	Application* getInstanceImpl(int width, int height, char* title);
 	Ptr<Window> m_Window;
+
+	// Todo: make this unique pointer
+	UI* m_UI;
 
 public:
 	void Run();

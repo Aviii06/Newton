@@ -16,6 +16,7 @@ public:
 
 	~Window() = default;
 	static Ptr<Window> Init(int width, int height, const char* title);
+
 	void Clear() const;
 	void Update();
 
