@@ -1,4 +1,4 @@
-#include "NewtonRenderer.h"
+#include "Vivid.h"
 
 #include <cstdio>
 #include <cmath>
@@ -110,7 +110,7 @@ int main(void)
 		val4.push_back(temp4);
 	}
 
-	float time = 0;
+	double time = 0;
 	while (app->IsRunning())
 	{
 		Vivid::Renderer2D::BeginScene();
@@ -132,7 +132,7 @@ int main(void)
 				Vec2 x3 = Vec2(x + dim, y + dim);
 				Vec2 x4 = Vec2(x, y + dim);
 
-				Vivid::Renderer2D::DrawQuad(x1.x, x1.y, dim, dim, Vec3(v1, v1, v1));
+//				Vivid::Renderer2D::DrawQuad(x1.x, x1.y, dim, dim, Vec3(v1, v1, v1));
 
 				Vec2 a = x1 + (x2 - x1) * (v1 / (v1 + v2));
 				Vec2 b = x2 + (x3 - x2) * (v2 / (v2 + v3));
@@ -189,7 +189,7 @@ int main(void)
 					break;
 				}
 			}
-			time += 0.00025;
+			time += 0.000005;
 		}
 
 		Vivid::Renderer2D::EndScene();

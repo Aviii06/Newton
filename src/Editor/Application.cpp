@@ -15,6 +15,8 @@ Application::Application(int width, int height, const char* title)
 	if (title == nullptr)
 		m_Title = "Newton";
 	m_Window = Window::Init(m_Width, m_Height, m_Title);
+	m_UI = new UI();
+	m_UI->Init();
 }
 
 bool Application::IsRunning()
@@ -24,4 +26,13 @@ bool Application::IsRunning()
 void Application::Terminate()
 {
 	glfwTerminate();
+}
+
+void Application::Run()
+{
+	while (IsRunning())
+	{
+		m_Window->Update();
+		m_UI->Update();
+	}
 }
