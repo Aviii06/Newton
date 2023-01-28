@@ -1,4 +1,4 @@
-#include "NewtonRenderer.h"
+#include "Vivid.h"
 
 #include <cstdio>
 #include <cmath>
