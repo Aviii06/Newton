@@ -19,7 +19,6 @@ namespace Vivid
 		Vector<unsigned int> ellipseIndices;
 		Vector<Vertex> lineVertices;
 		Vector<unsigned int> lineIndices;
-		unsigned int current;
 	};
 	class Renderer2D
 	{

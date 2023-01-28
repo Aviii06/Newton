@@ -20,6 +20,7 @@ set(SOURCES
         ${CMAKE_CURRENT_SOURCE_DIR}/utils/Error.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/utils/Timer.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/renderer/Renderer2D.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/renderer/Renderer3D.cpp
         )
 
 set(HEADERS
@@ -48,7 +49,8 @@ set(HEADERS
         ${CMAKE_CURRENT_SOURCE_DIR}/utils/Error.h
         ${CMAKE_CURRENT_SOURCE_DIR}/utils/Timer.h
         ${CMAKE_CURRENT_SOURCE_DIR}/renderer/Renderer2D.h
-        ${CMAKE_CURRENT_SOURCE_DIR}/NewtonRenderer.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/renderer/Renderer3D.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/Vivid.h
         )
 
 add_library(Vivid SHARED ${SOURCES} ${HEADERS})
