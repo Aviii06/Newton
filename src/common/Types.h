@@ -87,6 +87,7 @@ struct Vec3
 	}
 	Vec3 operator*(float scalar) { return Vec3(x * scalar, y * scalar, z * scalar); }
 	Vec3 operator+(Vec3 other) { return Vec3(x + other.x, y + other.y, z + other.z); }
+	Vec3 operator-(Vec3 other) { return Vec3(x - other.x, y - other.y, z - other.z); }
 };
 
 struct Vec2
