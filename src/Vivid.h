@@ -15,6 +15,7 @@
 #include "renderer/PointLight.h"
 #include "renderer/shapes/Quad3d.h"
 #include "renderer/Renderer2D.h"
+#include "renderer/Renderer3D.h"
 
 #include "Editor/Window.h"
 #include "Editor/Application.h"
