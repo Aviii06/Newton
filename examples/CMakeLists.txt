@@ -1,2 +1,0 @@
-add_subdirectory(examples2D)
-add_subdirectory(examples3D)

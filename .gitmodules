@@ -1,18 +1,3 @@
-[submodule "vendor/glfw"]
-	path = vendor/glfw
-	url = https://github.com/glfw/glfw.git
-[submodule "vendor/glm"]
-	path = vendor/glm
-	url = https://github.com/g-truc/glm.git
-[submodule "vendor/glew-cmake"]
-	path = vendor/glew-cmake
-	url = https://github.com/Perlmint/glew-cmake.git
-[submodule "vendor/imgui/imgui"]
-	path = vendor/imgui/imgui
-	url = https://github.com/ocornut/imgui.git
-[submodule "vendor/imgui/SDL"]
-	path = vendor/imgui/SDL
-	url = https://github.com/libsdl-org/SDL.git
-[submodule "vendor/assimp"]
-	path = vendor/assimp
-	url = https://github.com/assimp/assimp.git
+[submodule "vendor/Vivid"]
+	path = vendor/Vivid
+	url = https://github.com/Aviii06/Vivid
