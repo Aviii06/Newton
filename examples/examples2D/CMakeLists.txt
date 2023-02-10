@@ -6,7 +6,7 @@ if (MSVC)
             renderer2d PROPERTIES
             VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/")
     set_target_properties(
-            renderer2d PROPERTIES
+            marchingSquare PROPERTIES
             VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/")
 endif ()
 

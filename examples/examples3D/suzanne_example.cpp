@@ -48,3 +48,9 @@ int main(void)
 	app->Terminate();
 	return 0;
 }
+
+Application* Vivid::CreateApplication()
+{
+	Application* app = Application::GetInstance(1920, 1080, "suzanne");
+	return app;
+}

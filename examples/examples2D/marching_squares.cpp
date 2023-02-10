@@ -75,43 +75,50 @@ int GetState(const double& a, const double& b, const double& c, const double& d)
 	return a1 * 8 + b1 * 4 + c1 * 2 + d1 * 1;
 }
 
-int main(void)
+class ExampleInterface : public RenderingInterface
 {
-	Application* app = Application::GetInstance(1920, 1080, "Marching Squares");
+private:
+	int dim;
+	float dimPerlin, time;
 
-	OPENGL_2D_CONFS
-
-	for (int i = 0; i < 256; i++)
+public:
+	void Setup() override
 	{
-		p[i] = a[i];
-		p[256 + i] = a[i];
-	}
+		OPENGL_2D_CONFS
 
-	int dim = 15;
-	float dimPerlin = dim * 0.020735;
-
-	Vivid::Renderer2D::Init();
-
-	Vector<Vector<float>> val1, val2, val3, val4;
-
-	for (int i = -1000 / dim; i <= 1000 / dim; i++)
-	{
-		Vector<float> temp1, temp2, temp3, temp4;
-		for (int j = -1000 / dim; j <= 1000 / dim; j++)
+		for (int i = 0; i < 256; i++)
 		{
-			temp1.push_back(noise(i * dimPerlin, j * dimPerlin, 1));
-			temp2.push_back(noise((i + 1) * dimPerlin, j * dimPerlin, 1));
-			temp3.push_back(noise((i + 1) * dimPerlin, (j + 1) * dimPerlin, 1));
-			temp4.push_back(noise(i * dimPerlin, (j + 1) * dimPerlin, 1));
+			p[i] = a[i];
+			p[256 + i] = a[i];
 		}
-		val1.push_back(temp1);
-		val2.push_back(temp2);
-		val3.push_back(temp3);
-		val4.push_back(temp4);
+
+		dim = 15;
+		dimPerlin = dim * 0.020735;
+
+		Vector<Vector<float>> val1, val2, val3, val4;
+
+		for (int i = -1000 / dim; i <= 1000 / dim; i++)
+		{
+			Vector<float> temp1, temp2, temp3, temp4;
+			for (int j = -1000 / dim; j <= 1000 / dim; j++)
+			{
+				temp1.push_back(noise(i * dimPerlin, j * dimPerlin, 1));
+				temp2.push_back(noise((i + 1) * dimPerlin, j * dimPerlin, 1));
+				temp3.push_back(noise((i + 1) * dimPerlin, (j + 1) * dimPerlin, 1));
+				temp4.push_back(noise(i * dimPerlin, (j + 1) * dimPerlin, 1));
+			}
+			val1.push_back(temp1);
+			val2.push_back(temp2);
+			val3.push_back(temp3);
+			val4.push_back(temp4);
+		}
+
+		time = 0;
+
+		Vivid::Renderer2D::Init();
 	}
 
-	float time = 0;
-	while (app->IsRunning())
+	void Draw() override
 	{
 		Vivid::Renderer2D::BeginScene();
 
@@ -193,7 +200,36 @@ int main(void)
 		}
 
 		Vivid::Renderer2D::EndScene();
-
-		app->GetWindow().Update();
 	}
+
+	void ImGuiRender() override
+	{
+		// IMGUI
+		ImGui_ImplGlfw_NewFrame();
+		ImGui_ImplOpenGL3_NewFrame();
+		ImGui::NewFrame();
+
+		ImGui::Begin("Debug");
+		//	ImGui::SliderFloat3("Translation Model 1", &translationModel1.x, -500.0f, 500.0f);
+		//	// ImGui::SliderFloat3("Translation Model 2", &translationModel2.x, -300.0f, 300.0f);
+		//	ImGui::SliderFloat3("Light Position", &lightPos.x, -500.0f, 500.0f);
+		ImGui::Text("Application average %.3f ms/frame (%.1f FPS)",
+		    1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+
+		ImGui::End();
+		ImGui::Render();
+		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+	}
+};
+
+Application* Vivid::CreateApplication()
+{
+	Application* app = Application::GetInstance(1920, 1080, "Rendering2D");
+	app->SetRenderingInterface(new ExampleInterface);
+	return app;
+}
+
+int main()
+{
+	return Vivid::main(0, nullptr);
 }

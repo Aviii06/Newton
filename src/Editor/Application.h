@@ -2,8 +2,10 @@
 #include "common/Types.h"
 #include "Window.h"
 #include <iostream>
+#include "confs/DynamicExportingMacros.h"
+#include "Editor/RenderingInterface.h"
 
-class Application
+class VIVAPI Application
 {
 private:
 	static Application* s_Instance;
@@ -12,12 +14,11 @@ private:
 	Application();
 	Application(int width, int height, const char* title);
 
-	Application* getInstanceImpl(int width, int height, char* title);
 	Ptr<Window> m_Window;
 
 public:
-	void Run();
 	bool IsRunning();
+	void Run();
 
 	// TODO: Fix this semantically
 	static Application* GetInstance(int width = 1920, int height = 1080, const char* title = "Newton")
@@ -29,4 +30,11 @@ public:
 
 	Window& GetWindow() { return *m_Window; }
 	void Terminate();
+
+	void SetRenderingInterface(RenderingInterface* renderingInterface) { m_Window->SetRenderingInterface(renderingInterface); }
 };
+
+namespace Vivid
+{
+	Application* CreateApplication();
+}

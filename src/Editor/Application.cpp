@@ -25,3 +25,11 @@ void Application::Terminate()
 {
 	glfwTerminate();
 }
+
+void Application::Run()
+{
+	while (IsRunning())
+	{
+		m_Window->Update();
+	}
+}
