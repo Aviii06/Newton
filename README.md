@@ -1,5 +1,5 @@
 # Newton
-<img width="1080" alt="Screenshot 2023-02-03 at 4 12 49 PM" src="https://user-images.githubusercontent.com/45993519/218171952-624d8dda-5c49-4fe4-942f-301deaa502f4.png">
+<img width="1080" alt="Screenshot 2023-02-03 at 4 12 49 PM" src="https://user-images.githubusercontent.com/45993519/216581229-6db2d780-9e63-41b3-a1d8-5a20782d6ee2.png">
 
 A Physics engine with built in renderer implemented in openGL. 
 
