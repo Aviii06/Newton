@@ -19,6 +19,8 @@
 
 #include "Editor/Window.h"
 #include "Editor/Application.h"
+#include "Editor/RenderingInterface.h"
+#include "Editor/EntryPoint.h"
 
 #include "inputs/InputHandler.h"
 
@@ -32,5 +34,9 @@
 
 #include "glm/gtc/matrix_transform.hpp"
 #include "glm/glm/glm.hpp"
+
+#include "imgui.h"
+#include "imgui/imgui/backends/imgui_impl_glfw.h"
+#include "imgui/imgui/backends/imgui_impl_opengl3.h"
 
 Application* Application::s_Instance = nullptr;

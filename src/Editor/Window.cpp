@@ -60,59 +60,22 @@ void Window::Clear() const
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
+void Window::SetRenderingInterface(RenderingInterface* renderingInterface)
+{
+	m_RenderingInterface = renderingInterface;
+	m_RenderingInterface->Setup();
+}
+
 void Window::Update()
 {
+	Vivid::Camera* camera = Vivid::Camera::GetInstance();
+	if (m_RenderingInterface != nullptr)
+	{
+		m_RenderingInterface->Draw();
+		m_RenderingInterface->ImGuiRender();
+	}
 	// Handle keyboard input
 	glfwPollEvents();
-
-	Vivid::Camera* camera = Vivid::Camera::GetInstance();
-	if (InputHandler::GetInstance()->IsKeyPressed(GLFW_KEY_W))
-	{
-		camera->MoveForward();
-	}
-	if (InputHandler::GetInstance()->IsKeyPressed(GLFW_KEY_S))
-	{
-		camera->MoveBackward();
-	}
-	if (InputHandler::GetInstance()->IsKeyPressed(GLFW_KEY_A))
-	{
-		camera->MoveLeft();
-	}
-	if (InputHandler::GetInstance()->IsKeyPressed(GLFW_KEY_D))
-	{
-		camera->MoveRight();
-	}
-
-	// Handle mouse input
-	Vec2 mousePosition = InputHandler::GetInstance()->GetMousePosition();
-	if (InputHandler::GetInstance()->IsMouseButtonPressed(GLFW_MOUSE_BUTTON_RIGHT))
-	{
-		camera->ProcessMouseMovement(mousePosition.x - m_PrevMousePosition->x,
-		    mousePosition.y - m_PrevMousePosition->y);
-		m_PrevMousePosition->x = mousePosition.x;
-		m_PrevMousePosition->y = mousePosition.y;
-	}
-	else
-	{
-		m_PrevMousePosition->x = mousePosition.x;
-		m_PrevMousePosition->y = mousePosition.y;
-	}
-
-	// IMGUI
-	ImGui_ImplGlfw_NewFrame();
-	ImGui_ImplOpenGL3_NewFrame();
-	ImGui::NewFrame();
-
-	ImGui::Begin("Debug");
-	//	ImGui::SliderFloat3("Translation Model 1", &translationModel1.x, -500.0f, 500.0f);
-	//	// ImGui::SliderFloat3("Translation Model 2", &translationModel2.x, -300.0f, 300.0f);
-	//	ImGui::SliderFloat3("Light Position", &lightPos.x, -500.0f, 500.0f);
-	ImGui::Text("Application average %.3f ms/frame (%.1f FPS)",
-	    1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
-
-	ImGui::End();
-	ImGui::Render();
-	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
 	glfwMakeContextCurrent(m_Window);
 	glfwSwapBuffers(m_Window);

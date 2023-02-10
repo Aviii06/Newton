@@ -7,17 +7,17 @@
 		std::cout << "GLEW failed to initialize!" << std::endl; \
 	}                                                           \
 	GLCall(glEnable(GL_BLEND));                                 \
-	GLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));     \
+	GLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));  \
 	GLCall(glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE));
 
-#define OPENGL_2D_CONFS                                            \
-	glDisable(GL_DEPTH_TEST);                                    \
+#define OPENGL_2D_CONFS                                         \
+	glDisable(GL_DEPTH_TEST);                                   \
 	if (glewInit() != GLEW_OK)                                  \
 	{                                                           \
 		std::cout << "GLEW failed to initialize!" << std::endl; \
 	}                                                           \
 	GLCall(glEnable(GL_BLEND));                                 \
-	GLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));     \
+	GLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));  \
 	GLCall(glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE));
 
 #if defined(IMGUI_IMPL_OPENGL_ES2)

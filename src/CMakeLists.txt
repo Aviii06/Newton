@@ -51,7 +51,7 @@ set(HEADERS
         ${CMAKE_CURRENT_SOURCE_DIR}/renderer/Renderer2D.h
         ${CMAKE_CURRENT_SOURCE_DIR}/renderer/Renderer3D.h
         ${CMAKE_CURRENT_SOURCE_DIR}/Vivid.h
-        )
+        confs/DynamicExportingMacros.h Editor/RenderingInterface.h Editor/EntryPoint.h)
 
 add_library(Vivid SHARED ${SOURCES} ${HEADERS})
 

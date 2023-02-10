@@ -1,20 +1,17 @@
 #include "Vivid.h"
 
-int main(void)
+class ExampleInterface : public RenderingInterface
 {
-	Application* app = Application::GetInstance(1920, 1080, "Renderer2D Example");
-
-	// Can write custom opengl confs here
-	OPENGL_CONFS
-
-	// Intiialize 2D rendering Context
-	Vivid::Renderer2D::Init();
-	const GLubyte* vendor = glGetString(GL_VENDOR); // Returns the vendor
-	const GLubyte* renderer = glGetString(GL_RENDERER); // Returns a hint to the model
-	while (app->IsRunning())
+public:
+	void Setup() override
 	{
-		// Begin Scene
-		// Todo: Fix order. Currently quads will always be drawn first
+		OPENGL_2D_CONFS
+
+		Vivid::Renderer2D::Init();
+	}
+
+	void Draw() override
+	{
 		Vivid::Renderer2D::BeginScene();
 
 		// Draw using API
@@ -26,10 +23,36 @@ int main(void)
 		Vivid::Renderer2D::DrawQuad(-200, -200, 100, 100, Vec3(1.0f, 1.0f, 0.0f));
 
 		Vivid::Renderer2D::EndScene();
-		// Update App
-		app->GetWindow().Update();
 	}
 
-	app->Terminate();
-	return 0;
+	void ImGuiRender() override
+	{
+		// IMGUI
+		ImGui_ImplGlfw_NewFrame();
+		ImGui_ImplOpenGL3_NewFrame();
+		ImGui::NewFrame();
+
+		ImGui::Begin("Debug");
+		//	ImGui::SliderFloat3("Translation Model 1", &translationModel1.x, -500.0f, 500.0f);
+		//	// ImGui::SliderFloat3("Translation Model 2", &translationModel2.x, -300.0f, 300.0f);
+		//	ImGui::SliderFloat3("Light Position", &lightPos.x, -500.0f, 500.0f);
+		ImGui::Text("Application average %.3f ms/frame (%.1f FPS)",
+		    1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+
+		ImGui::End();
+		ImGui::Render();
+		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+	}
+};
+
+Application* Vivid::CreateApplication()
+{
+	Application* app = Application::GetInstance(1920, 1080, "Rendering2D");
+	app->SetRenderingInterface(new ExampleInterface);
+	return app;
+}
+
+int main()
+{
+	return Vivid::main(0, nullptr);
 }

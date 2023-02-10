@@ -2,6 +2,7 @@
 
 #include "common/Types.h"
 #include "utils/Error.h"
+#include "Editor/RenderingInterface.h"
 
 class Window
 {
@@ -10,6 +11,7 @@ private:
 	int m_Width, m_Height;
 	const char* m_Title;
 	Vec2* m_PrevMousePosition;
+	RenderingInterface* m_RenderingInterface;
 
 public:
 	Window(int width, int height, const char* title);
@@ -23,4 +25,6 @@ public:
 	int GetHeight() const { return m_Height; }
 	GLFWwindow* GetGLFWWindow() const { return m_Window; }
 	float GetAspectRatio() const { return (float)m_Width / (float)m_Height; }
+
+	void SetRenderingInterface(RenderingInterface* renderingInterface);
 };
