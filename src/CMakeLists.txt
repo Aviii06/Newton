@@ -1,12 +1,17 @@
-add_executable(main "main.cpp")
+set(SOURCES
+        Object.cpp
+        PhysicsWorld.cpp
+        )
 
-if (MSVC)
-    set_target_properties(
-            main PROPERTIES
-            VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/")
-endif ()
+set(HEADERS
+        common/Types.h
+        Object.h
+        Newton.h
+        PhysicsWorld.h
+        )
 
-file(COPY ../assets DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/../assets/)
+add_library(Newton SHARED ${SOURCES} ${HEADERS})
 
-target_link_libraries(main
-        Vivid)
+target_include_directories(Newton PUBLIC
+        ${PROJECT_SOURCE_DIR}/src
+        )

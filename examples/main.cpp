@@ -1,4 +1,5 @@
 #include "Vivid.h"
+#include "Newton.h"
 
 #include <cstdio>
 #include <cmath>
