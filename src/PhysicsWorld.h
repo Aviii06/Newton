@@ -1,13 +1,15 @@
 #pragma once
 #include "common/Types.h"
 #include "Object.h"
+#include "TimeIntegrator.h"
 
 namespace Newton
 {
 	class PhysicsWorld
 	{
 	private:
-		Vector<Object> m_Objects;
+		TimeIntegrator* m_TimeIntegrator;
+		Vector<Object*> m_Objects;
 	public:
 		PhysicsWorld();
 

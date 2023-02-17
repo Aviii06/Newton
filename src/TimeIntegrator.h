@@ -1,8 +1,10 @@
-//
-// Created by Archit Gosain on 15/02/23.
-//
+#pragma once
 
-#ifndef NEWTON_TIMEINTEGRATOR_H
-#define NEWTON_TIMEINTEGRATOR_H
-
-#endif // NEWTON_TIMEINTEGRATOR_H
+namespace Newton
+{
+	class TimeIntegrator
+	{
+	public:
+		virtual void step(float deltaTime) = 0;
+	};
+}

@@ -8,7 +8,7 @@ set(HEADERS
         Object.h
         Newton.h
         PhysicsWorld.h
-        )
+        TimeIntegrator.h)
 
 add_library(Newton SHARED ${SOURCES} ${HEADERS})
 
