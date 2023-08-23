@@ -1,4 +1,7 @@
-add_executable(main "main.cpp")
+set(HEADERS UI/UI.h UI/MenuBar.h UI/UIHeaders.h)
+set(SOURCES UI/UI.cpp UI/MenuBar.cpp)
+
+add_executable(Newton "main.cpp" ${HEADERS} ${SOURCES})
 
 if (MSVC)
     set_target_properties(
@@ -8,5 +11,5 @@ endif ()
 
 file(COPY ../assets DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/../assets/)
 
-target_link_libraries(main
+target_link_libraries(Newton
         Vivid)
